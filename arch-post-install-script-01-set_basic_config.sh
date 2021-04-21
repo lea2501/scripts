@@ -13,6 +13,17 @@ read -rp "Create .xinit file in user home directory?: (y|n)" createXinitFile
 read -rp "Remove asking for sudo password?: (y|n)" removeAskingSudoPassword
 read -rp "Configure pacman settings?: (y|n)" configurePacmanSettings
 
+if [[ $(pacman -Qs xorg-server) ]]; then
+  echo "Installing xorg package..."
+  sudo pacman -Sy --noconfirm xorg
+  echo "Installing xorg package... DONE"
+fi
+if [[ $(pacman -Qs xorg-xinit) ]]; then
+  echo "Installing xorg-xinit package..."
+  sudo pacman -Sy --noconfirm xorg-xinit
+  echo "Installing xorg-xinit package... DONE"
+fi
+
 # Setup system
 if [ "$createXinitFile" = "y" ]; then
   echo "Creating ~/.xinitrc file..."
