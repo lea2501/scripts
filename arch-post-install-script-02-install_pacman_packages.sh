@@ -91,12 +91,10 @@ if [ "$installExtraTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   wmname \
   moc \
-  mkcue \
   audacity \
   avidemux-qt \
   lynx \
   w3m \
-  surf \
   newsboat \
   elinks \
   rtorrent \
