@@ -16,12 +16,44 @@ set -e
 
 ############ Script
 
+options=(y n)
 read -rp "Create user aliases?: (y|n)" createUserAliases
+if [[ " "${options[@]}" " != *" $createUserAliases "* ]]; then
+  echo "$createUserAliases: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Configure VPN access?: (y|n)" configureVpnAccess
+if [[ " "${options[@]}" " != *" $configureVpnAccess "* ]]; then
+  echo "$configureVpnAccess: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Install Idaptive mobile application?: (y|n)" installIdaptiveMobileApplication
+if [[ " "${options[@]}" " != *" $installIdaptiveMobileApplication "* ]]; then
+  echo "$installIdaptiveMobileApplication: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Connect to Cisco AnyConnect VPN?: (y|n)" connectToAnyconnectVpn
+if [[ " "${options[@]}" " != *" $connectToAnyconnectVpn "* ]]; then
+  echo "$connectToAnyconnectVpn: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
+sshKeyGenOptions=(auto manual no)
 read -rp "Create a new SSH key? : (auto|manual|no)" generateSshKey
+if [[ " "${sshKeyGenOptions[@]}" " != *" $generateSshKey "* ]]; then
+  echo "$generateSshKey: not recognized. Valid options are:"
+  echo "${sshKeyGenOptions[@]/%/,}"
+  exit 1
+fi
 read -rp "Clone automation repositories? : (y|n)" cloneRepos
+if [[ " "${options[@]}" " != *" $cloneRepos "* ]]; then
+  echo "$cloneRepos: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 
 # add aliases
 if [ "$createUserAliases" = "y" ]; then

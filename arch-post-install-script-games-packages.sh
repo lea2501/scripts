@@ -128,7 +128,7 @@ if [ "$installQuake" = "y" ]; then
   mkdir -p bin
   mkdir -p downloads
   cd ~/games/quakeinjector/bin || return
-  curl -O -L $(curl -s https://api.github.com/repos/hrehfeld/QuakeInjector/releases/latest | jq -r ".assets[] | select(.name | test(\"quakeinjector\")) | .browser_download_url")
+  curl -O -L "$(curl -s https://api.github.com/repos/hrehfeld/QuakeInjector/releases/latest | jq -r ".assets[] | select(.name | test(\"quakeinjector\")) | .browser_download_url")"
   unzip quakeinjector*.zip
 fi
 
@@ -277,7 +277,7 @@ if [ "$installRoguelikes" = "y" ]; then
   git clone https://github.com/sulkasormi/frogcomposband.git
   cd frogcomposband || return
   sh autogen.sh
-  ./configure --prefix $HOME/.frogcomposband
+  ./configure --prefix "$HOME"/.frogcomposband
   make clean
   make
   make install

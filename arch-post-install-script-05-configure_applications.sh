@@ -16,14 +16,55 @@ set -e
 
 ############ Script
 
+options=(y n)
 read -rp "Set keyboard layout?: (y|n)" setKeyboardLayout
+if [[ " "${options[@]}" " != *" $setKeyboardLayout "* ]]; then
+  echo "$setKeyboardLayout: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Configure Git user options?: (y|n)" configureGit
+if [[ " "${options[@]}" " != *" $configureGit "* ]]; then
+  echo "$configureGit: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Set Java default version to openjdk 11?: (y|n)" setJavaDefault
-read -rp "Apply fix for misbehaving java applications? (Only if using dwm wm): (y|n)" applyJavaApplicationsFix
+if [[ " "${options[@]}" " != *" $setJavaDefault "* ]]; then
+  echo "$setJavaDefault: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
+read -rp "Apply fix for misbehaving java applications? (Only needed if using dwm window manager): (y|n)" applyJavaApplicationsFix
+if [[ " "${options[@]}" " != *" $applyJavaApplicationsFix "* ]]; then
+  echo "$applyJavaApplicationsFix: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Start Docker service?: (y|n)" startDockerService
+if [[ " "${options[@]}" " != *" $startDockerService "* ]]; then
+  echo "$startDockerService: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Enable Bash Git Prompt? (Show git branch in command prompt): (y|n)" enableBashGitPrompt
+if [[ " "${options[@]}" " != *" $enableBashGitPrompt "* ]]; then
+  echo "$enableBashGitPrompt: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Update Clamav virus definitions?: (y|n)" updateClamavVirusDefinitions
+if [[ " "${options[@]}" " != *" $updateClamavVirusDefinitions "* ]]; then
+  echo "$updateClamavVirusDefinitions: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Create user bin directory?: (y|n)" createUserBinDirectory
+if [[ " "${options[@]}" " != *" $createUserBinDirectory "* ]]; then
+  echo "$createUserBinDirectory: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 
 # Configure applications
 echo "Configuring applications..."
