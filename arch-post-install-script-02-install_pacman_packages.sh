@@ -25,7 +25,7 @@ echo "Updating system repositories and packages... DONE"
 # Arch Repository
 echo "installing packages..."
 # system
-if [ $installSystemTools = "y" ]; then
+if [ "$installSystemTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   base-devel \
   tmux \
@@ -52,7 +52,7 @@ if [ $installSystemTools = "y" ]; then
 fi
 
 # devel
-if [ $installDevelTools = "y" ]; then
+if [ "$installDevelTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   cmake \
   jre-openjdk \
@@ -74,7 +74,7 @@ if [ $installDevelTools = "y" ]; then
 fi
 
 # multimedia
-if [ $installMultimediaTools = "y" ]; then
+if [ "$installMultimediaTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   flac faac mac opus-tools vorbis-tools wavpack \
   mpv \
@@ -83,11 +83,11 @@ if [ $installMultimediaTools = "y" ]; then
   shntool \
   libdvdcss \
   lsdvd \
-  vlc \
+  vlc
 fi
 
 # extra tools
-if [ $installExtraTools = "y" ]; then
+if [ "$installExtraTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   wmname \
   moc \
@@ -118,7 +118,7 @@ if [ $installExtraTools = "y" ]; then
 fi
 
 # forensic tools
-if [ $installForensicTools = "y" ]; then
+if [ "$installForensicTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   foremost \
   testdisk \
@@ -126,7 +126,7 @@ if [ $installForensicTools = "y" ]; then
 fi
 
 # images
-if [ $installImageTools = "y" ]; then
+if [ "$installImageTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   feh \
   geeqie \
@@ -135,7 +135,7 @@ if [ $installImageTools = "y" ]; then
 fi
 
 # net
-if [ $installNetworkTools = "y" ]; then
+if [ "$installNetworkTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   curl \
   wget \
@@ -150,7 +150,7 @@ if [ $installNetworkTools = "y" ]; then
 fi
 
 # tools
-if [ $installMiscTools = "y" ]; then
+if [ "$installMiscTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   ntfs-3g \
   rsync \
@@ -165,7 +165,7 @@ if [ $installMiscTools = "y" ]; then
 fi
 
 # emulators
-if [ $installEmulationTools = "y" ]; then
+if [ "$installEmulationTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
   qemu qemu-arch-extra \
   virtualbox virtualbox-guest-utils libvirt virtualbox-host-dkms \
