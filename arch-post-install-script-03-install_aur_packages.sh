@@ -145,19 +145,19 @@ if [ "$installBrowsers" = "y" ]; then
     git clone https://aur.archlinux.org/google-chrome.git
     cd google-chrome || return
     makepkg -sic --noconfirm
+
+    cd ~/aur || return
+    git clone https://aur.archlinux.org/gconf.git
+    cd gconf || return
+    makepkg -sic --noconfirm
+    cd ~/aur || return
+    git clone https://aur.archlinux.org/chromedriver.git
+    cd chromedriver || return
+    makepkg -sic --noconfirm
+    cd || return
   else
     sudo pacman -Sy --noconfirm chromium
   fi
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/gconf.git
-  cd gconf || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/chromedriver.git
-  cd chromedriver || return
-  makepkg -sic --noconfirm
-  cd || return
 
   # opera
   sudo pacman -Sy --noconfirm opera
