@@ -94,7 +94,8 @@ if [ "$installSystemTools" = "y" ]; then
   findutils \
   acpi \
   lm_sensors \
-  pulseaudio pavucontrol
+  alsa-plugins alsa-utils \
+  pulseaudio pavucontrol pulseaudio-alsa
 fi
 
 # devel
