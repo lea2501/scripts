@@ -83,6 +83,36 @@ if [ "$installBrowsers" = "y" ]; then
   fi
 fi
 
+cloneAurAndCompile() {
+  cd ~/aur || return
+  if [ ! -d "$1" ]; then
+    git clone https://aur.archlinux.org/"$1".git
+  else
+    cd "$1" && git pull
+  fi
+  makepkg -sic --noconfirm
+}
+
+cloneAurAndCompileSkipChecks() {
+  cd ~/aur || return
+  if [ ! -d "$1" ]; then
+    git clone https://aur.archlinux.org/"$1".git
+  else
+    cd "$1" && git pull
+  fi
+  makepkg -sic --noconfirm --skippgpcheck
+}
+
+cloneAurAndCompileSkipInteg() {
+  cd ~/aur || return
+  if [ ! -d "$1" ]; then
+    git clone https://aur.archlinux.org/"$1".git
+  else
+    cd "$1" && git pull
+  fi
+  makepkg -sic --noconfirm --skipinteg
+}
+
 # AUR packages
 echo "installing AUR packages..."
 
@@ -93,68 +123,50 @@ echo "Creating user 'aur' directory... DONE"
 echo "installing AUR packages..."
 if [ "$installExtraTools" = "y" ]; then
   cd ~/aur || return
-  git clone https://aur.archlinux.org/st.git
-  cd st || return
-  makepkg -sic --noconfirm
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/st/config.def.h"  -o config.def.h.bak.0
+  if [ ! -d "st" ] ; then
+    git clone https://aur.archlinux.org/st.git
+  else
+    cd st && git pull
+  fi
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/st/config.def.h"
+  makepkg -sic --noconfirm --skipinteg
 
   cd ~/aur || return
-  git clone https://aur.archlinux.org/dwm.git
-  cd dwm || return
-  makepkg -sic --noconfirm
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/dwm/config.h"  -o config.h.bak.0
+  if [ ! -d "dwm" ] ; then
+    git clone https://aur.archlinux.org/dwm.git
+  else
+    cd dwm && git pull
+  fi
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/dwm/config.h"
+  makepkg -sic --noconfirm --skipinteg
 
   cd ~/aur || return
-  git clone https://aur.archlinux.org/slstatus-git.git
-  cd slstatus-git || return
-  makepkg -sic --noconfirm
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/slstatus-git/config.h" -o config.h.bak.0
+  if [ ! -d "slstatus-git" ] ; then
+    git clone https://aur.archlinux.org/slstatus-git.git
+  else
+    cd slstatus-git && git pull
+  fi
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/slstatus-git/config.h"
+  makepkg -sic --noconfirm --skipinteg
 fi
 
 if [ "$installBasicTools" = "y" ]; then
   # bash-git-prompt
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/bash-git-prompt.git
-  cd bash-git-prompt || return
-  makepkg -sic --noconfirm
-  cd || return
-
-  # icaclient (intranet)
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/icaclient.git
-  cd icaclient || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile bash-git-prompt
+  cloneAurAndCompile icaclient
   mkdir -p "$HOME"/.ICAClient/cache
   cp /opt/Citrix/ICAClient/config/{All_Regions,Trusted_Region,Unknown_Region,canonicalization,regions}.ini "$HOME"/.ICAClient/
 fi
 
 if [ "$installBrowsers" = "y" ]; then
-  # icecat
-  #cd ~/aur || return
-  #git clone https://aur.archlinux.org/perl-file-rename.git
-  #cd perl-file-rename || return
-  #makepkg -sic --noconfirm
-  #cd ~/aur || return
-  #git clone https://aur.archlinux.org/icecat.git
-  #cd icecat || return
-  #makepkg -sic --noconfirm
-
+  #
+  cloneAurAndCompile perl-file-rename
+  cloneAurAndCompile icecat
   # google-chrome
   if [ "$browserSelect" = "0" ]; then
-    cd ~/aur || return
-    git clone https://aur.archlinux.org/google-chrome.git
-    cd google-chrome || return
-    makepkg -sic --noconfirm
-
-    cd ~/aur || return
-    git clone https://aur.archlinux.org/gconf.git
-    cd gconf || return
-    makepkg -sic --noconfirm
-    cd ~/aur || return
-    git clone https://aur.archlinux.org/chromedriver.git
-    cd chromedriver || return
-    makepkg -sic --noconfirm
-    cd || return
+    cloneAurAndCompile google-chrome
+    cloneAurAndCompile gconf
+    cloneAurAndCompile chromedriver
   else
     sudo pacman -Sy --noconfirm chromium
   fi
@@ -173,30 +185,18 @@ fi
 
 # postman
 if [ "$installPostman" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/postman-bin.git
-  cd postman-bin || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile postman-bin
 fi
 
 # jmeter
 if [ "$installJmeter" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/jmeter.git
-  cd jmeter || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/jmeter-plugins-manager.git
-  cd jmeter-plugins-manager || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile jmeter
+  cloneAurAndCompile jmeter-plugins-manager
 fi
 
 # Allure
 if [ "$installAllure" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/allure-commandline.git
-  cd allure-commandline || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile allure-commandline
 fi
 
 # SchemaGuru
@@ -208,39 +208,14 @@ fi
 # android
 if [ "$installAndroidTools" = "y" ]; then
   echo "Installing Android AUR packages..."
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/android-sdk.git
-  cd android-sdk || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/android-sdk-platform-tools.git
-  cd android-sdk-platform-tools || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/android-sdk-build-tools.git
-  cd android-sdk-build-tools || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/android-platform.git
-  cd android-platform || return
-  makepkg -sic --noconfirm
-  #cd ~/aur || return
-  #git clone https://aur.archlinux.org/android-ndk.git
-  #cd android-ndk || return
-  #makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/android-studio.git
-  cd android-studio || return
-  makepkg -sic --noconfirm
-  #cd ~/aur || return
-  #git clone https://aur.archlinux.org/android-emulator.git
-  #cd android-emulator || return
-  #makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/scrcpy.git
-  cd scrcpy || return
-  makepkg -sic --noconfirm
-  cd || return
+  cloneAurAndCompile android-sdk
+  cloneAurAndCompile android-sdk-platform-tools
+  cloneAurAndCompile android-sdk-build-tools
+  cloneAurAndCompile android-platform
+  #cloneAurAndCompile android-ndk
+  cloneAurAndCompile android-studio
+  #cloneAurAndCompile android-emulator
+  cloneAurAndCompile scrcpy
 
   {
     echo "export ANDROID_HOME=/opt/android-sdk/"
@@ -274,30 +249,11 @@ fi
 
 # forensic tools
 if [ "$installForensicTools" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/scalpel-git.git
-  cd scalpel-git || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/guymager.git
-  cd guymager || return
-  makepkg -sic --noconfirm
-
-#  cd ~/aur || return
-#  git clone https://aur.archlinux.org/sleuthkit-java.git
-#  cd sleuthkit-java || return
-#  makepkg -sic --noconfirm
-#
-#  cd ~/aur || return
-#  git clone https://aur.archlinux.org/autopsy.git
-#  cd autopsy || return
-#  makepkg -sic --noconfirm
-
-#  cd ~/aur || return
-#  git clone https://aur.archlinux.org/dff-git.git
-#  cd dff-git || return
-#  makepkg -sic --noconfirm
+  cloneAurAndCompile scalpel-git
+  cloneAurAndCompile guymager
+  #cloneAurAndCompile sleuthkit-java
+  #cloneAurAndCompile autopsy
+  #cloneAurAndCompile dff-git
 fi
 
 echo "Cleaning temporary data... "

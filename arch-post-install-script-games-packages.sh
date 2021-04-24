@@ -9,27 +9,77 @@ set -e
 
 # games and personal packages
 
-read -rp "Install roguelike games?: (y|n)" installRoguelikes
-read -rp "Install doom source ports?: (y|n)" installDoom
-read -rp "Install quake 1 source ports?: (y|n)" installQuake
-read -rp "Install quake 2 source ports?: (y|n)" installQuake2
-read -rp "Install hexen 2 source ports?: (y|n)" installHexen2
-read -rp "Install marathon source ports?: (y|n)" installMarathon
-read -rp "Install descent source ports?: (y|n)" installDescent
-read -rp "Install diablo source ports?: (y|n)" installDiablo
-read -rp "Install doom 3 source ports?: (y|n)" installDoom3
-read -rp "Install urquan masters?: (y|n)" installUqm
-read -rp "Install build games source port?: (y|n)" installBuildGames
-read -rp "Install return to castle wolfestein source port?: (y|n)" installIortcw
-read -rp "Install extra tools?: (y|n)" installExtraTools
-read -rp "Install racing games?: (y|n)" installRacingGames
-read -rp "Install console emulators?: (y|n)" installEmulators
-read -rp "Install other games?: (y|n)" installOtherGames
-read -rp "Install ps5 joystick driver?: (y|n)" installJoystickPs5
+read -rp "Install everything?: (y|n)" installEverything
+if [ "$installEverything" = "y" ]; then
+  installRoguelikes="y"
+  installDoom="y"
+  installDoom3="y"
+  installQuake="y"
+  installQuake2="y"
+  installHexen2="y"
+  installBuildGames="y"
+  installIortcw="y"
+  installMarathon="y"
+  installDescent="y"
+  installDiablo="y"
+  installUqm="y"
+  installExtraTools="y"
+  installRacingGames="y"
+  installEmulators="y"
+  installOtherGames="y"
+  installJoystickPs5="y"
+elif [ "$installEverything" = "n" ]; then
+  read -rp "Install roguelike games?: (y|n)" installRoguelikes
+  read -rp "Install doom source ports?: (y|n)" installDoom
+  read -rp "Install doom 3 source ports?: (y|n)" installDoom3
+  read -rp "Install quake 1 source ports?: (y|n)" installQuake
+  read -rp "Install quake 2 source ports?: (y|n)" installQuake2
+  read -rp "Install hexen 2 source ports?: (y|n)" installHexen2
+  read -rp "Install build games source port?: (y|n)" installBuildGames
+  read -rp "Install return to castle wolfestein source port?: (y|n)" installIortcw
+  read -rp "Install marathon source ports?: (y|n)" installMarathon
+  read -rp "Install descent source ports?: (y|n)" installDescent
+  read -rp "Install diablo source ports?: (y|n)" installDiablo
+  read -rp "Install urquan masters?: (y|n)" installUqm
+  read -rp "Install extra tools?: (y|n)" installExtraTools
+  read -rp "Install racing games?: (y|n)" installRacingGames
+  read -rp "Install console emulators?: (y|n)" installEmulators
+  read -rp "Install other games?: (y|n)" installOtherGames
+  read -rp "Install ps5 joystick driver?: (y|n)" installJoystickPs5
+fi
+
+cloneAurAndCompile() {
+  cd ~/aur || return
+  if [ ! -d "$1" ]; then
+    git clone https://aur.archlinux.org/"$1".git
+  else
+    cd "$1" && git pull
+  fi
+  makepkg -sic --noconfirm
+}
+
+cloneAurAndCompileSkipChecks() {
+  cd ~/aur || return
+  if [ ! -d "$1" ]; then
+    git clone https://aur.archlinux.org/"$1".git
+  else
+    cd "$1" && git pull
+  fi
+  makepkg -sic --noconfirm --skippgpcheck
+}
+
+cloneSrcAndCompile() {
+  cd ~/src || return
+  if [ ! -d "$1" ]; then
+    git clone "$2"
+  else
+    cd "$1" && git pull
+  fi
+}
 
 echo "Installing games packages..."
 if [ "$installRoguelikes" = "y" ]; then
-  sudo pacman -Sy --noconfirm angband
+  #sudo pacman -Sy --noconfirm angband
   sudo pacman -Sy --noconfirm nethack
   sudo pacman -Sy --noconfirm rogue
   sudo pacman -Sy --noconfirm stone-soup
@@ -38,7 +88,7 @@ if [ "$installRoguelikes" = "y" ]; then
 fi
 
 if [ "$installEmulators" = "y" ]; then
-  sudo pacman -Sy --noconfirm dosbox
+  #sudo pacman -Sy --noconfirm dosbox
   sudo pacman -Sy --noconfirm dolphin-emu
   sudo pacman -Sy --noconfirm mednafen
   sudo pacman -Sy --noconfirm hatari
@@ -60,71 +110,26 @@ echo "Creating user 'aur' directory... DONE"
 
 echo "Installing AUR packages..."
 if [ "$installDoom" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/vtable-dumper.git
-  cd vtable-dumper || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/abi-dumper.git
-  cd abi-dumper || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/abi-compliance-checker.git
-  cd abi-compliance-checker || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/zmusic.git
-  cd zmusic || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/gzdoom.git
-  cd gzdoom || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/chocolate-doom.git
-  cd chocolate-doom || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/crispy-doom.git
-  cd crispy-doom || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/prboom-plus.git
-  cd prboom-plus || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/pygtk.git
-  cd pygtk || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/bsp.git
-  cd bsp || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/k8vavoom-git.git
-  cd k8vavoom-git || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile vtable-dumper
+  cloneAurAndCompile abi-dumper
+  cloneAurAndCompile abi-compliance-checker
+  cloneAurAndCompile zmusic
+  cloneAurAndCompile gzdoom
+  cloneAurAndCompileSkipChecks chocolate-doom
+  cloneAurAndCompile crispy-doom
+  cloneAurAndCompile prboom-plus
+  #cloneAndCompile pygtk
+  #cloneAndCompile bsp
+  #cloneAndCompile k8vavoom-git
 fi
 
 if [ "$installQuake" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/quakespasm.git
-  cd quakespasm || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/tyrquake-git.git
-  cd tyrquake-git || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile quakespasm
+  #cloneAndCompile tyrquake-git
 
   cd ~/games || return
   mkdir -p quakeinjector
-  cd ~/quakeinjector || return
+  cd ~/games/quakeinjector || return
   mkdir -p bin
   mkdir -p downloads
   cd ~/games/quakeinjector/bin || return
@@ -133,222 +138,89 @@ if [ "$installQuake" = "y" ]; then
 fi
 
 if [ "$installQuake2" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/yamagi-quake2.git
-  cd yamagi-quake2 || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/yamagi-quake2-rogue.git
-  cd yamagi-quake2 || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/yamagi-quake2-xatrix.git
-  cd yamagi-quake2-xatrix || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile yamagi-quake2
+  cloneAurAndCompile yamagi-quake2-rogue
+  cloneAurAndCompile yamagi-quake2-xatrix
 fi
 
 if [ "$installHexen2" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/hexen2.git
-  cd hexen2 || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile hexen2
 fi
 
 if [ "$installMarathon" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/alephone.git
-  cd alephone || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/alephone-marathon.git
-  cd alephone-marathon || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/alephone-marathon2.git
-  cd alephone-marathon2 || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/alephone-rubiconx.git
-  cd alephone-rubiconx || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/alephone-infinity.git
-  cd alephone-infinity || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile alephone
+  cloneAurAndCompile alephone-marathon
+  cloneAurAndCompile alephone-marathon2
+  cloneAurAndCompile alephone-rubiconx
+  cloneAurAndCompile alephone-infinity
 fi
 
 if [ "$installDescent" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/d1x-rebirth.git
-  cd d1x-rebirth || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/d2x-rebirth.git
-  cd d2x-rebirth || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile d1x-rebirth
+  cloneAurAndCompile d2x-rebirth
 fi
 
 if [ "$installDiablo" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/devilutionx.git
-  cd devilutionx || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile devilutionx
 fi
 
 if [ "$installDoom3" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/dhewm3.git
-  cd dhewm3 || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile dhewm3
 fi
 
 if [ "$installUqm" = "y" ]; then
   sudo pacman -Sy --noconfirm uqm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/uqm-sound.git
-  cd uqm-sound || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/uqm-remix.git
-  cd uqm-sound || return
-  makepkg -sic --noconfirm
-#  cd ~/aur || return
-#  git clone https://aur.archlinux.org/uqm-hd.git
-#  cd uqm-sound || return
-#  makepkg -sic --noconfirm
-#  cd ~/aur || return
-#  git clone https://aur.archlinux.org/uqm-hd-sound.git
-#  cd uqm-sound || return
-#  makepkg -sic --noconfirm
+  cloneAurAndCompile uqm-sound
+  cloneAurAndCompile uqm-remix
+  cloneAurAndCompile uqm-hd
+  cloneAurAndCompile uqm-hd-sound
 fi
 
 if [ "$installBuildGames" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/eduke32.git
-  cd eduke32 || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/nblood.git
-  cd nblood || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/raze.git
-  cd raze || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile eduke32
+  cloneAurAndCompile nblood
+  cloneAurAndCompile raze
 fi
 
 if [ "$installRoguelikes" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/angband-git.git
-  cd angband-git || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/infra-arcana.git
-  cd infra-arcana || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/termcap.git
-  cd termcap || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/umoria.git
-  cd umoria || return
-  makepkg -sic --noconfirm
-
+  cloneAurAndCompile angband-git
+  cloneAurAndCompile infra-arcana
+  cloneAurAndCompile termcap
+  cloneAurAndCompile umoria
   sudo pacman -Sy --noconfirm autoconf
   sudo pacman -Sy --noconfirm gcc
   sudo pacman -Sy --noconfirm libx11
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/ncurses5-compat-libs.git
-  cd ncurses5-compat-libs || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/libstdc++296.git
-  cd libstdc++296 || return
-  makepkg -sic --noconfirm
-  mkdir -p ~/src
-  cd ~/src || return
-  git clone https://github.com/sulkasormi/frogcomposband.git
-  cd frogcomposband || return
-  sh autogen.sh
-  ./configure --prefix "$HOME"/.frogcomposband
-  make clean
-  make
-  make install
+  cloneAurAndCompile ncurses5-compat-libs
+  cloneAurAndCompile libstdc++296
+  cloneAurAndCompile ncurses5-compat-libs
+  cloneAurAndCompile ncurses5-compat-libs
+  cloneSrcAndCompile frogcomposband https://github.com/sulkasormi/frogcomposband.git && sh autogen.sh && ./configure --prefix "$HOME"/.frogcomposband && make clean && make && make install
 fi
 
 if [ "$installIortcw" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/iortcw-data.git
-  cd iortcw-data || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/iortcw-git.git
-  cd iortcw-git || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile iortcw-data
+  cloneAurAndCompile iortcw-git
 fi
 
 if [ "$installExtraTools" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/flacon.git
-  cd flacon || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/jdownloader2.git
-  cd jdownloader2 || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/mkcue.git
-  cd mkcue || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/tor-browser.git
-  cd tor-browser || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/xbindkeys.git
-  cd xbindkeys || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile flacon
+  cloneAurAndCompile jdownloader2
+  #cloneAurAndCompile mkcue
+  cloneAurAndCompile tor-browser
+  cloneAurAndCompile xbindkeys
 fi
 
 if [ "$installRacingGames" = "y" ]; then
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/plib.git
-  cd plib || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/speed-dreams-svn.git
-  cd speed-dreams-svn || return
-  makepkg -sic --noconfirm
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/torcs-data.git
-  cd torcs-data || return
-  makepkg -sic --noconfirm
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/torcs.git
-  cd torcs || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile plib
+  cloneAurAndCompile speed-dreams-svn
+  cloneAurAndCompile torcs-data
+  cloneAurAndCompile torcs
 fi
 
 # joysticks
 if [ "$installJoystickPs5" = "y" ]; then
   sudo pacman -Sy --noconfirm joyutils
-
-  cd ~/aur || return
-  git clone https://aur.archlinux.org/hid-playstation-dkms.git
-  cd hid-playstation-dkms || return
-  makepkg -sic --noconfirm
+  cloneAurAndCompile hid-playstation-dkms
 fi
 
 echo "Cleaning temporary data... "
