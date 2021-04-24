@@ -203,7 +203,7 @@ if [ "$installMiscTools" = "y" ]; then
   freerdp \
   rdesktop \
   libreoffice-fresh libreoffice-fresh-es \
-  cabextract arj unrar p7zip unarj unace zip tar \
+  cabextract arj unrar p7zip unarj unace unzip zip tar \
   xarchiver \
   galculator
 fi

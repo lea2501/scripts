@@ -48,9 +48,15 @@ if [[ " "${sshKeyGenOptions[@]}" " != *" $generateSshKey "* ]]; then
   echo "${sshKeyGenOptions[@]/%/,}"
   exit 1
 fi
-read -rp "Clone automation repositories? : (y|n)" cloneRepos
-if [[ " "${options[@]}" " != *" $cloneRepos "* ]]; then
-  echo "$cloneRepos: not recognized. Valid options are:"
+read -rp "Clone automation repositories? : (y|n)" cloneReposAutomation
+if [[ " "${options[@]}" " != *" $cloneReposAutomation "* ]]; then
+  echo "$cloneReposAutomation: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
+read -rp "Clone Flow Factory repositories? : (y|n)" cloneReposFlowFactory
+if [[ " "${options[@]}" " != *" $cloneReposFlowFactory "* ]]; then
+  echo "$cloneReposFlowFactory: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
@@ -129,9 +135,24 @@ fi
 if [ "$generateSshKey" = "auto" ] || [ "$generateSshKey" = "manual" ]; then
   echo "Create or access Gitlab account:"
   echo "  1) Open http://10.200.172.71 in a web browser."
-  echo "  2) Access with your gitlab credentials or create a new one."
+  echo "  2) Access with your Gitlab credentials or create a new one."
+  echo "  3) Access to http://10.200.172.71/profile/keys and leave it open"
   echo ""
-  echo "  Warning! Don't close Gitlab page when finished..."
+  echo -e "\033[33;5m Don't close Gitlab page when finished... \033[0m"
+  echo ""
+  echo "Also, IN A NEW TAB create or access Bitbucket account:"
+  echo "  1) In a new tab, open https://bitbucket.org/tecoflowfactory/ in a web browser."
+  echo "  2) Access with your Bitbucket (Jira) credentials or create a new one."
+  echo "  3) Access to https://bitbucket.org/account/settings/ssh-keys/ and leave it open"
+  echo ""
+  echo -e "\033[33;5m Don't close Bitbucket page when finished... \033[0m"
+  echo ""
+  echo "Also, IN A NEW TAB create or access your personal Github account (Optional):"
+  echo "  1) In a new tab, open https://github.com in a web browser."
+  echo "  2) Access with your personal Github credentials or create a new one."
+  echo "  3) Access to https://github.com/settings/keys and leave it open"
+  echo ""
+  echo -e "\033[33;5m Don't close Github page when finished... \033[0m"
   echo ""
   read -rp "Press enter when finish to create ssh keys..."
 fi
@@ -158,6 +179,11 @@ if [ "$generateSshKey" = "auto" ]; then
   echo "Copying content of '~/.ssh/id_rsa.pub' file to the clipboard..."
   xclip -sel c <~/.ssh/id_rsa.pub
   echo "Copying content of '~/.ssh/id_rsa.pub' file to the clipboard... DONE"
+  echo ""
+  echo -e "\033[33;5m If you copy other thing to the clipboard, here is your ssh public key, ready to copy again... \033[0m"
+  echo ""
+  cat ~/.ssh/id_rsa.pub
+  echo ""
 fi
 
 if [ "$generateSshKey" = "auto" ] || [ "$generateSshKey" = "manual" ]; then
@@ -166,9 +192,15 @@ if [ "$generateSshKey" = "auto" ] || [ "$generateSshKey" = "manual" ]; then
   echo "  2) Paste the key copied from ~/.ssh/id_rsa.pub and press 'Add key' button."
   echo ""
   read -rp "Press enter when finish to continue..."
+  echo ""
+  echo "Add SSH keys to Bitbucket account:"
+  echo "  1) Access ssh-keys settings in https://bitbucket.org/account/settings/ssh-keys/"
+  echo "  2) Paste the key copied from ~/.ssh/id_rsa.pub and press 'Add key' button."
+  echo ""
+  read -rp "Press enter when finish to continue..."
 fi
 
-if [ "$cloneRepos" = "y" ]; then
+if [ "$cloneReposAutomation" = "y" ]; then
   echo "Creating ~/repos directory..."
   mkdir -p ~/repos
   echo "Creating ~/repos directory... DONE"
@@ -189,3 +221,19 @@ if [ "$cloneRepos" = "y" ]; then
   git clone -b develop git@10.200.172.71:Automation/automation-ios-iot.git
   echo "Cloning automation repos... DONE"
 fi
+
+if [ "$cloneReposFlowFactory" = "y" ]; then
+  echo "Creating ~/repos directory..."
+  mkdir -p ~/repos
+  echo "Creating ~/repos directory... DONE"
+  echo "Cloning Flow Factory repos..."
+  cd ~/repos || return
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-android.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-android-tv.git
+  git clone -b releases git@bitbucket.org:tecoflowfactory/flow-android-core-library.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-smart-tv.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/webclient.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/ios.git
+  echo "Cloning Flow Factory repos... DONE"
+fi
+

@@ -37,16 +37,9 @@ fi
 
 # Setup system
 if [ "$createXinitFile" = "y" ]; then
-  if [[ $(pacman -Qs xorg-server) ]]; then
-    echo "Installing xorg package..."
-    sudo pacman -Sy --noconfirm xorg
-    echo "Installing xorg package... DONE"
-  fi
-  if [[ $(pacman -Qs xorg-xinit) ]]; then
-    echo "Installing xorg-xinit package..."
-    sudo pacman -Sy --noconfirm xorg-xinit
-    echo "Installing xorg-xinit package... DONE"
-  fi
+  echo "Installing xorg packages..."
+  sudo pacman -Sy --noconfirm xorg xorg-xinit
+  echo "Installing xorg packages... DONE"
 
   echo "Creating ~/.xinitrc file..."
   cp /etc/X11/xinit/xinitrc ~/.xinitrc
@@ -55,13 +48,14 @@ fi
 
 if [ "$getGithubDotfilesBackup" = "y" ]; then
   echo "Getting backup dotfiles from github..."
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xinitrc" -o .xinitrc.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xresources" -o .Xresources.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xdefaults" -o .Xdefaults.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.tmux.conf" -o .tmux.conf.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.vimrc" -o .vimrc.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xbindkeysrc" -o .xbindkeysrc.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.picom.conf" -o .picom.conf.bak.0
+  cd || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xinitrc"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xresources"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xdefaults"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.tmux.conf"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.vimrc"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xbindkeysrc"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.picom.conf"
   mkdir -p ~/.prboom-plus/ && cd ~/.prboom-plus/ || return
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.prboom-plus/prboom-plus.cfg" -o prboom-plus.cfg
   cd || return
