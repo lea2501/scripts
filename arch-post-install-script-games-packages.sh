@@ -36,7 +36,7 @@ elif [ "$installEverything" = "n" ]; then
   read -rp "Install quake 2 source ports?: (y|n)" installQuake2
   read -rp "Install hexen 2 source ports?: (y|n)" installHexen2
   read -rp "Install build games source port?: (y|n)" installBuildGames
-  read -rp "Install return to castle wolfestein source port?: (y|n)" installIortcw
+  read -rp "Install return to castle wolfenstein source port?: (y|n)" installIortcw
   read -rp "Install marathon source ports?: (y|n)" installMarathon
   read -rp "Install descent source ports?: (y|n)" installDescent
   read -rp "Install diablo source ports?: (y|n)" installDiablo
@@ -49,6 +49,7 @@ elif [ "$installEverything" = "n" ]; then
 fi
 
 cloneAurAndCompile() {
+  mkdir -p ~/aur
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
@@ -59,6 +60,7 @@ cloneAurAndCompile() {
 }
 
 cloneAurAndCompileSkipChecks() {
+  mkdir -p ~/aur
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
@@ -68,7 +70,8 @@ cloneAurAndCompileSkipChecks() {
   makepkg -sic --noconfirm --skippgpcheck
 }
 
-cloneSrcAndCompile() {
+cloneSrc() {
+  mkdir -p ~/src
   cd ~/src || return
   if [ ! -d "$1" ]; then
     git clone "$2"
@@ -85,28 +88,19 @@ if [ "$installRoguelikes" = "y" ]; then
   sudo pacman -Sy --noconfirm stone-soup
   sudo pacman -Sy --noconfirm cataclysm-dda
   sudo pacman -Sy --noconfirm bsd-games
+  cloneAurAndCompile angband-git
+  cloneAurAndCompile infra-arcana
+  cloneAurAndCompile termcap
+  cloneAurAndCompile umoria
+  sudo pacman -Sy --noconfirm autoconf
+  sudo pacman -Sy --noconfirm gcc
+  sudo pacman -Sy --noconfirm libx11
+  gpg --keyserver keys.gnupg.net --recv-keys 702353E0F7E48EDB
+  cloneAurAndCompile ncurses5-compat-libs
+  #cloneAurAndCompile libstdc++296 # Edit PKGBUILD manually (https://aur.archlinux.org/packages/libstdc%2B%2B296/)
+  cloneSrc frogcomposband https://github.com/sulkasormi/frogcomposband.git
+  #cd frogcomposband && sh autogen.sh && ./configure --prefix "$HOME"/.frogcomposband && make clean && make && make install # run this after installing libstdc++296 AUR package
 fi
-
-if [ "$installEmulators" = "y" ]; then
-  #sudo pacman -Sy --noconfirm dosbox
-  sudo pacman -Sy --noconfirm dolphin-emu
-  sudo pacman -Sy --noconfirm mednafen
-  sudo pacman -Sy --noconfirm hatari
-  sudo pacman -Sy --noconfirm ppsspp
-  sudo pacman -Sy --noconfirm scummvm scummvm-tools
-  sudo pacman -Sy --noconfirm fs-uae fs-uae-launcher
-fi
-
-if [ "$installOtherGames" = "y" ]; then
-  sudo pacman -Sy --noconfirm lbreakout2
-  sudo pacman -Sy --noconfirm lincity-ng
-fi
-echo "Installing games packages... DONE"
-
-# aur packages
-echo "Creating user 'aur' directory..."
-mkdir -p ~/aur
-echo "Creating user 'aur' directory... DONE"
 
 echo "Installing AUR packages..."
 if [ "$installDoom" = "y" ]; then
@@ -118,9 +112,15 @@ if [ "$installDoom" = "y" ]; then
   cloneAurAndCompileSkipChecks chocolate-doom
   cloneAurAndCompile crispy-doom
   cloneAurAndCompile prboom-plus
+  cloneSrc prboom-plus https://github.com/coelckers/prboom-plus.git
+  cd ~/src/prboom-plus/prboom2 && cmake . && make
   #cloneAndCompile pygtk
   #cloneAndCompile bsp
   #cloneAndCompile k8vavoom-git
+fi
+
+if [ "$installDoom3" = "y" ]; then
+  cloneAurAndCompile dhewm3
 fi
 
 if [ "$installQuake" = "y" ]; then
@@ -147,6 +147,17 @@ if [ "$installHexen2" = "y" ]; then
   cloneAurAndCompile hexen2
 fi
 
+if [ "$installBuildGames" = "y" ]; then
+  cloneAurAndCompile eduke32
+  cloneAurAndCompile nblood
+  cloneAurAndCompile raze
+fi
+
+if [ "$installIortcw" = "y" ]; then
+  cloneAurAndCompile iortcw-data
+  cloneAurAndCompile iortcw-git
+fi
+
 if [ "$installMarathon" = "y" ]; then
   cloneAurAndCompile alephone
   cloneAurAndCompile alephone-marathon
@@ -164,42 +175,12 @@ if [ "$installDiablo" = "y" ]; then
   cloneAurAndCompile devilutionx
 fi
 
-if [ "$installDoom3" = "y" ]; then
-  cloneAurAndCompile dhewm3
-fi
-
 if [ "$installUqm" = "y" ]; then
   sudo pacman -Sy --noconfirm uqm
   cloneAurAndCompile uqm-sound
   cloneAurAndCompile uqm-remix
-  cloneAurAndCompile uqm-hd
-  cloneAurAndCompile uqm-hd-sound
-fi
-
-if [ "$installBuildGames" = "y" ]; then
-  cloneAurAndCompile eduke32
-  cloneAurAndCompile nblood
-  cloneAurAndCompile raze
-fi
-
-if [ "$installRoguelikes" = "y" ]; then
-  cloneAurAndCompile angband-git
-  cloneAurAndCompile infra-arcana
-  cloneAurAndCompile termcap
-  cloneAurAndCompile umoria
-  sudo pacman -Sy --noconfirm autoconf
-  sudo pacman -Sy --noconfirm gcc
-  sudo pacman -Sy --noconfirm libx11
-  cloneAurAndCompile ncurses5-compat-libs
-  cloneAurAndCompile libstdc++296
-  cloneAurAndCompile ncurses5-compat-libs
-  cloneAurAndCompile ncurses5-compat-libs
-  cloneSrcAndCompile frogcomposband https://github.com/sulkasormi/frogcomposband.git && sh autogen.sh && ./configure --prefix "$HOME"/.frogcomposband && make clean && make && make install
-fi
-
-if [ "$installIortcw" = "y" ]; then
-  cloneAurAndCompile iortcw-data
-  cloneAurAndCompile iortcw-git
+  #cloneAurAndCompile uqm-hd
+  #cloneAurAndCompile uqm-hd-sound
 fi
 
 if [ "$installExtraTools" = "y" ]; then
@@ -216,6 +197,23 @@ if [ "$installRacingGames" = "y" ]; then
   cloneAurAndCompile torcs-data
   cloneAurAndCompile torcs
 fi
+
+if [ "$installEmulators" = "y" ]; then
+  #sudo pacman -Sy --noconfirm dosbox
+  sudo pacman -Sy --noconfirm dolphin-emu
+  sudo pacman -Sy --noconfirm mednafen
+  sudo pacman -Sy --noconfirm hatari
+  sudo pacman -Sy --noconfirm ppsspp
+  sudo pacman -Sy --noconfirm scummvm scummvm-tools
+  sudo pacman -Sy --noconfirm fs-uae fs-uae-launcher
+  cloneAurAndCompile dosbox-staging
+fi
+
+if [ "$installOtherGames" = "y" ]; then
+  sudo pacman -Sy --noconfirm lbreakout2
+  sudo pacman -Sy --noconfirm lincity-ng
+fi
+echo "Installing games packages... DONE"
 
 # joysticks
 if [ "$installJoystickPs5" = "y" ]; then
