@@ -8,55 +8,55 @@ set -e
 ############ Script
 
 options=(y n)
-read -rp "Install system tools?: (y|n)" installSystemTools
+read -rp "Install system tools?: (Y|n)" installSystemTools
 if [[ " "${options[@]}" " != *" $installSystemTools "* ]]; then
   echo "$installSystemTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install development tools?: (y|n)" installDevelTools
+read -rp "Install development tools?: (Y|n)" installDevelTools
 if [[ " "${options[@]}" " != *" $installDevelTools "* ]]; then
   echo "$installDevelTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install multimedia tools?: (y|n)" installMultimediaTools
+read -rp "Install multimedia tools?: (Y|n)" installMultimediaTools
 if [[ " "${options[@]}" " != *" $installMultimediaTools "* ]]; then
   echo "$installMultimediaTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install extra tools?: (y|n)" installExtraTools
+read -rp "Install extra tools?: (Y|n)" installExtraTools
 if [[ " "${options[@]}" " != *" $installExtraTools "* ]]; then
   echo "$installExtraTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install forensic tools?: (y|n)" installForensicTools
+read -rp "Install forensic tools?: (y|N)" installForensicTools
 if [[ " "${options[@]}" " != *" $installForensicTools "* ]]; then
   echo "$installForensicTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install image tools?: (y|n)" installImageTools
+read -rp "Install image tools?: (Y|n)" installImageTools
 if [[ " "${options[@]}" " != *" $installImageTools "* ]]; then
   echo "$installImageTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install network tools?: (y|n)" installNetworkTools
+read -rp "Install network tools?: (Y|n)" installNetworkTools
 if [[ " "${options[@]}" " != *" $installNetworkTools "* ]]; then
   echo "$installNetworkTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install misc tools?: (y|n)" installMiscTools
+read -rp "Install misc tools?: (Y|n)" installMiscTools
 if [[ " "${options[@]}" " != *" $installMiscTools "* ]]; then
   echo "$installMiscTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install emulation tools?: (y|n)" installEmulationTools
+read -rp "Install emulation tools?: (Y|n)" installEmulationTools
 if [[ " "${options[@]}" " != *" $installEmulationTools "* ]]; then
   echo "$installEmulationTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"

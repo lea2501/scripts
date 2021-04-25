@@ -28,6 +28,6 @@ chmod +x ./*.sh
 cd || return
 echo ""
 echo -e "\033[33;5m These scripts install and configure all the needed applications and settings. \033[0m"
-echo -e "\033[33;5m But you have to pay attention to the prompts and, preferably, read them before launching to know what them does \033[0m"
+echo -e "\033[33;5m But you have to pay attention to the prompts and, preferably, read them before launching to know what they do \033[0m"
 echo ""
 echo "Getting scripts from github... DONE"

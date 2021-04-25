@@ -8,61 +8,61 @@ set -e
 ############ Script
 
 options=(y n)
-read -rp "Install extra tools?: (y|n)" installExtraTools
+read -rp "Install extra tools?: (Y|n)" installExtraTools
 if [[ " "${options[@]}" " != *" $installExtraTools "* ]]; then
   echo "$installExtraTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install basic tools?: (y|n)" installBasicTools
+read -rp "Install basic tools?: (Y|n)" installBasicTools
 if [[ " "${options[@]}" " != *" $installBasicTools "* ]]; then
   echo "$installBasicTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install browsers?: (y|n)" installBrowsers
+read -rp "Install browsers?: (Y|n)" installBrowsers
 if [[ " "${options[@]}" " != *" $installBrowsers "* ]]; then
   echo "$installBrowsers: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install postman?: (y|n)" installPostman
+read -rp "Install postman?: (Y|n)" installPostman
 if [[ " "${options[@]}" " != *" $installPostman "* ]]; then
   echo "$installPostman: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install jmeter?: (y|n)" installJmeter
+read -rp "Install jmeter?: (Y|n)" installJmeter
 if [[ " "${options[@]}" " != *" $installJmeter "* ]]; then
   echo "$installJmeter: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install allure?: (y|n)" installAllure
+read -rp "Install allure?: (Y|n)" installAllure
 if [[ " "${options[@]}" " != *" $installAllure "* ]]; then
   echo "$installAllure: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install schema guru?: (y|n)" installSchemaGuru
+read -rp "Install schema guru?: (Y|n)" installSchemaGuru
 if [[ " "${options[@]}" " != *" $installSchemaGuru "* ]]; then
   echo "$installSchemaGuru: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install Android tools?: (y|n)" installAndroidTools
+read -rp "Install Android tools?: (Y|n)" installAndroidTools
 if [[ " "${options[@]}" " != *" $installAndroidTools "* ]]; then
   echo "$installAndroidTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install Appium tools?: (y|n)" installAppiumTools
+read -rp "Install Appium tools?: (Y|n)" installAppiumTools
 if [[ " "${options[@]}" " != *" $installAppiumTools "* ]]; then
   echo "$installAppiumTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install forensic tools?: (y|n)" installForensicTools
+read -rp "Install forensic tools?: (y|N)" installForensicTools
 if [[ " "${options[@]}" " != *" $installForensicTools "* ]]; then
   echo "$installForensicTools: not recognized. Valid options are:"
   echo "${options[@]/%/,}"

@@ -17,55 +17,55 @@ set -e
 ############ Script
 
 options=(y n)
-read -rp "Set keyboard layout?: (y|n)" setKeyboardLayout
+read -rp "Set keyboard layout?: (Y|n)" setKeyboardLayout
 if [[ " "${options[@]}" " != *" $setKeyboardLayout "* ]]; then
   echo "$setKeyboardLayout: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Configure Git user options?: (y|n)" configureGit
+read -rp "Configure Git user options?: (Y|n)" configureGit
 if [[ " "${options[@]}" " != *" $configureGit "* ]]; then
   echo "$configureGit: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Set Java default version to openjdk 11?: (y|n)" setJavaDefault
+read -rp "Set Java default version to openjdk 11?: (Y|n)" setJavaDefault
 if [[ " "${options[@]}" " != *" $setJavaDefault "* ]]; then
   echo "$setJavaDefault: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Apply fix for misbehaving java applications? (Only needed if using dwm window manager): (y|n)" applyJavaApplicationsFix
+read -rp "Apply fix for misbehaving java applications? (Only needed if using dwm window manager): (y|N)" applyJavaApplicationsFix
 if [[ " "${options[@]}" " != *" $applyJavaApplicationsFix "* ]]; then
   echo "$applyJavaApplicationsFix: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Start Docker service?: (y|n)" startDockerService
+read -rp "Start Docker service?: (Y|n)" startDockerService
 if [[ " "${options[@]}" " != *" $startDockerService "* ]]; then
   echo "$startDockerService: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Start NTP service?: (y|n)" startNtpService
+read -rp "Start NTP service?: (y|N)" startNtpService
 if [[ " "${options[@]}" " != *" $startNtpService "* ]]; then
   echo "$startNtpService: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Enable Bash Git Prompt? (Show git branch in command prompt): (y|n)" enableBashGitPrompt
+read -rp "Enable Bash Git Prompt? (Show git branch in command prompt): (Y|n)" enableBashGitPrompt
 if [[ " "${options[@]}" " != *" $enableBashGitPrompt "* ]]; then
   echo "$enableBashGitPrompt: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Update Clamav virus definitions?: (y|n)" updateClamavVirusDefinitions
+read -rp "Update Clamav virus definitions?: (Y|n)" updateClamavVirusDefinitions
 if [[ " "${options[@]}" " != *" $updateClamavVirusDefinitions "* ]]; then
   echo "$updateClamavVirusDefinitions: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Create user bin directory?: (y|n)" createUserBinDirectory
+read -rp "Create user bin directory?: (Y|n)" createUserBinDirectory
 if [[ " "${options[@]}" " != *" $createUserBinDirectory "* ]]; then
   echo "$createUserBinDirectory: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
