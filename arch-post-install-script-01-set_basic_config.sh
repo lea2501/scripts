@@ -10,25 +10,25 @@ set -e
 # shellcheck disable=SC2116
 username=$(echo "$USER")
 options=(y n)
-read -rp "Create .xinit file in user home directory?: (y|n)" createXinitFile
+read -rp "Create .xinit file in user home directory?: (y|N)" createXinitFile
 if [[ " "${options[@]}" " != *" $createXinitFile "* ]]; then
   echo "$createXinitFile: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Get dotfiles backups from Github?: (y|n)" getGithubDotfilesBackup
+read -rp "Get dotfiles backups from Github?: (y|N)" getGithubDotfilesBackup
 if [[ " "${options[@]}" " != *" $getGithubDotfilesBackup "* ]]; then
   echo "$getGithubDotfilesBackup: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Remove asking for sudo password?: (y|n)" removeAskingSudoPassword
+read -rp "Remove asking for sudo password?: (Y|n)" removeAskingSudoPassword
 if [[ " "${options[@]}" " != *" $removeAskingSudoPassword "* ]]; then
   echo "$removeAskingSudoPassword: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Configure pacman settings?: (y|n)" configurePacmanSettings
+read -rp "Configure pacman settings?: (Y|n)" configurePacmanSettings
 if [[ " "${options[@]}" " != *" $configurePacmanSettings "* ]]; then
   echo "$configurePacmanSettings: not recognized. Valid options are:"
   echo "${options[@]/%/,}"

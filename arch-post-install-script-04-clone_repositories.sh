@@ -17,46 +17,52 @@ set -e
 ############ Script
 
 options=(y n)
-read -rp "Create user aliases?: (y|n)" createUserAliases
+read -rp "Create user aliases?: (Y|n)" createUserAliases
 if [[ " "${options[@]}" " != *" $createUserAliases "* ]]; then
   echo "$createUserAliases: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Configure VPN access?: (y|n)" configureVpnAccess
+read -rp "Configure VPN access?: (Y|n)" configureVpnAccess
 if [[ " "${options[@]}" " != *" $configureVpnAccess "* ]]; then
   echo "$configureVpnAccess: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install Idaptive mobile application?: (y|n)" installIdaptiveMobileApplication
+read -rp "Install Idaptive mobile application?: (Y|n)" installIdaptiveMobileApplication
 if [[ " "${options[@]}" " != *" $installIdaptiveMobileApplication "* ]]; then
   echo "$installIdaptiveMobileApplication: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Connect to Cisco AnyConnect VPN?: (y|n)" connectToAnyconnectVpn
+read -rp "Connect to Cisco AnyConnect VPN?: (Y|n)" connectToAnyconnectVpn
 if [[ " "${options[@]}" " != *" $connectToAnyconnectVpn "* ]]; then
   echo "$connectToAnyconnectVpn: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
 sshKeyGenOptions=(auto manual no)
-read -rp "Create a new SSH key? : (auto|manual|no)" generateSshKey
+read -rp "Create a new SSH key? : (AUTO|manual|no)" generateSshKey
 if [[ " "${sshKeyGenOptions[@]}" " != *" $generateSshKey "* ]]; then
   echo "$generateSshKey: not recognized. Valid options are:"
   echo "${sshKeyGenOptions[@]/%/,}"
   exit 1
 fi
-read -rp "Clone automation repositories? : (y|n)" cloneReposAutomation
+read -rp "Clone automation repositories? : (Y|n)" cloneReposAutomation
 if [[ " "${options[@]}" " != *" $cloneReposAutomation "* ]]; then
   echo "$cloneReposAutomation: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Clone Flow Factory repositories? : (y|n)" cloneReposFlowFactory
+read -rp "Clone Flow Factory repositories? : (Y|n)" cloneReposFlowFactory
 if [[ " "${options[@]}" " != *" $cloneReposFlowFactory "* ]]; then
   echo "$cloneReposFlowFactory: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
+read -rp "Clone github repositories? : (y|N)" cloneReposGithub
+if [[ " "${options[@]}" " != *" $cloneReposGithub "* ]]; then
+  echo "$cloneReposGithub: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
@@ -237,3 +243,13 @@ if [ "$cloneReposFlowFactory" = "y" ]; then
   echo "Cloning Flow Factory repos... DONE"
 fi
 
+if [ "$cloneReposGithub" = "y" ]; then
+  echo "Creating ~/src directory..."
+  mkdir -p ~/src
+  echo "Creating ~/src directory... DONE"
+  echo "Cloning Github repos..."
+  cd ~/src || return
+  git clone git@github.com:lea2501/dotfiles.git
+  git clone git@github.com:lea2501/scripts.git
+  echo "Cloning Github repos... DONE"
+fi
