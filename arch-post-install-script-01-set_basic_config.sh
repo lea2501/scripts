@@ -57,26 +57,26 @@ if [ "$getGithubDotfilesBackup" = "y" ]; then
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xbindkeysrc"
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.picom.conf"
   mkdir -p ~/.prboom-plus/ && cd ~/.prboom-plus/ || return
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.prboom-plus/prboom-plus.cfg" -o prboom-plus.cfg
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.prboom-plus/prboom-plus.cfg"
   cd || return
   mkdir -p ~/.config/gzdoom/ && cd ~/.config/gzdoom/ || return
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom.ini" -o gzdoom.ini
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom_chex.ini" -o gzdoom_chex.ini
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom_chex_mouseonly.ini" -o gzdoom_chex_mouseonly.ini
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom.ini"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom_chex.ini"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom_chex_mouseonly.ini"
   cd || return
   mkdir -p ~/.config/i3/ && cd ~/.config/i3/ || return
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/i3/config" -o config.bak.0
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/i3/config"
   cd || return
   mkdir -p ~/.config/i3status/ && cd ~/.config/i3status/ || return
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/i3status/config" -o config.bak.0
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/i3status/config"
   cd || return
   mkdir -p ~/.config/mc/ && cd ~/.config/mc/ || return
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mc/hotlist" -o hotlist.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mc/ini" -o ini.bak.0
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mc/hotlist"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mc/ini"
   cd || return
   mkdir -p ~/.config/mpv/ && cd ~/.config/mpv/ || return
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/input.conf" -o input.conf.bak.0
-  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/mpv.conf" -o mpv.conf.bak.0
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/input.conf"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/mpv.conf"
   cd || return
   echo "Getting backup dotfiles from github... DONE"
 fi
