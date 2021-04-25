@@ -47,6 +47,12 @@ if [[ " "${options[@]}" " != *" $startDockerService "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
+read -rp "Start NTP service?: (y|n)" startNtpService
+if [[ " "${options[@]}" " != *" $startNtpService "* ]]; then
+  echo "$startNtpService: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Enable Bash Git Prompt? (Show git branch in command prompt): (y|n)" enableBashGitPrompt
 if [[ " "${options[@]}" " != *" $enableBashGitPrompt "* ]]; then
   echo "$enableBashGitPrompt: not recognized. Valid options are:"
@@ -103,10 +109,18 @@ fi
 
 # start docker
 if [ "$startDockerService" = "y" ]; then
-  echo "Starting docker container..."
+  echo "Enabling and starting docker service..."
   sudo systemctl enable docker
   sudo systemctl start docker
-  echo "Starting docker container... DONE"
+  echo "Enabling and starting docker service... DONE"
+fi
+
+# start docker
+if [ "$startNtpService" = "y" ]; then
+  echo "Enabling and starting ntp service..."
+  sudo systemctl enable ntpdate.service
+  sudo systemctl start ntpdate.service
+  echo "Enabling and starting ntp service... DONE"
 fi
 
 # enable bash-git-prompt

@@ -78,6 +78,7 @@ if [ "$installSystemTools" = "y" ]; then
   vim \
   vi \
   nano \
+  udisks2 \
   brightnessctl \
   dos2unix \
   exfat-utils \
@@ -94,6 +95,7 @@ if [ "$installSystemTools" = "y" ]; then
   findutils \
   acpi \
   lm_sensors \
+  ntp \
   alsa-plugins alsa-utils \
   pulseaudio pavucontrol pulseaudio-alsa
 fi
