@@ -88,7 +88,8 @@ cloneAurAndCompile() {
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
   else
-    cd "$1" && git pull
+    cd "$1" || return
+    git pull
   fi
   makepkg -sic --noconfirm
 }
@@ -97,8 +98,10 @@ cloneAurAndCompileSkipChecks() {
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
+    cd "$1" || return
   else
-    cd "$1" && git pull
+    cd "$1" || return
+    git pull
   fi
   makepkg -sic --noconfirm --skippgpcheck
 }
@@ -107,26 +110,23 @@ cloneAurAndCompileSkipInteg() {
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
+    cd "$1" || return
   else
-    cd "$1" && git pull
+    cd "$1" || return
+    git pull
   fi
   makepkg -sic --noconfirm --skipinteg
 }
-
-# AUR packages
-echo "installing AUR packages..."
-
-echo "Creating user 'aur' directory..."
-mkdir -p ~/aur
-echo "Creating user 'aur' directory... DONE"
 
 echo "installing AUR packages..."
 if [ "$installExtraTools" = "y" ]; then
   cd ~/aur || return
   if [ ! -d "st" ] ; then
     git clone https://aur.archlinux.org/st.git
+    cd st || return
   else
-    cd st && git pull
+    cd st || return
+    git pull
   fi
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/st/config.def.h"
   makepkg -sic --noconfirm --skipinteg
@@ -134,8 +134,10 @@ if [ "$installExtraTools" = "y" ]; then
   cd ~/aur || return
   if [ ! -d "dwm" ] ; then
     git clone https://aur.archlinux.org/dwm.git
+    cd dwm || return
   else
-    cd dwm && git pull
+    cd dwm || return
+    git pull
   fi
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/dwm/config.h"
   makepkg -sic --noconfirm --skipinteg
@@ -143,8 +145,10 @@ if [ "$installExtraTools" = "y" ]; then
   cd ~/aur || return
   if [ ! -d "slstatus-git" ] ; then
     git clone https://aur.archlinux.org/slstatus-git.git
+    cd slstatus-git || return
   else
-    cd slstatus-git && git pull
+    cd slstatus-git || return
+    git pull
   fi
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/slstatus-git/config.h"
   makepkg -sic --noconfirm --skipinteg

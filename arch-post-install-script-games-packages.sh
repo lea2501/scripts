@@ -53,10 +53,13 @@ cloneAurAndCompile() {
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
+    cd "$1" || return
   else
-    cd "$1" && git pull
+    cd "$1" || return
+    git pull
   fi
   makepkg -sic --noconfirm
+  cd || return
 }
 
 cloneAurAndCompileSkipChecks() {
@@ -64,10 +67,13 @@ cloneAurAndCompileSkipChecks() {
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
+    cd "$1" || return
   else
-    cd "$1" && git pull
+    cd "$1" || return
+    git pull
   fi
   makepkg -sic --noconfirm --skippgpcheck
+  cd || return
 }
 
 cloneSrc() {
@@ -75,13 +81,15 @@ cloneSrc() {
   cd ~/src || return
   if [ ! -d "$1" ]; then
     git clone "$2"
+    cd "$1" || return
   else
-    cd "$1" && git pull
+    cd "$1" || return
+    git pull
   fi
 }
 
-echo "Installing games packages..."
 if [ "$installRoguelikes" = "y" ]; then
+  echo "Installing roguelikes games packages..."
   #sudo pacman -Sy --noconfirm angband
   sudo pacman -Sy --noconfirm nethack
   sudo pacman -Sy --noconfirm rogue
@@ -100,10 +108,11 @@ if [ "$installRoguelikes" = "y" ]; then
   #cloneAurAndCompile libstdc++296 # Edit PKGBUILD manually (https://aur.archlinux.org/packages/libstdc%2B%2B296/)
   cloneSrc frogcomposband https://github.com/sulkasormi/frogcomposband.git
   #cd frogcomposband && sh autogen.sh && ./configure --prefix "$HOME"/.frogcomposband && make clean && make && make install # run this after installing libstdc++296 AUR package
+  echo "Installing roguelikes games packages...DONE"
 fi
 
-echo "Installing AUR packages..."
 if [ "$installDoom" = "y" ]; then
+  echo "Installing doom packages..."
   cloneAurAndCompile vtable-dumper
   cloneAurAndCompile abi-dumper
   cloneAurAndCompile abi-compliance-checker
@@ -117,13 +126,17 @@ if [ "$installDoom" = "y" ]; then
   #cloneAndCompile pygtk
   #cloneAndCompile bsp
   #cloneAndCompile k8vavoom-git
+  echo "Installing doom packages...DONE"
 fi
 
 if [ "$installDoom3" = "y" ]; then
+  echo "Installing doom3 packages..."
   cloneAurAndCompile dhewm3
+  echo "Installing doom3 packages...DONE"
 fi
 
 if [ "$installQuake" = "y" ]; then
+  echo "Installing quake 1 packages..."
   cloneAurAndCompile quakespasm
   #cloneAndCompile tyrquake-git
 
@@ -135,70 +148,93 @@ if [ "$installQuake" = "y" ]; then
   cd ~/games/quakeinjector/bin || return
   curl -O -L "$(curl -s https://api.github.com/repos/hrehfeld/QuakeInjector/releases/latest | jq -r ".assets[] | select(.name | test(\"quakeinjector\")) | .browser_download_url")"
   unzip quakeinjector*.zip
+  echo "Installing quake 1 packages...DONE"
 fi
 
 if [ "$installQuake2" = "y" ]; then
+  echo "Installing quake 2 packages..."
   cloneAurAndCompile yamagi-quake2
   cloneAurAndCompile yamagi-quake2-rogue
   cloneAurAndCompile yamagi-quake2-xatrix
+  echo "Installing quake 2 packages...DONE"
 fi
 
 if [ "$installHexen2" = "y" ]; then
+  echo "Installing hexen 2 packages..."
   cloneAurAndCompile hexen2
+  echo "Installing hexen 2 packages...DONE"
 fi
 
 if [ "$installBuildGames" = "y" ]; then
+  echo "Installing build games packages..."
   cloneAurAndCompile eduke32
   cloneAurAndCompile nblood
   cloneAurAndCompile raze
+  echo "Installing build games packages...DONE"
 fi
 
 if [ "$installIortcw" = "y" ]; then
+  echo "Installing return to castle wolfenstein packages..."
   cloneAurAndCompile iortcw-data
   cloneAurAndCompile iortcw-git
+  echo "Installing return to castle wolfenstein packages...DONE"
 fi
 
 if [ "$installMarathon" = "y" ]; then
+  echo "Installing marathon packages..."
   cloneAurAndCompile alephone
   cloneAurAndCompile alephone-marathon
   cloneAurAndCompile alephone-marathon2
   cloneAurAndCompile alephone-rubiconx
   cloneAurAndCompile alephone-infinity
+  echo "Installing marathon packages...DONE"
 fi
 
 if [ "$installDescent" = "y" ]; then
+  echo "Installing descent packages..."
   cloneAurAndCompile d1x-rebirth
   cloneAurAndCompile d2x-rebirth
+  echo "Installing descent packages...DONE"
 fi
 
 if [ "$installDiablo" = "y" ]; then
+  echo "Installing diablo 1 packages..."
   cloneAurAndCompile devilutionx
+  echo "Installing diablo 1 packages...DONE"
 fi
 
 if [ "$installUqm" = "y" ]; then
+  echo "Installing urquan masters packages..."
   sudo pacman -Sy --noconfirm uqm
   cloneAurAndCompile uqm-sound
   cloneAurAndCompile uqm-remix
   #cloneAurAndCompile uqm-hd
   #cloneAurAndCompile uqm-hd-sound
+  echo "Installing urquan masters packages...DONE"
 fi
 
 if [ "$installExtraTools" = "y" ]; then
+  echo "Installing extra tools packages..."
   cloneAurAndCompile flacon
   cloneAurAndCompile jdownloader2
   #cloneAurAndCompile mkcue
+  gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
   cloneAurAndCompile tor-browser
   cloneAurAndCompile xbindkeys
+  echo "Installing extra tools packages...DONE"
 fi
 
 if [ "$installRacingGames" = "y" ]; then
+  echo "Installing racing games packages..."
   cloneAurAndCompile plib
   cloneAurAndCompile speed-dreams-svn
   cloneAurAndCompile torcs-data
   cloneAurAndCompile torcs
+  echo "Installing racing games packages...DONE"
 fi
 
 if [ "$installEmulators" = "y" ]; then
+  echo "Installing console emulators packages..."
   #sudo pacman -Sy --noconfirm dosbox
   sudo pacman -Sy --noconfirm dolphin-emu
   sudo pacman -Sy --noconfirm mednafen
@@ -207,18 +243,22 @@ if [ "$installEmulators" = "y" ]; then
   sudo pacman -Sy --noconfirm scummvm scummvm-tools
   sudo pacman -Sy --noconfirm fs-uae fs-uae-launcher
   cloneAurAndCompile dosbox-staging
+  echo "Installing console emulators packages...DONE"
 fi
 
 if [ "$installOtherGames" = "y" ]; then
+  echo "Installing other games packages..."
   sudo pacman -Sy --noconfirm lbreakout2
   sudo pacman -Sy --noconfirm lincity-ng
+  echo "Installing other games packages...DONE"
 fi
-echo "Installing games packages... DONE"
 
 # joysticks
 if [ "$installJoystickPs5" = "y" ]; then
+  echo "Installing ps5 joystick packages..."
   sudo pacman -Sy --noconfirm joyutils
   cloneAurAndCompile hid-playstation-dkms
+  echo "Installing ps5 joystick packages...DONE"
 fi
 
 echo "Cleaning temporary data... "
@@ -227,6 +267,6 @@ for dir in ~/aur/*; do
   CURRENT_DIR=$(basename "$PWD")
   rm -rf ./pkg/ ./src/ ./*.tar.* ./*.zip* ./*.tgz* ./*.bz* ./"${CURRENT_DIR}"
 done
-echo "Cleaning temporary data... DONE"
+echo "Cleaning temporary data...DONE"
 
-echo "Installing AUR packages... DONE"
+echo "Installing AUR packages...DONE"

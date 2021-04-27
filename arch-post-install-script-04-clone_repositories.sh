@@ -41,8 +41,8 @@ if [[ " "${options[@]}" " != *" $connectToAnyconnectVpn "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
-sshKeyGenOptions=(auto manual no)
-read -rp "Create a new SSH key? : (AUTO|manual|no)" generateSshKey
+sshKeyGenOptions=(auto manual n)
+read -rp "Create a new SSH key? : (AUTO|manual|n)" generateSshKey
 if [[ " "${sshKeyGenOptions[@]}" " != *" $generateSshKey "* ]]; then
   echo "$generateSshKey: not recognized. Valid options are:"
   echo "${sshKeyGenOptions[@]/%/,}"
@@ -63,6 +63,12 @@ fi
 read -rp "Clone github repositories? : (y|N)" cloneReposGithub
 if [[ " "${options[@]}" " != *" $cloneReposGithub "* ]]; then
   echo "$cloneReposGithub: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
+read -rp "Configure remote server access? : (Y|n)" configureRemoteServerAccess
+if [[ " "${options[@]}" " != *" $configureRemoteServerAccess "* ]]; then
+  echo "$configureRemoteServerAccess: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
@@ -252,4 +258,53 @@ if [ "$cloneReposGithub" = "y" ]; then
   git clone git@github.com:lea2501/dotfiles.git
   git clone git@github.com:lea2501/scripts.git
   echo "Cloning Github repos... DONE"
+fi
+
+confRemoteServerAccess() {
+  server=$1
+  echo "Configure access to ${server} server..."
+  read -rp "Enter your username for server ${server}: " serverUsername
+  echo -e "\033[33;5m If connected then type 'exit' and press enter to continue \033[0m"
+  ssh -t ${serverUsername}@${server}
+  echo ""
+  echo "Connected successfully to server ${server} as user ${serverUsername}"
+  echo ""
+  echo "Configure access to ${server} server... DONE"
+}
+
+copySshKeysToRemoteServer() {
+  server=$1
+  echo "Copy Ssh keys to ${server} server..."
+  read -rp "Enter your username for server ${server}: " serverUsername
+  ssh-copy-id -i ~/.ssh/id_rsa.pub ${serverUsername}@${server}
+  echo ""
+  echo "Copy Ssh keys to ${server} server... DONE"
+}
+
+accessRemoteServer() {
+  server=$1
+  echo "Access ${server} server..."
+  read -rp "Enter your username for server ${server}: " serverUsername
+  echo -e "\033[33;5m If connected then type 'exit' and press enter to continue \033[0m"
+  ssh -i ~/.ssh/id_rsa ${serverUsername}@${server}
+  echo ""
+  echo "Connected successfully to server ${server} as user ${serverUsername}"
+  echo ""
+  echo "Access ${server} server... DONE"
+}
+
+if [ "$configureRemoteServerAccess" = "y" ]; then
+  echo "Configure remote server access..."
+  confRemoteServerAccess 10.200.172.73
+  confRemoteServerAccess 10.200.172.74
+  confRemoteServerAccess 10.200.172.75
+
+  copySshKeysToRemoteServer 10.200.172.73
+  copySshKeysToRemoteServer 10.200.172.74
+  copySshKeysToRemoteServer 10.200.172.75
+
+  accessRemoteServer 10.200.172.73
+  accessRemoteServer 10.200.172.74
+  accessRemoteServer 10.200.172.75
+  echo "Configure remote server access... DONE"
 fi
