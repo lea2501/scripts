@@ -84,6 +84,7 @@ if [ "$createUserAliases" = "y" ]; then
     echo "alias getBatt='upower -i /org/freedesktop/UPower/devices/battery_BAT0'"
     echo "alias getBattBrief='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E \"state|time\ to\ |percentage\"'"
     echo "alias getBattPercent=\"upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'percentage' | awk '{print \$2}'\"":
+    echo "alias getVulnerabilities='grep -RHe \"^\" /sys/devices/system/cpu/vulnerabilities'"
     echo "alias getAudioMaster=\"amixer sget Master | grep 'Right:' | awk -F'[][]' '{print \$2}'\""
   } >>~/.bash_aliases
 
@@ -223,10 +224,13 @@ if [ "$cloneReposAutomation" = "y" ]; then
   git clone -b develop git@10.200.172.71:Automation/automation-minerva.git
   git clone -b develop git@10.200.172.71:Automation/automation-gateway.git
   git clone -b develop git@10.200.172.71:Automation/automation-webclient.git
+  git clone -b develop git@10.200.172.71:Automation/automation-webclient-analytics.git
   git clone -b develop git@10.200.172.71:Automation/automation-smarttv-ff.git
   git clone -b develop git@10.200.172.71:Automation/automation-android.git
   git clone -b develop git@10.200.172.71:Automation/automation-android-tv.git
   git clone -b develop git@10.200.172.71:Automation/automation-ios.git
+  git clone -b develop git@10.200.172.71:Automation/automation-jmeter.git
+  git clone -b develop git@10.200.172.71:Automation/automation-wrk.git
   git clone -b develop git@10.200.172.71:Automation/automation-api-iot.git
   git clone -b develop git@10.200.172.71:Automation/automation-web-iot.git
   git clone -b develop git@10.200.172.71:Automation/automation-android-iot.git
@@ -246,6 +250,8 @@ if [ "$cloneReposFlowFactory" = "y" ]; then
   git clone -b develop git@bitbucket.org:tecoflowfactory/flow-smart-tv.git
   git clone -b develop git@bitbucket.org:tecoflowfactory/webclient.git
   git clone -b develop git@bitbucket.org:tecoflowfactory/ios.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-iot.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/iot-web.git
   echo "Cloning Flow Factory repos... DONE"
 fi
 

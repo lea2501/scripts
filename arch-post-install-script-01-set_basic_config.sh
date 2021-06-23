@@ -78,6 +78,9 @@ if [ "$getGithubDotfilesBackup" = "y" ]; then
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/input.conf"
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/mpv.conf"
   cd || return
+  mkdir -p ~/.config/geany/colorschemes/ && cd ~/.config/geany/colorschemes/ || return
+  curl -OL "https://raw.github.com/geany/geany-themes/master/colorschemes/bespin.conf"
+  cd || return
   echo "Getting backup dotfiles from github... DONE"
 fi
 
@@ -94,6 +97,8 @@ if [ "$configurePacmanSettings" = "y" ]; then
   sudo cat /etc/pacman.conf | sudo sed -e "s/ILoveCandy/#ILoveCandy/" | sudo tee /etc/pacman.conf.edited
   sudo mv /etc/pacman.conf.edited /etc/pacman.conf
   sudo cat /etc/pacman.conf | sudo sed -e "s/#VerbosePkgLists/VerbosePkgLists/" | sudo tee /etc/pacman.conf.edited
+  sudo mv /etc/pacman.conf.edited /etc/pacman.conf
+  sudo cat /etc/pacman.conf | sudo sed -e "s/#ParallelDownloads/ParallelDownloads/" | sudo tee /etc/pacman.conf.edited
   sudo mv /etc/pacman.conf.edited /etc/pacman.conf
   echo "Configuring standard pacman settings... DONE"
 fi

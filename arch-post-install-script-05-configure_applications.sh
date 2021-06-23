@@ -47,6 +47,12 @@ if [[ " "${options[@]}" " != *" $startDockerService "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
+read -rp "Setup Docker as normal user?: (Y|n)" setupDockerAsUser
+if [[ " "${options[@]}" " != *" $setupDockerAsUser "* ]]; then
+  echo "$setupDockerAsUser: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Start NTP service?: (y|N)" startNtpService
 if [[ " "${options[@]}" " != *" $startNtpService "* ]]; then
   echo "$startNtpService: not recognized. Valid options are:"
@@ -115,7 +121,15 @@ if [ "$startDockerService" = "y" ]; then
   echo "Enabling and starting docker service... DONE"
 fi
 
-# start docker
+# setup docker
+if [ "$setupDockerAsUser" = "y" ]; then
+  echo "Setup docker for normal user usage..."
+  sudo groupadd docker || true
+  sudo gpasswd -a $USER docker || true
+  echo "Setup docker for normal user usage... DONE"
+fi
+
+# start NTP
 if [ "$startNtpService" = "y" ]; then
   echo "Enabling and starting ntp service..."
   sudo systemctl enable ntpdate.service

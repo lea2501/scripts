@@ -12,7 +12,7 @@
 # fail if any commands fails
 set -e
 # debug log
-set -x
+#set -x
 
 ### Configuration ###
 ### set USAGE message
@@ -75,7 +75,12 @@ rm -rf Carthage/
 echo "Deleting Carthage/ directory... DONE"
 
 echo "Running 'Scripts/bootstrap.sh -d' command..."
-sh Scripts/bootstrap.sh -d
+FILE=${APPIUM_WEBDRIVERAGENT_WORKING_DIR}/Scripts/bootstrap.sh
+if [ -f "$FILE" ]; then
+    sh $FILE -d
+else
+    echo "$FILE does not exist."
+fi
 echo "Running 'Scripts/bootstrap.sh -d' command... DONE"
 
 echo "Compiling 'WebDriverAgentRunner' to device '${DEVICEID}'..."

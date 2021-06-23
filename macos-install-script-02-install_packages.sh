@@ -32,6 +32,7 @@ if [ "$installSystemTools" = "y" ]; then
   brew install -q dos2unix
   brew install -q bash-completion
   brew install -q htop
+  brew install -q coreutils
   brew install -q findutils
 fi
 

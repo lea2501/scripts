@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # fail if any commands fails
-set -e
+#set -e
 # debug log
 #set -x
 
@@ -84,7 +84,7 @@ if [ "$installSystemTools" = "y" ]; then
   exfat-utils \
   picom \
   terminus-font \
-  xclip \
+  xclip autocutsel \
   xosd \
   ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-liberation ttf-opensans \
   usbutils \
@@ -97,7 +97,8 @@ if [ "$installSystemTools" = "y" ]; then
   lm_sensors \
   ntp \
   alsa-plugins alsa-utils \
-  pulseaudio pavucontrol pulseaudio-alsa
+  pulseaudio pavucontrol pulseaudio-alsa \
+  pass xdotool
 fi
 
 # devel
@@ -158,7 +159,9 @@ if [ "$installExtraTools" = "y" ]; then
   slock \
   mc \
   syncthing \
-  wine wine-gecko wine-mono \
+  hdparm lshw \
+  wine wine-gecko wine-mono winetricks zenity vkd3d \
+  lutris \
   mcomix \
   zathura zathura-pdf-mupdf \
   mupdf mupdf-tools
@@ -187,8 +190,6 @@ if [ "$installNetworkTools" = "y" ]; then
   curl \
   wget \
   axel \
-  firefox \
-  geckodriver \
   tigervnc \
   filezilla \
   openconnect \
@@ -206,6 +207,7 @@ if [ "$installMiscTools" = "y" ]; then
   freerdp \
   rdesktop \
   libreoffice-fresh libreoffice-fresh-es \
+  keepassxc \
   cabextract arj unrar p7zip unarj unace unzip zip tar \
   xarchiver \
   galculator

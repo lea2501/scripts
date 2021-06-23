@@ -20,9 +20,15 @@ if [[ " "${options[@]}" " != *" $installBasicTools "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install browsers?: (Y|n)" installBrowsers
-if [[ " "${options[@]}" " != *" $installBrowsers "* ]]; then
-  echo "$installBrowsers: not recognized. Valid options are:"
+read -rp "Install private browsers?: (Y|n)" installPrivateBrowsers
+if [[ " "${options[@]}" " != *" $installPrivateBrowsers "* ]]; then
+  echo "$installPrivateBrowsers: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
+read -rp "Install testing browsers (Chrome|Firefox|Opera)?: (Y|n)" installTestingBrowsers
+if [[ " "${options[@]}" " != *" $installTestingBrowsers "* ]]; then
+  echo "$installTestingBrowsers: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
@@ -69,7 +75,7 @@ if [[ " "${options[@]}" " != *" $installForensicTools "* ]]; then
   exit 1
 fi
 
-if [ "$installBrowsers" = "y" ]; then
+if [ "$installTestingBrowsers" = "y" ]; then
   echo "Please select browser package to install:"
   echo "    0) Google Chrome"
   echo "    1) Chromium"
@@ -156,16 +162,28 @@ fi
 
 if [ "$installBasicTools" = "y" ]; then
   # bash-git-prompt
+  cloneAurAndCompile dxvk-bin
   cloneAurAndCompile bash-git-prompt
+  cloneAurAndCompile vim-gnupg
+  cloneAurAndCompile vscodium-bin
   cloneAurAndCompile icaclient
   mkdir -p "$HOME"/.ICAClient/cache
   cp /opt/Citrix/ICAClient/config/{All_Regions,Trusted_Region,Unknown_Region,canonicalization,regions}.ini "$HOME"/.ICAClient/
 fi
 
-if [ "$installBrowsers" = "y" ]; then
-  #
-  cloneAurAndCompile perl-file-rename
-  cloneAurAndCompile icecat
+if [ "$installPrivateBrowsers" = "y" ]; then
+  sudo pacman -Sy --noconfirm firefox
+  #cloneAurAndCompile perl-file-rename
+  #cloneAurAndCompile icecat
+  #gpg --search-keys 2954CC8585E27A3F
+  #cloneAurAndCompile librewolf-bin
+  cloneAurAndCompile surf
+  sudo pacman -Sy --noconfirm chromium
+fi
+
+if [ "$installTestingBrowsers" = "y" ]; then
+  # firefox
+  sudo pacman -Sy --noconfirm firefox geckodriver
   # google-chrome
   if [ "$browserSelect" = "0" ]; then
     cloneAurAndCompile google-chrome

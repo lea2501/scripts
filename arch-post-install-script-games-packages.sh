@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # fail if any commands fails
-set -e
+#set -e
 # debug log
 #set -x
 
@@ -11,36 +11,42 @@ set -e
 
 read -rp "Install everything?: (y|n)" installEverything
 if [ "$installEverything" = "y" ]; then
+  addUserToGamesGroup="y"
   installRoguelikes="y"
   installDoom="y"
   installDoom3="y"
   installQuake="y"
   installQuake2="y"
   installHexen2="y"
+  installHalfLife="y"
   installBuildGames="y"
   installIortcw="y"
   installMarathon="y"
   installDescent="y"
   installDiablo="y"
   installUqm="y"
+  installMinetest="y"
   installExtraTools="y"
   installRacingGames="y"
   installEmulators="y"
   installOtherGames="y"
   installJoystickPs5="y"
 elif [ "$installEverything" = "n" ]; then
+  read -rp "add user to games group?: (y|n)" addUserToGamesGroup
   read -rp "Install roguelike games?: (y|n)" installRoguelikes
   read -rp "Install doom source ports?: (y|n)" installDoom
   read -rp "Install doom 3 source ports?: (y|n)" installDoom3
   read -rp "Install quake 1 source ports?: (y|n)" installQuake
   read -rp "Install quake 2 source ports?: (y|n)" installQuake2
   read -rp "Install hexen 2 source ports?: (y|n)" installHexen2
+  read -rp "Install GoldSrc engine for Half life games source ports?: (y|n)" installHalfLife
   read -rp "Install build games source port?: (y|n)" installBuildGames
   read -rp "Install return to castle wolfenstein source port?: (y|n)" installIortcw
   read -rp "Install marathon source ports?: (y|n)" installMarathon
   read -rp "Install descent source ports?: (y|n)" installDescent
   read -rp "Install diablo source ports?: (y|n)" installDiablo
   read -rp "Install urquan masters?: (y|n)" installUqm
+  read -rp "Install minetest?: (y|n)" installMinetest
   read -rp "Install extra tools?: (y|n)" installExtraTools
   read -rp "Install racing games?: (y|n)" installRacingGames
   read -rp "Install console emulators?: (y|n)" installEmulators
@@ -87,6 +93,11 @@ cloneSrc() {
     git pull
   fi
 }
+
+if [ "$addUserToGamesGroup" = "y" ]; then
+  username=$(echo "$USER")
+  gpasswd -a "${username}" games
+fi
 
 if [ "$installRoguelikes" = "y" ]; then
   echo "Installing roguelikes games packages..."
@@ -138,6 +149,7 @@ fi
 if [ "$installQuake" = "y" ]; then
   echo "Installing quake 1 packages..."
   cloneAurAndCompile quakespasm
+  cloneAurAndCompile qpakman
   #cloneAndCompile tyrquake-git
 
   cd ~/games || return
@@ -163,6 +175,12 @@ if [ "$installHexen2" = "y" ]; then
   echo "Installing hexen 2 packages..."
   cloneAurAndCompile hexen2
   echo "Installing hexen 2 packages...DONE"
+fi
+
+if [ "$installHalfLife" = "y" ]; then
+  echo "Installing HalfLife packages..."
+  cloneAurAndCompile xash3d-fwgs-git
+  echo "Installing HalfLife packages...DONE"
 fi
 
 if [ "$installBuildGames" = "y" ]; then
@@ -213,14 +231,23 @@ if [ "$installUqm" = "y" ]; then
   echo "Installing urquan masters packages...DONE"
 fi
 
+if [ "$installMinetest" = "y" ]; then
+  echo "Installing minetest packages..."
+  sudo pacman -Sy --noconfirm minetest minetest-server
+  echo "Installing minetest packages...DONE"
+fi
+
 if [ "$installExtraTools" = "y" ]; then
   echo "Installing extra tools packages..."
   cloneAurAndCompile flacon
+  cloneAurAndCompile tsmuxer-git
+  cloneAurAndCompile bdinfo-git
   cloneAurAndCompile jdownloader2
   #cloneAurAndCompile mkcue
   gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
   cloneAurAndCompile tor-browser
   cloneAurAndCompile xbindkeys
+  cloneAurAndCompile mangohud
   echo "Installing extra tools packages...DONE"
 fi
 
@@ -236,13 +263,23 @@ fi
 if [ "$installEmulators" = "y" ]; then
   echo "Installing console emulators packages..."
   #sudo pacman -Sy --noconfirm dosbox
+  sudo pacman -Sy --noconfirm mgba
+  sudo pacman -Sy --noconfirm snes9x
+  sudo pacman -Sy --noconfirm mupen64plus
   sudo pacman -Sy --noconfirm dolphin-emu
+  sudo pacman -Sy --noconfirm higan
   sudo pacman -Sy --noconfirm mednafen
   sudo pacman -Sy --noconfirm hatari
   sudo pacman -Sy --noconfirm ppsspp
   sudo pacman -Sy --noconfirm scummvm scummvm-tools
   sudo pacman -Sy --noconfirm fs-uae fs-uae-launcher
+  sudo pacman -Sy --noconfirm playonlinux
   cloneAurAndCompile dosbox-staging
+  cloneAurAndCompile sameboy
+  cloneAurAndCompile nestopia
+  cloneAurAndCompile pcsx2-64bit-git
+  cloneAurAndCompile rpcs3
+  cloneAurAndCompile yuzu-git
   echo "Installing console emulators packages...DONE"
 fi
 
