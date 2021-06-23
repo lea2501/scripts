@@ -20,7 +20,7 @@ if [[ " "${options[@]}" " != *" $installBasicTools "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install private browsers?: (Y|n)" installPrivateBrowsers
+read -rp "Install private browsers?: (y|N)" installPrivateBrowsers
 if [[ " "${options[@]}" " != *" $installPrivateBrowsers "* ]]; then
   echo "$installPrivateBrowsers: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
