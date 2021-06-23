@@ -3,20 +3,76 @@
 # You can see live demo: http://jsfiddle.net/r6wz0nz6/2/
 # Tutorial on Binpress.com: http://www.binpress.com/tutorial/generating-nice-video-previews-with-ffmpeg/138
 
-if [ -z "$1" ]; then
-    echo "usage: vid_preview.sh VIDEO [HEIGHT] [COLS] [ROWS]"
-    echo "       vid_preview.sh VIDEO 120 2 4"
-    echo "       for file in *.mp4; do ~/script/vid_preview.sh "$file" 120 2 4; done"
-    exit
+function show_usage (){
+    printf "Usage: $0 [options [parameters]]\n"
+    printf "  For all files in directory use like this:\n"
+    printf "  $ for file in *.mp4; do $0 -f \"\$file\"; done\n"
+    printf "  $ for file in *.mp4; do $0 -f \"\$file\" -h 120 -c 2 -r 4; done\n"
+    printf "\n"
+    printf "Mandatory options:\n"
+    printf " -f|--file          [FILENAME.EXT]\n"
+    printf "\n"
+    printf "Options:\n"
+    printf " -h|--height        [HEIGHT] (Optional, default: '120')\n"
+    printf " -c|--cols          [COLS] (Optional, default: '2')\n"
+    printf " -r|--rows          [ROWS] (Optional, default: '4')\n"
+    printf " -h|--help, Print help\n"
+
+exit
+}
+
+if [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]];then
+    show_usage
+fi
+if [[ -z $1 ]]; then
+    show_usage
 fi
 
-VIDEO=$1
-# get video name without the path and extension
-VIDEO_NAME=$(basename $VIDEO)
+while [ ! -z "$1" ]; do
+  case "$1" in
+     --file|-f)
+         shift
+         echo "file: $1"
+         FILENAME=$1
+         ;;
+     --height|-h)
+         shift
+         echo "height: $1"
+         HEIGHT=$1
+         ;;
+     --cols|-c)
+         shift
+         echo "cols: $1"
+         COLS=$1
+         ;;
+     --rows|-r)
+         shift
+         echo "rows: $1"
+         ROWS=$1
+         ;;
+     *)
+        show_usage
+        ;;
+  esac
+shift
+done
 
-HEIGHT=$2
-COLS=$3
-ROWS=$4
+### Configuration
+if [[ -z $HEIGHT ]]; then
+      HEIGHT=120
+fi
+if [[ -z $COLS ]]; then
+      COLS=2
+fi
+if [[ -z $ROWS ]]; then
+      ROWS=4
+fi
+if [[ -z $FILENAME ]]; then
+      show_usage
+fi
+
+# get video name without the path and extension
+VIDEO_NAME=$(basename $FILENAME)
 
 OUT_FILENAME=$(echo ${VIDEO_NAME%.*}_preview.jpg)
 
@@ -40,7 +96,7 @@ fi
 #if [ "$NB_FRAMES" = "N/A" ]; then
     # as a fallback we'll use ffmpeg. This command basically copies this video to /dev/null and it counts
     # frames in the process. It's slower (few seconds usually) than ffprobe but works everytime.
-    NB_FRAMES=$(ffmpeg -nostats -i "$VIDEO" -vcodec copy -f rawvideo -y /dev/null 2>&1 | grep frame | awk '{split($0,a,"fps")}END{print a[1]}' | sed 's/.*= *//')
+    NB_FRAMES=$(ffmpeg -nostats -i "$FILENAME" -vcodec copy -f rawvideo -y /dev/null 2>&1 | grep frame | awk '{split($0,a,"fps")}END{print a[1]}' | sed 's/.*= *//')
     # I know, that `awk` and `sed` parts look crazy but it has to be like this because ffmpeg can
     # `-nostats` By default, `ffmpeg` prints progress information but that would be immediately caught by `grep`
     #     because it would contain word `frame` and therefore output of this entire command would be totally
@@ -61,7 +117,7 @@ echo "capture every ${NTH_FRAME}th frame out of $NB_FRAMES frames"
 # make sure output dir exists
 #mkdir -p $OUT_DIR
 
-FFMPEG_CMD="ffmpeg -loglevel panic -i \"$VIDEO\" -y -frames 1 -q:v 1 -vf \"select=not(mod(n\,$NTH_FRAME)),scale=-1:${HEIGHT},tile=${COLS}x${ROWS}\" \"$OUT_FILENAME\""
+FFMPEG_CMD="ffmpeg -loglevel panic -i \"$FILENAME\" -y -frames 1 -q:v 1 -vf \"select=not(mod(n\,$NTH_FRAME)),scale=-1:${HEIGHT},tile=${COLS}x${ROWS}\" \"$OUT_FILENAME\""
 # `-loglevel panic` We don’t want to see any output. You can remove this option if you’re having any problem to see what went wrong
 # `-i "$VIDEO"` Input file
 # `-y` Override any existing output file
@@ -78,4 +134,3 @@ FFMPEG_CMD="ffmpeg -loglevel panic -i \"$VIDEO\" -y -frames 1 -q:v 1 -vf \"selec
 eval "$FFMPEG_CMD"
 
 echo "Generated $OUT_FILENAME preview successfully."
-

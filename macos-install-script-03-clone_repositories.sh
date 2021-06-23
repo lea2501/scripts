@@ -21,6 +21,7 @@ read -rp "Install Idaptive mobile application?: (y|n)" installIdaptiveMobileAppl
 read -rp "Connect to Cisco AnyConnect VPN?: (y|n)" connectToAnyconnectVpn
 read -rp "Create a new SSH key? : (auto|manual|no)" generateSshKey
 read -rp "Clone automation repositories? : (y|n)" cloneRepos
+read -rp "Clone Flow Factory repositories? : (y|n)" cloneReposFlowFactory
 
 # Clone company repositories
 echo "Cloning company repositories..."
@@ -143,15 +144,35 @@ if [ $cloneRepos = "y" ]; then
   git clone -b develop git@10.200.172.71:Automation/automation-minerva.git
   git clone -b develop git@10.200.172.71:Automation/automation-gateway.git
   git clone -b develop git@10.200.172.71:Automation/automation-webclient.git
+  git clone -b develop git@10.200.172.71:Automation/automation-webclient-analytics.git
   git clone -b develop git@10.200.172.71:Automation/automation-smarttv-ff.git
   git clone -b develop git@10.200.172.71:Automation/automation-android.git
   git clone -b develop git@10.200.172.71:Automation/automation-android-tv.git
   git clone -b develop git@10.200.172.71:Automation/automation-ios.git
+  git clone -b develop git@10.200.172.71:Automation/automation-jmeter.git
+  git clone -b develop git@10.200.172.71:Automation/automation-wrk.git
   git clone -b develop git@10.200.172.71:Automation/automation-api-iot.git
   git clone -b develop git@10.200.172.71:Automation/automation-web-iot.git
   git clone -b develop git@10.200.172.71:Automation/automation-android-iot.git
   git clone -b develop git@10.200.172.71:Automation/automation-ios-iot.git
   echo "Cloning automation repos... DONE"
+fi
+
+if [ "$cloneReposFlowFactory" = "y" ]; then
+  echo "Creating ~/repos directory..."
+  mkdir -p ~/repos
+  echo "Creating ~/repos directory... DONE"
+  echo "Cloning Flow Factory repos..."
+  cd ~/repos || return
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-android.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-android-tv.git
+  git clone -b releases git@bitbucket.org:tecoflowfactory/flow-android-core-library.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-smart-tv.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/webclient.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/ios.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/flow-iot.git
+  git clone -b develop git@bitbucket.org:tecoflowfactory/iot-web.git
+  echo "Cloning Flow Factory repos... DONE"
 fi
 
 echo "Cloning company repositories... DONE"

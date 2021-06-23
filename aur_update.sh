@@ -10,15 +10,14 @@
 for dir in ~/aur/*
 do
     cd "$dir" || exit
-    pwd
+    #pwd
     CURRENT_DIR=$(basename "$PWD")
     git fetch
     LOCAL=$(git rev-parse HEAD)
     REMOTE=$(git rev-parse @{u})
-    if [ $LOCAL = $REMOTE ]; then
-        echo "Up-to-date"
-    else
-        echo "Need to pull"
+    if [ ! $LOCAL = $REMOTE ]; then
+        pwd
+	echo "Need to pull"
         git pull
         makepkg -sic --noconfirm
     fi
