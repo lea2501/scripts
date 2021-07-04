@@ -29,6 +29,7 @@ if [ "$installEverything" = "y" ]; then
   installExtraTools="y"
   installRacingGames="y"
   installEmulators="y"
+  installRetroarch="y"
   installOtherGames="y"
   installJoystickPs5="y"
 elif [ "$installEverything" = "n" ]; then
@@ -50,6 +51,7 @@ elif [ "$installEverything" = "n" ]; then
   read -rp "Install extra tools?: (y|n)" installExtraTools
   read -rp "Install racing games?: (y|n)" installRacingGames
   read -rp "Install console emulators?: (y|n)" installEmulators
+  read -rp "Install retroarch emulator?: (y|n)" installRetroarch
   read -rp "Install other games?: (y|n)" installOtherGames
   read -rp "Install ps5 joystick driver?: (y|n)" installJoystickPs5
 fi
@@ -246,7 +248,7 @@ if [ "$installExtraTools" = "y" ]; then
   #cloneAurAndCompile mkcue
   gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
   cloneAurAndCompile tor-browser
-  cloneAurAndCompile xbindkeys
+  cloneAurAndCompile xbindkeys-git
   cloneAurAndCompile mangohud
   echo "Installing extra tools packages...DONE"
 fi
@@ -277,10 +279,19 @@ if [ "$installEmulators" = "y" ]; then
   cloneAurAndCompile dosbox-staging
   cloneAurAndCompile sameboy
   cloneAurAndCompile nestopia
-  cloneAurAndCompile pcsx2-64bit-git
+  cloneAurAndCompile pcsx2-git
   cloneAurAndCompile rpcs3
   cloneAurAndCompile yuzu-git
   echo "Installing console emulators packages...DONE"
+fi
+
+if [ "$installRetroarch" = "y" ]; then
+  echo "Installing retroarch packages..."
+  sudo pacman -Sy --noconfirm retroarch libretro
+  cloneAurAndCompile libretro-dosbox-pure-git
+  cloneAurAndCompile libretro-beetle-saturn-git
+  cloneAurAndCompile libretro-opera-git
+  echo "Installing retroarch packages...DONE"
 fi
 
 if [ "$installOtherGames" = "y" ]; then

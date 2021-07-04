@@ -73,6 +73,7 @@ echo "installing packages..."
 # system
 if [ "$installSystemTools" = "y" ]; then
   sudo pacman -Sy --noconfirm \
+  pacman-contrib \
   base-devel \
   tmux \
   vim \
@@ -98,6 +99,7 @@ if [ "$installSystemTools" = "y" ]; then
   ntp \
   alsa-plugins alsa-utils \
   pulseaudio pavucontrol pulseaudio-alsa \
+  autocutsel \
   pass xdotool
 fi
 
