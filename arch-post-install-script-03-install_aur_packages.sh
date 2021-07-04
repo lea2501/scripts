@@ -163,6 +163,7 @@ fi
 if [ "$installBasicTools" = "y" ]; then
   # bash-git-prompt
   cloneAurAndCompile dxvk-bin
+  cloneAurAndCompile tsmuxer-git
   cloneAurAndCompile bash-git-prompt
   cloneAurAndCompile vim-gnupg
   cloneAurAndCompile vscodium-bin

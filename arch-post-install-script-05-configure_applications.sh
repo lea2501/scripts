@@ -59,6 +59,12 @@ if [[ " "${options[@]}" " != *" $startNtpService "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
+read -rp "Start SSH server service?: (y|N)" startSshdService
+if [[ " "${options[@]}" " != *" $startSshdService "* ]]; then
+  echo "$startSshdService: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Enable Bash Git Prompt? (Show git branch in command prompt): (Y|n)" enableBashGitPrompt
 if [[ " "${options[@]}" " != *" $enableBashGitPrompt "* ]]; then
   echo "$enableBashGitPrompt: not recognized. Valid options are:"
@@ -134,6 +140,14 @@ if [ "$startNtpService" = "y" ]; then
   echo "Enabling and starting ntp service..."
   sudo systemctl enable ntpdate.service
   sudo systemctl start ntpdate.service
+  echo "Enabling and starting ntp service... DONE"
+fi
+
+# start SSH daemon
+if [ "$startSshdService" = "y" ]; then
+  echo "Enabling and starting ntp service..."
+  sudo systemctl enable sshd.service
+  sudo systemctl start sshd.service
   echo "Enabling and starting ntp service... DONE"
 fi
 
