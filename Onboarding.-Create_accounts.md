@@ -3,7 +3,7 @@
 # Reglas
 ```
 Regla número 1, acá hay que LEER y prestar atención a lo que hacemos en la pc y lo que nos "dice" la pc con cada mensaje en pantalla, hay que leer TODA la pantalla, parece algo obvio, pero me van a escuchar hasta el hartazgo el decirles "NO LEEN".
-Regla número 2, Slack es nuestra herramienta de comunicación con el resto del equipo Flow, es básicamente nuestro puesto de trabajo en la oficina, pero en casa.
+Regla número 2, Slack es nuestra herramienta de comunicación con el resto del equipo Flow, es básicamente nuestro puesto de trabajo en la oficina, pero en casa, por eso hay que leer cada mensaje de los distintos canales para estar al tando de lo que pasa con el resto de los equipos.
 Regla número 3, acá TODOS podemos mejorar lo existente y aprender, la idea de todos los miembros del equipo es hacer del día a día algo que nos guste y no se sienta un trabajo sino algo que nos guste hacer, hay muchísimas cosas para elegir encargarse y eso hay que aprovecharlo, no porque 
 ```
 
