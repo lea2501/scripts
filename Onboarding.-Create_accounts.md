@@ -16,6 +16,7 @@ https://meet.jit.si/tecoFlowQaAutomationRoom2
 ```
 https://app.slack.com/client/TC3EB5KC7/GN0H6M1M3/
 ```
+Solicitar a un miembro del equipo que nos agregue a los distintos canales de slack (tambien nos presentará ante los otros equipos)
 
 ## Instalación de EndeavourOS Linux 
 ```
@@ -68,9 +69,9 @@ Con ésto ya tendríamos todas las herramientas que utilizamos en el equipo para
 ```
 http://10.200.172.71/
 ```
-Pedir a un miembro del equipo que nos agregue al grupo de "automation" dentro de gitlab, para poder acceder a todos los repositorios
+Solicitar a un miembro del equipo que nos agregue al grupo de "automation" dentro de gitlab, para poder acceder a todos los repositorios
 
-### Pedir a otro miembro del equipo que nos cree una cuenta en nuestro Jenkins (requiere conexión a la vpn)
+### Solicitar a otro miembro del equipo que nos cree una cuenta en nuestro Jenkins (requiere conexión a la vpn)
 ```
 http://10.200.172.73:8080/
 ```
