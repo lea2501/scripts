@@ -18,6 +18,12 @@ https://app.slack.com/client/TC3EB5KC7/GN0H6M1M3/
 ```
 Solicitar a un miembro del equipo que nos agregue a los distintos canales de slack (tambien nos presentará ante los otros equipos)
 
+## Acceder a cuenta outlook
+```
+https://outlook.office.com/
+```
+Ingresar con usuario uXXXXXX@cablevision.com.ar y password LAN proporcionada
+
 ## Instalación de EndeavourOS Linux 
 ```
 Creamos un usb booteable de endeavourOS para formatear la pc que viene con Ubuntu Linux (utilizamos todos la misma distribución y es muy facil resolver inconvenientes de esa manera)
