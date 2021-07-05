@@ -1,11 +1,9 @@
 # Primero Bienvenid@!
 
-# Reglas
-```
+## Reglas
 Regla número 1, acá hay que LEER y prestar atención a lo que hacemos en la pc y lo que nos "dice" la pc con cada mensaje en pantalla, hay que leer TODA la pantalla, parece algo obvio, pero me van a escuchar hasta el hartazgo el decirles "NO LEEN".
 Regla número 2, Slack es nuestra herramienta de comunicación con el resto del equipo Flow, es básicamente nuestro puesto de trabajo en la oficina, pero en casa, por eso hay que leer cada mensaje de los distintos canales para estar al tando de lo que pasa con el resto de los equipos.
 Regla número 3, acá TODOS podemos mejorar lo existente y aprender, la idea de todos los miembros del equipo es hacer del día a día algo que nos guste y no se sienta un trabajo sino algo que nos guste hacer, hay muchísimas cosas para elegir encargarse y eso hay que aprovecharlo, no porque 
-```
 
 ## Ingresamos a éste sitio para que te demos la bienvenida al equipo
 ```
@@ -17,37 +15,37 @@ https://meet.jit.si/tecoFlowQaAutomationRoom2
 https://app.slack.com/client/TC3EB5KC7/GN0H6M1M3/
 ```
 
-# Creamos un usb booteable de endeavourOS para formatear la pc que viene con Ubuntu Linux (utilizamos todos la misma distribución y es muy facil resolver inconvenientes de esa manera)
-## Descargar la imagen de ISO del intalador de EndeavourOS (Github direct link or Torrent file)
+## Creamos un usb booteable de endeavourOS para formatear la pc que viene con Ubuntu Linux (utilizamos todos la misma distribución y es muy facil resolver inconvenientes de esa manera)
+### Descargar la imagen de ISO del intalador de EndeavourOS (Github direct link or Torrent file)
 ```
 https://endeavouros.com/latest-release/
 ```
 
-## Guía para crear USB booteable endeavourOS
+### Guía para crear USB booteable endeavourOS
 ```
 https://endeavouros.com/docs/installation/create-install-media-usb-stick/
 ```
 
-# Instalación
-## Guía de instalación (leer antes de realizarla)
+## Instalación
+### Guía de instalación (leer antes de realizarla)
 ```
 https://endeavouros.com/docs/installation/encrypted-installation-for-notebook-laptop/
 ```
 
-## Una vez iniciado con el instalador de endeavourOS en la pc, es posible acceder desde el navegador incluído en la sesión "live" (previo a la instalación del mismo en la pc) a éste sitio para que nos ayuden a hacerlo otro miembro del equipo
+### Una vez iniciado con el instalador de endeavourOS en la pc, es posible acceder desde el navegador incluído en la sesión "live" (previo a la instalación del mismo en la pc) a éste sitio para que nos ayuden a hacerlo otro miembro del equipo
 ```
 https://meet.jit.si/tecoFlowQaAutomationRoom2
 ```
 
-# Post instalación
-## Una vez finalizada la instalación en la pc, y reiniciarla desde el disco duro, abrir una terminal y ejecutar el siguiente comando:
+## Post instalación
+### Una vez finalizada la instalación en la pc, y reiniciarla desde el disco duro, abrir una terminal y ejecutar el siguiente comando:
 (El signo '$' es el prompt y no se agrega, pero lo incluímos en la documentación para dar a entender que se trata de un comando a ejecutar por terminal)
 ```
 $ mkdir -p ~/script && cd ~/script && curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-00-get_scripts.sh" && chmod +x ./*.sh
 ```
 Ésto nos crea un directorio "script" en nuestro directorio personal en la pc, y dentro descarga un script que mantengo, el cual nos descarga varios otros scripts para automatizar y agilizar la configuración del sistema 
 
-## Luego, ejecutar los siguientes comandos en orden:
+### Luego, ejecutar los siguientes comandos en orden:
 (éstos scripts de instalación nos hacen preguntas las cuales ya nos indican con mayúscula la opción por defecto para cada pregunta, es mejor ejecutarlos con ayuda de alguien del equipo por si surge algún inconveniente)
 ```
 $ ./arch-post-install-script-01-set_basic_config.sh
@@ -59,35 +57,35 @@ $ ./arch-post-install-script-05-configure_applications.sh
 Con ésto ya tendríamos todas las herramientas que utilizamos en el equipo para realizar cualquier tarea e incluso los repositorios ya clonados
 
 
-# Creación de otras cuentas
-## Crear cuenta Gitlab (requiere conexión a la vpn) (Omitir, ya realizado en el script 'arch-post-install-script-04-clone_repositories.sh')
+## Creación de otras cuentas
+### Crear cuenta Gitlab (requiere conexión a la vpn) (Omitir, ya realizado en el script 'arch-post-install-script-04-clone_repositories.sh')
 ```
 http://10.200.172.71/
 ```
 Pedir a un miembro del equipo que nos agregue al grupo de "automation" dentro de gitlab, para poder acceder a todos los repositorios
 
-## Pedir a otro miembro del equipo que nos cree una cuenta en nuestro Jenkins (requiere conexión a la vpn)
+### Pedir a otro miembro del equipo que nos cree una cuenta en nuestro Jenkins (requiere conexión a la vpn)
 ```
 http://10.200.172.73:8080/
 ```
 
-## Bitrise
+### Bitrise
 ```
 Crear cuenta en https://app.bitrise.io/
 ```
 
-### Solicitar el usuario sea agregado al grupo de Flow de TECO a los siguientes correos o por Microsoft Teams:
+#### Solicitar el usuario sea agregado al grupo de Flow de TECO a los siguientes correos o por Microsoft Teams:
 ```
 CMLopez@teco.com.ar
 faRodriguez@proveedor.teco.com.ar
 ```
 
 
-# Herramientas que utilizamos con el resto del equipo 
+## Herramientas que utilizamos con el resto del equipo 
 ```
 (algunas como el IDE pueden usar otras, pero al igual que la distribución de linux, si utilizamos todos la misma, es mas fácil arreglar los problemas entre todos)
 ```
-## Código de tests automatizados:
+### Código de tests automatizados:
 ```
 Lenguaje: Java (OpenJDK 11)
 IDE: Intellij-Idea
@@ -97,7 +95,7 @@ Frontends mobile: Appium
 APIs: Rest-Assured
 ```
 
-## Ejecución:
+### Ejecución:
 ```
 Ejecución de las pruebas: Maven, con posibilidad de ejecutar con docker
 Ejecución desde servidor: Jenkins, con Browserstack para mobile cloud devices
@@ -120,7 +118,7 @@ Ejecución desde servidor: Jenkins, con Browserstack para mobile cloud devices
 - No hay apuro alguno para aprender lo que todavía no sepamos, pero si pasa el tiempo y nos sentimos aburridos con las tareas, es que estamos yendo demasiado lento.
 ```
 
-# Arch Linux
+# Un poco sobre Arch Linux
 ```
 Todo linux tiene un "repositorio" de donde el "administrador de paquetes" descarga los "binarios" para instalarlos en el sistema.
 
