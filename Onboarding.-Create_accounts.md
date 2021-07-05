@@ -29,7 +29,7 @@ Ingresar con usuario uXXXXXX@cablevision.com.ar y password LAN proporcionada
 Creamos un usb booteable de endeavourOS para formatear la pc que viene con Ubuntu Linux (utilizamos todos la misma distribución y es muy facil resolver inconvenientes de esa manera)
 ```
 
-### Descargar la imagen de ISO del intalador de EndeavourOS (Github direct link or Torrent file)
+### Descargar la imagen de ISO del instalador de EndeavourOS (Github direct link or Torrent file)
 ```
 https://endeavouros.com/latest-release/
 ```
