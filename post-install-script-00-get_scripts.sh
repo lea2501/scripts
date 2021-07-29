@@ -17,13 +17,17 @@ curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-insta
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-games-packages.sh"
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-removeAskingSudoPassword.sh"
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/aur_update.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/startdwm"
-
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/artix-post-install-script-02-install_pacman_packages.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan-post-install-script-01-set_basic_config.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan-post-install-script-02-install_apt_packages.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan-post-install-script-03-install_external_application.sh"
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-01-set_basic_config.sh"
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-02-install_packages.sh"
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-03-clone_repositories.sh"
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-04-configure_applications.sh"
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-install_android_tools.sh"
+
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/startdwm"
 chmod +x ./*.sh
 cd || return
 echo ""

@@ -29,6 +29,7 @@ if [ "$installEverything" = "y" ]; then
   installExtraTools="y"
   installRacingGames="y"
   installEmulators="y"
+  installWine="y"
   installRetroarch="y"
   installOtherGames="y"
   installJoystickPs5="y"
@@ -51,6 +52,7 @@ elif [ "$installEverything" = "n" ]; then
   read -rp "Install extra tools?: (y|n)" installExtraTools
   read -rp "Install racing games?: (y|n)" installRacingGames
   read -rp "Install console emulators?: (y|n)" installEmulators
+  read -rp "Install windows compatibility layer (wine)?: (y|n)" installWine
   read -rp "Install retroarch emulator?: (y|n)" installRetroarch
   read -rp "Install other games?: (y|n)" installOtherGames
   read -rp "Install ps5 joystick driver?: (y|n)" installJoystickPs5
@@ -109,7 +111,8 @@ if [ "$installRoguelikes" = "y" ]; then
   sudo pacman -Sy --noconfirm stone-soup
   sudo pacman -Sy --noconfirm cataclysm-dda
   sudo pacman -Sy --noconfirm bsd-games
-  cloneAurAndCompile angband-git
+  sudo pacman -Sy --noconfirm angband
+  #cloneAurAndCompile angband-git
   cloneAurAndCompile infra-arcana
   cloneAurAndCompile termcap
   cloneAurAndCompile umoria
@@ -264,7 +267,7 @@ fi
 
 if [ "$installEmulators" = "y" ]; then
   echo "Installing console emulators packages..."
-  #sudo pacman -Sy --noconfirm dosbox
+  sudo pacman -Sy --noconfirm dosbox
   sudo pacman -Sy --noconfirm mgba
   sudo pacman -Sy --noconfirm snes9x
   sudo pacman -Sy --noconfirm mupen64plus
@@ -275,14 +278,18 @@ if [ "$installEmulators" = "y" ]; then
   sudo pacman -Sy --noconfirm ppsspp
   sudo pacman -Sy --noconfirm scummvm scummvm-tools
   sudo pacman -Sy --noconfirm fs-uae fs-uae-launcher
-  sudo pacman -Sy --noconfirm playonlinux
-  cloneAurAndCompile dosbox-staging
   cloneAurAndCompile sameboy
   cloneAurAndCompile nestopia
   cloneAurAndCompile pcsx2-git
-  cloneAurAndCompile rpcs3
+  #cloneAurAndCompile rpcs3
   cloneAurAndCompile yuzu-git
   echo "Installing console emulators packages...DONE"
+fi
+
+if [ "$installWine" = "y" ]; then
+  echo "Installing windows compatibility layer..."
+  sudo pacman -Sy --noconfirm wine wine-gecko wine-mono winetricks zenity vkd3d lutris
+  echo "Installing windows compatibility layer... DONE"
 fi
 
 if [ "$installRetroarch" = "y" ]; then

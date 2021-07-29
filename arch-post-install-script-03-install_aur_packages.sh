@@ -20,13 +20,13 @@ if [[ " "${options[@]}" " != *" $installBasicTools "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install private browsers?: (y|N)" installPrivateBrowsers
-if [[ " "${options[@]}" " != *" $installPrivateBrowsers "* ]]; then
-  echo "$installPrivateBrowsers: not recognized. Valid options are:"
+read -rp "Install privacy browsers?: (y|N)" installPrivacyBrowsers
+if [[ " "${options[@]}" " != *" $installPrivacyBrowsers "* ]]; then
+  echo "$installPrivacyBrowsers: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
   exit 1
 fi
-read -rp "Install testing browsers (Chrome|Firefox|Opera)?: (Y|n)" installTestingBrowsers
+read -rp "Install testing browsers (Chrome|Firefox)?: (Y|n)" installTestingBrowsers
 if [[ " "${options[@]}" " != *" $installTestingBrowsers "* ]]; then
   echo "$installTestingBrowsers: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
@@ -90,9 +90,11 @@ if [ "$installTestingBrowsers" = "y" ]; then
 fi
 
 cloneAurAndCompile() {
+  mkdir -p ~/aur
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
+    cd "$1" || return
   else
     cd "$1" || return
     git pull
@@ -101,6 +103,7 @@ cloneAurAndCompile() {
 }
 
 cloneAurAndCompileSkipChecks() {
+  mkdir -p ~/aur
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
@@ -113,6 +116,7 @@ cloneAurAndCompileSkipChecks() {
 }
 
 cloneAurAndCompileSkipInteg() {
+  mkdir -p ~/aur
   cd ~/aur || return
   if [ ! -d "$1" ]; then
     git clone https://aur.archlinux.org/"$1".git
@@ -125,6 +129,7 @@ cloneAurAndCompileSkipInteg() {
 }
 
 echo "installing AUR packages..."
+mkdir -p ~/aur
 if [ "$installExtraTools" = "y" ]; then
   cd ~/aur || return
   if [ ! -d "st" ] ; then
@@ -162,7 +167,6 @@ fi
 
 if [ "$installBasicTools" = "y" ]; then
   # bash-git-prompt
-  cloneAurAndCompile dxvk-bin
   cloneAurAndCompile tsmuxer-git
   cloneAurAndCompile bash-git-prompt
   cloneAurAndCompile vim-gnupg
@@ -172,8 +176,9 @@ if [ "$installBasicTools" = "y" ]; then
   cp /opt/Citrix/ICAClient/config/{All_Regions,Trusted_Region,Unknown_Region,canonicalization,regions}.ini "$HOME"/.ICAClient/
 fi
 
-if [ "$installPrivateBrowsers" = "y" ]; then
+if [ "$installPrivacyBrowsers" = "y" ]; then
   sudo pacman -Sy --noconfirm firefox
+  cloneAurAndCompile firefox-esr-bin
   #cloneAurAndCompile perl-file-rename
   #cloneAurAndCompile icecat
   #gpg --search-keys 2954CC8585E27A3F
@@ -195,15 +200,15 @@ if [ "$installTestingBrowsers" = "y" ]; then
   fi
 
   # opera
-  sudo pacman -Sy --noconfirm opera
-  sudo pacman -Sy --noconfirm opera-ffmpeg-codecs
-  cd || return
-  mkdir -p ~/bin
-  cd ~/bin || return
-  curl -O -L "$(curl -s https://api.github.com/repos/operasoftware/operachromiumdriver/releases/latest | jq -r ".assets[] | select(.name | test(\"linux64\")) | .browser_download_url")"
-  unzip operadriver_linux64.zip
-  cp operadriver_linux64/operadriver .
-  chmod +x operadriver
+  #sudo pacman -Sy --noconfirm opera
+  #sudo pacman -Sy --noconfirm opera-ffmpeg-codecs
+  #cd || return
+  #mkdir -p ~/bin
+  #cd ~/bin || return
+  #curl -O -L "$(curl -s https://api.github.com/repos/operasoftware/operachromiumdriver/releases/latest | jq -r ".assets[] | select(.name | test(\"linux64\")) | .browser_download_url")"
+  #unzip operadriver_linux64.zip
+  #cp operadriver_linux64/operadriver .
+  #chmod +x operadriver
 fi
 
 # postman
@@ -225,7 +230,9 @@ fi
 # SchemaGuru
 if [ "$installSchemaGuru" = "y" ]; then
   cd ~/bin || return
-  curl -OL "$(curl -s https://api.github.com/repos/snowplow/schema-guru/releases/latest | grep "tag_name" | awk '{print "https://github.com/snowplow/schema-guru/archive/" substr($2, 2, length($2)-3) ".zip"}')"
+  #curl -OL "$(curl -s https://api.github.com/repos/snowplow/schema-guru/releases/latest | grep "tag_name" | awk '{print "https://github.com/snowplow/schema-guru/archive/" substr($2, 2, length($2)-3) ".zip"}')"
+  curl -O -L "$(curl -s https://api.github.com/repos/snowplow/schema-guru/releases/latest | jq -r ".assets[0].browser_download_url")"
+  unzip schema_guru_0.6.2.zip
 fi
 
 # android
