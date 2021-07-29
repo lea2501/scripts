@@ -34,6 +34,12 @@ if [[ " "${options[@]}" " != *" $configurePacmanSettings "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
+read -rp "Disable login manager?: (Y|n)" disableLoginManager
+if [[ " "${options[@]}" " != *" $disableLoginManager "* ]]; then
+  echo "$disableLoginManager: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 
 # Setup system
 if [ "$createXinitFile" = "y" ]; then
@@ -101,4 +107,21 @@ if [ "$configurePacmanSettings" = "y" ]; then
   sudo cat /etc/pacman.conf | sudo sed -e "s/#ParallelDownloads/ParallelDownloads/" | sudo tee /etc/pacman.conf.edited
   sudo mv /etc/pacman.conf.edited /etc/pacman.conf
   echo "Configuring standard pacman settings... DONE"
+fi
+
+# Disable login manager
+if [ "$disableLoginManager" = "y" ]; then
+  echo "Disabling login manager..."
+  read -rp "Enter used init sistem name (systemd|openrc|runit)" init_system
+  read -rp "Enter used login manager name (lightdm|sddm|slim|xdm)" login_manager
+  if [ "$init_system" = "systemd" ]; then
+    sudo systemctl disable $login_manager
+  fi
+  if [ "$init_system" = "openrc" ]; then
+    sudo rc-update del $login_manager
+  fi
+  if [ "$init_system" = "runit" ]; then
+    sudo rm /var/service/$login_manager
+  fi
+  echo "Disabling login manager... DONE"
 fi

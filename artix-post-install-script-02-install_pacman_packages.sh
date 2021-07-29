@@ -68,6 +68,31 @@ echo "Updating system repositories and packages..."
 sudo pacman -Syu --noconfirm
 echo "Updating system repositories and packages... DONE"
 
+# Add arch linux support
+echo "Adding Arch Linux packages support..."
+sudo pacman -Syu artix-archlinux-support
+  {
+    echo "#[testing]"
+    echo "#Include = /etc/pacman.d/mirrorlist"
+    echo ""
+    echo "[extra]"
+    echo "Include = /etc/pacman.d/mirrorlist"
+    echo ""
+    echo "#[community-testing]"
+    echo "#Include = /etc/pacman.d/mirrorlist"
+    echo ""
+    echo "[community]"
+    echo "Include = /etc/pacman.d/mirrorlist"
+    echo ""
+    echo "#[multilib-testing]"
+    echo "#Include = /etc/pacman.d/mirrorlist"
+    echo ""
+    echo "[multilib]"
+    echo "Include = /etc/pacman.d/mirrorlist"
+  } | sudo tee -a /etc/pacman.conf
+sudo pacman-key --populate archlinux
+echo "Adding Arch Linux packages support... DONE"
+
 # Arch Repository
 echo "installing packages..."
 # system
@@ -100,7 +125,8 @@ if [ "$installSystemTools" = "y" ]; then
   alsa-plugins alsa-utils \
   pulseaudio pavucontrol pulseaudio-alsa \
   autocutsel \
-  pass xdotool
+  pass xdotool \
+  tree
 fi
 
 # devel
@@ -122,8 +148,7 @@ if [ "$installDevelTools" = "y" ]; then
   kotlin \
   docker \
   mariadb mariadb-clients \
-  geany geany-plugins \
-  android-tools
+  geany geany-plugins
 fi
 
 # multimedia
@@ -152,7 +177,6 @@ if [ "$installExtraTools" = "y" ]; then
   elinks \
   rtorrent \
   amule \
-  transmission-gtk \
   aria2 \
   youtube-dl \
   dmenu \
@@ -164,7 +188,6 @@ if [ "$installExtraTools" = "y" ]; then
   syncthing \
   hdparm lshw \
   mcomix \
-  qpdf \
   zathura zathura-pdf-mupdf \
   mupdf mupdf-tools
 fi
