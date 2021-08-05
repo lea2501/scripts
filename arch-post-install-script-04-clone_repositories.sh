@@ -86,6 +86,8 @@ if [ "$createUserAliases" = "y" ]; then
     echo "alias getBattPercent=\"upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'percentage' | awk '{print \$2}'\"":
     echo "alias getVulnerabilities='grep -RHe \"^\" /sys/devices/system/cpu/vulnerabilities'"
     echo "alias getAudioMaster=\"amixer sget Master | grep 'Right:' | awk -F'[][]' '{print \$2}'\""
+    echo "alias dim=\"echo \$(tput cols)x\$(tput lines)\""
+    echo "alias systemstats='echo \"== Disks ==\" && df -h && echo \"== Memory ==\" && free -h && echo \"== CPU ==\" && cat /proc/cpuinfo | grep \"cpu MHz\" && echo \"== TEMP ==\" && sensors | grep \"°C\"'"
   } >>~/.bash_aliases
 
   #echo "${juniperPassword}" > ~/.ocvpn_secret
