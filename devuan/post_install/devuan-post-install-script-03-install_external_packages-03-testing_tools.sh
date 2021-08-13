@@ -31,13 +31,13 @@ echo "[Desktop Entry]<br>Encoding=UTF-8<br>Name=Postman<br>Exec=/opt/Postman/app
 # jmeter
 export JMETER_VERSION="5.4.1"
 export JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
-export JMETER_BIN	${JMETER_HOME}/bin
+export JMETER_BIN	"${JMETER_HOME}"/bin
 export JMETER_DOWNLOAD_URL https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
 apt-get update && \
 apt-get install -qq -y curl unzip && \
 mkdir -p /tmp/dependencies && \
-curl -L --silent ${JMETER_DOWNLOAD_URL} > /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz && \
+curl -L --silent "${JMETER_DOWNLOAD_URL}" > /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz && \
 mkdir -p /opt && \
 tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt && \
 rm -rf /tmp/dependencies
