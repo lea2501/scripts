@@ -19,7 +19,8 @@ cloneRepo() {
 
 download() {
   mkdir -p ~/bin
-  curl -L "$2" -O "$1"
+  cd ~/bin || return
+  curl -OL "$2" -o "$1"
 }
 
 # postman
@@ -34,8 +35,8 @@ export JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 export JMETER_BIN	"${JMETER_HOME}"/bin
 export JMETER_DOWNLOAD_URL https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
-apt-get update && \
-apt-get install -qq -y curl unzip && \
+sudo apt-get update && \
+sudo apt-get install -qq -y curl unzip && \
 mkdir -p /tmp/dependencies && \
 curl -L --silent "${JMETER_DOWNLOAD_URL}" > /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz && \
 mkdir -p /opt && \
@@ -49,7 +50,7 @@ rm -rf /tmp/dependencies
 source ~/.bashrc
 
 # Allure
-apt install -y allure
+sudo apt install -y allure
 
 # SchemaGuru
 cd ~/bin || return
