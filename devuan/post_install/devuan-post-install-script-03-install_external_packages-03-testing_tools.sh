@@ -23,10 +23,10 @@ download() {
 }
 
 # postman
-download postman-linux-x64.tar.gz https://dl.pstmn.io/download/latest/linux64
+download "postman-linux-x64.tar.gz" "https://dl.pstmn.io/download/latest/linux64"
 sudo tar -xzf postman-linux-x64.tar.gz -C /opt
 sudo ln -s /opt/Postman/Postman /usr/bin/postman
-#echo "[Desktop Entry]<br>Encoding=UTF-8<br>Name=Postman<br>Exec=/opt/Postman/app/Postman %U<br>Icon=/opt/Postman/app/resources/app/assets/icon.png<br>Terminal=false<br>Type=Application<br>Categories=Development;" > ~/.local/share/applications/Postman.desktop
+echo "[Desktop Entry]<br>Encoding=UTF-8<br>Name=Postman<br>Exec=/opt/Postman/app/Postman %U<br>Icon=/opt/Postman/app/resources/app/assets/icon.png<br>Terminal=false<br>Type=Application<br>Categories=Development;" > ~/.local/share/applications/Postman.desktop
 
 # jmeter
 export JMETER_VERSION="5.4.1"
