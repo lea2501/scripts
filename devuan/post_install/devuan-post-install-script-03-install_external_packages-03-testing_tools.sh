@@ -20,7 +20,7 @@ cloneRepo() {
 download() {
   mkdir -p ~/bin
   cd ~/bin || return
-  curl -OL "$2" -o "$1"
+  curl -o "$1" -L "$2"
 }
 
 # postman
