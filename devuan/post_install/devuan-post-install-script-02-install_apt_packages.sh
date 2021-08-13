@@ -39,6 +39,10 @@ sudo apt install -y \
   pass xdotool \
   tree
 
+# pulseaudio
+sudo apt install -y \
+  pulseaudio pavucontrol pulseaudio-alsa
+
 # devel
 sudo apt install -y \
   cmake \
@@ -63,8 +67,7 @@ sudo apt install -y \
   ffmpeg \
   sox \
   shntool \
-  lsdvd \
-  vlc
+  lsdvd
 
 # extra tools
 sudo apt install -y \
@@ -72,7 +75,6 @@ sudo apt install -y \
   lynx \
   w3m \
   newsboat \
-  elinks \
   rtorrent \
   amule \
   youtube-dl \
@@ -80,7 +82,6 @@ sudo apt install -y \
   detox \
   scrot \
   mc \
-  syncthing \
   hdparm lshw \
   mcomix \
   qpdf \
@@ -117,7 +118,6 @@ sudo apt install -y \
   rsync \
   clamav \
   gparted \
-  freerdp2-x11 \
   rdesktop \
   libreoffice libreoffice-es \
   keepassxc \
