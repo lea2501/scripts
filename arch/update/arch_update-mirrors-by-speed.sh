@@ -7,7 +7,13 @@ set -e
 
 ############ Script
 echo "Creating backup of existing mirrorlist..."
-sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+FILE=/etc/pacman.d/mirrorlist.backup
+if [ -f "$FILE" ]; then
+    echo "Mirrorlist $FILE backup file exists."
+else
+    echo "Mirrorlist $FILE backup file does not exists. Creating backup"
+    sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+fi
 echo "Creating backup of existing mirrorlist... DONE"
 
 echo "Getting worldwide mirrorlist and sorting them by speed..."

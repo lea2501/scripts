@@ -14,6 +14,12 @@ if [[ " "${options[@]}" " != *" $installSystemTools "* ]]; then
   echo "${options[@]/%/,}"
   exit 1
 fi
+read -rp "Install pulseaudio?: (Y|n)" installPulseaudio
+if [[ " "${options[@]}" " != *" $installPulseaudio "* ]]; then
+  echo "$installPulseaudio: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  exit 1
+fi
 read -rp "Install development tools?: (Y|n)" installDevelTools
 if [[ " "${options[@]}" " != *" $installDevelTools "* ]]; then
   echo "$installDevelTools: not recognized. Valid options are:"
@@ -66,7 +72,7 @@ fi
 # pacman packages
 echo "Updating system repositories and packages..."
 sudo pacman -Syu --noconfirm
-echo "Updating system repositories and packages... DONE"
+echo "Adding Arch Linux packages support... DONE"
 
 # Add arch linux support
 echo "Adding Arch Linux packages support..."
@@ -91,7 +97,7 @@ sudo pacman -Syu artix-archlinux-support
     echo "Include = /etc/pacman.d/mirrorlist"
   } | sudo tee -a /etc/pacman.conf
 sudo pacman-key --populate archlinux
-echo "Adding Arch Linux packages support... DONE"
+echo "Updating system repositories and packages... DONE"
 
 # Arch Repository
 echo "installing packages..."
@@ -123,10 +129,13 @@ if [ "$installSystemTools" = "y" ]; then
   lm_sensors \
   ntp \
   alsa-plugins alsa-utils \
-  pulseaudio pavucontrol pulseaudio-alsa \
   autocutsel \
-  pass xdotool \
-  tree
+  pass xdotool
+fi
+
+if [ "$installPulseaudio" = "y" ]; then
+  sudo pacman -Sy --noconfirm \
+  pulseaudio pavucontrol pulseaudio-alsa
 fi
 
 # devel
