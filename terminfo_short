@@ -3,5 +3,4 @@
 RAM=$(top -b -n 1 | grep "MiB Mem" | awk {'print $6'})
 DISK=$(df -h | grep "/dev/mapper/root" | awk {'print $4'})
 DATE=$(date '+%Y-%m-%d %H:%M')
-AMIXER=$(amixer sget Master | grep "Front Left:" | awk {'print $5'} | tr -d "[" | tr -d "]")
-echo -en "$DISK $RAM $AMIXER | $DATE"
+echo -en "$DISK $RAM | $DATE"
