@@ -20,9 +20,9 @@ cloneRepo() {
 #cloneRepo st https://git.suckless.org/st
 #cp config.def.h config.def.h.bak
 #curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/st/config.def.h"
-#sudo apt install -y libxft-dev
+#sudo apt-get -y install libxft-dev
 #sudo make clean install
-sudo apt install -y stterm
+sudo apt-get -y install stterm
 
 #cloneRepo dwm https://git.suckless.org/dwm
 #cp config.def.h config.def.h.bak
@@ -39,6 +39,6 @@ sudo apt install -y stterm
 #cloneRepo cwm https://github.com/zenlinux/cwm.git
 #make
 #sudo make PREFIX=/usr install
-sudo apt install -y cwm
+sudo apt-get -y install cwm
 cd || return
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc"

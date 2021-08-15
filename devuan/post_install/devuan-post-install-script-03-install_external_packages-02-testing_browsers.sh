@@ -6,5 +6,5 @@ set -e
 #set -x
 
 # firefox
-sudo apt install -y chromium chromium-driver
-sudo apt install -y firefox-esr
+sudo apt-get -y install chromium chromium-driver
+sudo apt-get -y install firefox-esr
