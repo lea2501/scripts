@@ -6,6 +6,6 @@ set -e
 #set -x
 
 # browsers
-sudo apt install -y chromium
-sudo apt install -y firefox-esr
-sudo apt install -y surf
+sudo apt-get -y install chromium
+sudo apt-get -y install firefox-esr
+sudo apt-get -y install surf

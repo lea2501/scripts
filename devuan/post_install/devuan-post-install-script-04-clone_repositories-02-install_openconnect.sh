@@ -6,6 +6,6 @@ set -e
 #set -x
 
 echo "installing packages..."
-sudo apt install -y openconnect
-sudo apt install -y network-manager-openconnect
+sudo apt-get -y install openconnect
+sudo apt-get -y install network-manager-openconnect
 echo "installing packages... DONE"

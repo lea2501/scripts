@@ -7,11 +7,11 @@ set -e
 
 # android
 echo "Installing Android packages..."
-sudo apt install -y adb
-sudo apt install -y android-sdk
-sudo apt install -y android-sdk-platform-tools
-sudo apt install -y android-sdk-build-tools
-#sudo apt install -y scrcpy #available in testing and sid for now
+sudo apt-get -y install adb
+sudo apt-get -y install android-sdk
+sudo apt-get -y install android-sdk-platform-tools
+sudo apt-get -y install android-sdk-build-tools
+#sudo apt-get -y install scrcpy #available in testing and sid for now
 
 #{
 #  echo "export ANDROID_HOME=/opt/android-sdk/"

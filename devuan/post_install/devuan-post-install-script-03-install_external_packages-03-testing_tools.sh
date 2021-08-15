@@ -50,7 +50,7 @@ rm -rf /tmp/dependencies
 source ~/.bashrc
 
 # Allure
-sudo apt install -y allure
+sudo apt-get -y install allure
 
 # SchemaGuru
 cd ~/bin || return

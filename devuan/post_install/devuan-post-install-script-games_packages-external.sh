@@ -106,7 +106,7 @@ echo "Installing prboom-plus... DONE"
 
 # build games
 echo "Installing build games..."
-sudo apt install -y build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats
+sudo apt-get -y install build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats
 
 cloneSrc eduke32 https://voidpoint.io/terminx/eduke32.git
 cd eduke32 || return

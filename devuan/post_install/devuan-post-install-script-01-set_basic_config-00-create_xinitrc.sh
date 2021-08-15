@@ -7,7 +7,7 @@ set -e
 
 echo "Installing xorg packages..."
 echo ""
-sudo apt install -y xorg
+sudo apt-get -y install xorg
 echo "Installing xorg packages... DONE"
 
 echo "Creating ~/.xinitrc file..."

@@ -7,8 +7,8 @@ set -e
 
 # appium
 echo "installing appium..."
-sudo apt install -y npm cmake
-sudo apt install -y node-opencv
+sudo apt-get -y install npm cmake
+sudo apt-get -y install node-opencv
 sudo npm install -g appium --unsafe-perm=true --allow-root
 sudo npm install -g appium-doctor
 #sudo npm install -g opencv4nodejs --unsafe-perm=true --allow-root

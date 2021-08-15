@@ -91,6 +91,6 @@ echo \
 micropolis
 lincity' >>packages_games.txt
 
-sudo apt install -y $(cat packages_games.txt)
+sudo apt-get -y install $(cat packages_games.txt)
 
 echo "Installing games... DONE"

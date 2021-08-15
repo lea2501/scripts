@@ -132,7 +132,7 @@ galculator' >>packages.txt
 echo \
   'qemu qemu-kvm qemu-system-x86 qemu-utils' >>packages.txt
 
-sudo apt install -y $(cat packages.txt)
+sudo apt-get -y install $(cat packages.txt)
 #rm packages.txt
 
 echo "installing packages... DONE"
