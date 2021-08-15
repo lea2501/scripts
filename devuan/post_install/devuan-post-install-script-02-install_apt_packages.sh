@@ -13,120 +13,126 @@ echo "Updating system repositories and packages... DONE"
 
 # Arch Repository
 echo "installing packages..."
+
+cd || return
+
 # system
-sudo apt install -y \
-  build-essential \
-  tmux \
-  vim \
-  nano \
-  udisks2 \
-  suckless-tools \
-  brightnessctl-udev \
-  dos2unix \
-  exfat-utils \
-  xclip autocutsel \
-  xosd-bin \
-  ttf-bitstream-vera ttf-dejavu fonts-inconsolata fonts-liberation \
-  usbutils \
-  udftools \
-  bash-completion \
-  htop \
-  findutils \
-  acpi cpufreqd \
-  lm-sensors \
-  ntp \
-  alsa-tools alsa-utils \
-  pass xdotool \
-  tree
+echo \
+  'build-essential
+tmux
+vim
+nano
+udisks2
+suckless-tools
+brightnessctl-udev
+dos2unix
+exfat-utils
+xclip autocutsel
+xosd-bin
+ttf-bitstream-vera ttf-dejavu fonts-inconsolata fonts-liberation
+usbutils
+udftools
+bash-completion
+htop
+findutils
+acpi cpufreqd
+lm-sensors
+ntp
+alsa-tools alsa-utils
+pass xdotool
+tree' >packages.txt
 
 # pulseaudio
-sudo apt install -y \
-  pulseaudio pavucontrol pulseaudio-alsa
+echo \
+  'pulseaudio pavucontrol pulseaudio-alsa' >>packages.txt
 
 # devel
-sudo apt install -y \
-  cmake \
-  openjdk-11-jdk \
-  openjdk-11-jre \
-  maven \
-  gradle \
-  npm \
-  jq \
-  git \
-  subversion \
-  groovy \
-  docker.io \
-  mariadb-server mariadb-client \
-  geany geany-plugins \
-  adb android-sdk android-sdk-build-tools android-sdk-platform-tools fastboot
+echo \
+  'cmake
+openjdk-11-jdk
+openjdk-11-jre
+maven
+gradle
+npm
+jq
+git
+subversion
+groovy
+docker.io
+mariadb-server mariadb-client
+geany geany-plugins
+adb android-sdk android-sdk-build-tools android-sdk-platform-tools fastboot' >>packages.txt
 
 # multimedia
-sudo apt install -y \
-  flac faac opus-tools vorbis-tools wavpack \
-  mpv \
-  ffmpeg \
-  sox \
-  shntool \
-  lsdvd
+echo \
+  'flac faac opus-tools vorbis-tools wavpack
+mpv
+ffmpeg
+sox
+shntool
+lsdvd' >>packages.txt
 
 # extra tools
-sudo apt install -y \
-  moc \
-  lynx \
-  w3m \
-  newsboat \
-  rtorrent \
-  amule \
-  youtube-dl \
-  pcmanfm \
-  detox \
-  scrot \
-  mc \
-  hdparm lshw \
-  mcomix \
-  qpdf \
-  zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb \
-  mupdf mupdf-tools
+echo \
+  'moc
+lynx
+w3m
+newsboat
+rtorrent
+amule
+youtube-dl
+pcmanfm
+detox
+scrot
+mc
+hdparm lshw
+mcomix
+qpdf
+zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb
+mupdf mupdf-tools' >>packages.txt
 
 # forensic tools
-sudo apt install -y \
-  foremost \
-  testdisk \
-  sleuthkit \
-  scalpel \
-  guymager
+echo \
+  'foremost
+testdisk
+sleuthkit
+scalpel
+guymager' >>packages.txt
 
 # images
-sudo apt install -y \
-  feh \
-  geeqie \
-  gimp \
-  imagemagick
+echo \
+  'feh
+geeqie
+gimp
+imagemagick' >>packages.txt
 
 # net
-sudo apt install -y \
-  curl \
-  axel \
-  tigervnc-viewer \
-  openconnect \
-  network-manager network-manager-openconnect \
-  samba
+echo \
+  'curl
+axel
+tigervnc-viewer
+openconnect
+network-manager network-manager-openconnect
+samba' >>packages.txt
 
 # tools
-sudo apt install -y \
-  ntfs-3g \
-  rsync \
-  clamav \
-  gparted \
-  rdesktop \
-  libreoffice libreoffice-es \
-  keepassxc \
-  cabextract arj unrar-free p7zip-full unace unzip zip tar \
-  xarchiver \
-  galculator
+echo \
+  'ntfs-3g
+rsync
+clamav
+gparted
+rdesktop
+libreoffice libreoffice-es
+keepassxc
+cabextract arj unrar-free p7zip-full unace unzip zip tar
+xarchiver
+galculator' >>packages.txt
 
 # emulators
-sudo apt install -y \
-  qemu qemu-kvm qemu-system-x86 qemu-utils
+echo \
+  'qemu qemu-kvm qemu-system-x86 qemu-utils' >>packages.txt
+
+sudo apt install -y $(cat packages.txt)
+#rm packages.txt
 
 echo "installing packages... DONE"

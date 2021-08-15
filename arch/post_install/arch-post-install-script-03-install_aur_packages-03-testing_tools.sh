@@ -5,32 +5,14 @@ set -e
 # debug log
 #set -x
 
-cloneRepo() {
-  mkdir -p ~/aur
-  cd ~/aur || return
-  if [ ! -d "$1" ]; then
-    git clone https://aur.archlinux.org/"$1".git
-    cd "$1" || return
-  else
-    cd "$1" || return
-    git pull
-  fi
-}
+# testing tools
+echo \
+  'postman-bin
+jmeter
+jmeter-plugins-manager
+allure-commandline' >>packages.txt
 
-cloneAurAndCompile() {
-  cloneRepo "$1"
-  makepkg -sic --noconfirm
-}
-
-# postman
-cloneAurAndCompile postman-bin
-
-# jmeter
-cloneAurAndCompile jmeter
-cloneAurAndCompile jmeter-plugins-manager
-
-# Allure
-cloneAurAndCompile allure-commandline
+paru -S $(cat packages.txt)
 
 # SchemaGuru
 cd ~/bin || return

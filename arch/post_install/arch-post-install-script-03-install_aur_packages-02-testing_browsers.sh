@@ -5,30 +5,13 @@ set -e
 # debug log
 #set -x
 
-cloneRepo() {
-  mkdir -p ~/aur
-  cd ~/aur || return
-  if [ ! -d "$1" ]; then
-    git clone https://aur.archlinux.org/"$1".git
-    cd "$1" || return
-  else
-    cd "$1" || return
-    git pull
-  fi
-}
+# browsers
+echo \
+  'firefox geckodriver
+google-chrome
+chromedriver' >>packages.txt
 
-cloneAurAndCompile() {
-  cloneRepo "$1"
-  makepkg -sic --noconfirm
-}
-
-# firefox
-sudo pacman -Sy --noconfirm firefox geckodriver
-
-# google-chrome
-cloneAurAndCompile google-chrome
-cloneAurAndCompile gconf
-cloneAurAndCompile chromedriver
+paru -S $(cat packages.txt)
 
 # opera
 #sudo pacman -Sy --noconfirm opera
