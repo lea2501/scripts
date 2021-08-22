@@ -127,8 +127,8 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "Configuring standard pacman settings... DONE"
 fi
 
-# Section: Install pacman packages
-read -rp "Install common pacman packages?: (Y|n)" option
+# Section: Install common packages
+read -rp "Install common packages?: (Y|n)" option
 while [[ " "${options[@]}" " != *" $option "* ]]; do
   echo "$option: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
@@ -139,7 +139,6 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   sudo pacman -Syu --noconfirm
   echo "Updating system repositories and packages... DONE"
 
-  # Arch Repository
   echo "installing packages..."
   cd || return
   # system
@@ -325,6 +324,32 @@ guymager' >packages.txt
 
   paru -S $(cat packages.txt)
   echo "Installing AUR packages 'tools'... DONE"
+fi
+
+# Section: Install AUR packages 'testing tools'
+read -rp "Install AUR packages 'testing tools'?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  echo "$option: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  echo "Installing AUR packages 'testing tools'..."
+  # tools
+  echo \
+    'postman-bin
+jmeter
+jmeter-plugins-manager
+allure-commandline' >packages.txt
+
+  paru -S $(cat packages.txt)
+
+  # schema guru
+  mkdir -p ~/bin && cd ~/bin || return
+  #curl -OL "$(curl -s https://api.github.com/repos/snowplow/schema-guru/releases/latest | grep "tag_name" | awk '{print "https://github.com/snowplow/schema-guru/archive/" substr($2, 2, length($2)-3) ".zip"}')"
+  curl -O -L "$(curl -s https://api.github.com/repos/snowplow/schema-guru/releases/latest | jq -r ".assets[0].browser_download_url")"
+  unzip schema_guru_0.6.2.zip
+  echo "Installing AUR packages 'testing tools'... DONE"
 fi
 
 # Section: Install AUR packages 'testing browsers'
