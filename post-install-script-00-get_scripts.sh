@@ -8,24 +8,17 @@ set -e
 ############ Script
 
 echo "Getting scripts from github..."
-mkdir -p ~/script && cd ~/script || return
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-01-set_basic_config.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-02-install_pacman_packages.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-03-install_aur_packages.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-04-clone_repositories.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-05-configure_applications.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-games-packages.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch-post-install-script-removeAskingSudoPassword.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/aur_update.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/artix-post-install-script-02-install_pacman_packages.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan-post-install-script-01-set_basic_config.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan-post-install-script-02-install_apt_packages.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan-post-install-script-03-install_external_application.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-01-set_basic_config.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-02-install_packages.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-03-clone_repositories.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-04-configure_applications.sh"
-curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos-install-script-install_android_tools.sh"
+mkdir -p /tmp/scripts && cd /tmp/scripts || return
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch/post_install/arch-post_install_script.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch/games/arch-post_install_script-games.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch/update/arch_update-mirrors-by-speed.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/arch/update/aur_update.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan/post_install/devuan-post_install_script.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/devuan/games/devuan-post_install_script-games.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/macos/post_install/macos-post_install_script.sh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/openbsd/post_install/openbsd-post_install_script-00-ROOT-remove_doas_password.ksh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/openbsd/post_install/openbsd-post_install_script.ksh"
+curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/openbsd/games/openbsd-post_install_script-games.ksh"
 
 curl -OL "https://raw.githubusercontent.com/lea2501/scripts/main/startdwm"
 chmod +x ./*.sh

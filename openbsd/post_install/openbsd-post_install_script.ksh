@@ -1,0 +1,398 @@
+#!/bin/ksh
+
+# fail if any commands fails
+set -e
+# debug log
+#set -x
+
+username=$USER
+
+cloneRepo() {
+  mkdir -p "$HOME"/src
+  cd "$HOME"/src || return
+  if [[ ! -e "$1" ]];then
+    git clone https://aur.archlinux.org/"$1".git
+    cd "$1" || return
+  else
+    cd "$1" || return
+    git pull
+  fi
+}
+
+options=(Y y N n)
+
+# Section: Create xinitrc
+read -rp "Create $HOME/.xsession file in user home directory?: (y|N)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  #TODO
+  {
+    print "export ENV=\$HOME/.kshrc"
+    print "xsetroot -solid grey &"
+    print "xterm -bg black -fg white +sb &"
+    print "cwm"
+  } >>$HOME/.xsession
+  print "Create $HOME/.xinitrc file... DONE"
+fi
+
+# Section: Get personal dotfiles
+read -rp "Get personal dotfiles backups from Github?: (y|N)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas pkg_add curl
+  cd || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xinitrc"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xresources"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xdefaults"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.tmux.conf"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.vimrc"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xbindkeysrc"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.picom.conf"
+  mkdir -p "$HOME"/.prboom-plus/ && cd "$HOME"/.prboom-plus/ || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.prboom-plus/prboom-plus.cfg"
+  cd || return
+  mkdir -p "$HOME"/.config/gzdoom/ && cd "$HOME"/.config/gzdoom/ || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom.ini"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom_chex.ini"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/gzdoom/gzdoom_chex_mouseonly.ini"
+  cd || return
+  mkdir -p "$HOME"/.config/i3/ && cd "$HOME"/.config/i3/ || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/i3/config"
+  cd || return
+  mkdir -p "$HOME"/.config/i3status/ && cd "$HOME"/.config/i3status/ || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/i3status/config"
+  cd || return
+  mkdir -p "$HOME"/.config/mc/ && cd "$HOME"/.config/mc/ || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mc/hotlist"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mc/ini"
+  cd || return
+  mkdir -p "$HOME"/.config/mpv/ && cd "$HOME"/.config/mpv/ || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/input.conf"
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/mpv.conf"
+  cd || return
+  mkdir -p "$HOME"/.config/geany/colorschemes/ && cd "$HOME"/.config/geany/colorschemes/ || return
+  curl -OL "https://raw.github.com/geany/geany-themes/master/colorschemes/bespin.conf"
+  cd || return
+  curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc"
+  cd || return
+  print "Get backup dotfiles from github... DONE"
+fi
+
+# Section: Install common packages
+read -rp "Install common packages?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas pkg_add -u
+  print "Update system repositories and packages... DONE"
+  cd || return
+  # system
+  echo \
+    'vim
+dos2unix
+exfat-fuse
+xclip autocutsel
+xosd
+inconsolata-font hack-fonts dina-fonts liberation-fonts terminus-font
+usbutils
+htop
+findutils
+tree' >"$HOME"/packages.txt
+  # minimal-tools
+  echo \
+    'st
+' >"$HOME"/packages.txt
+  # devel
+  echo \
+    'cmake
+jdk
+maven
+gradle
+jq
+git
+mariadb-server mariadb-client
+geany' >>"$HOME"/packages.txt
+  # multimedia
+  echo \
+    'flac opus-tools vorbis-tools wavpack
+mpv
+ffmpeg ffmpeg-normalize
+sox
+shntool
+lsdvd' >>"$HOME"/packages.txt
+  # extra tools
+  echo \
+    'moc
+lynx
+w3m
+newsboat
+rtorrent
+amule
+youtube-dl
+pcmanfm
+detox
+scrot
+mc
+comix
+qpdf
+zathura zathura-pdf-poppler zathura-pdf-mupdf zathura-djvu zathura-ps zathura-cb
+mupdf
+rarcrack
+fcrackzip
+pdfcrack
+ddrescue
+fdupes' >>"$HOME"/packages.txt
+  # forensic tools
+  echo \
+    'foremost
+testdisk
+sleuthkit' >>"$HOME"/packages.txt
+  # images
+  echo \
+    'feh
+geeqie
+gimp
+ImageMagick' >>"$HOME"/packages.txt
+  # net
+  echo \
+    'curl
+axel
+tigervnc
+openconnect
+samba' >>"$HOME"/packages.txt
+  # tools
+  echo \
+    'ntfs_3g
+rsync
+clamav
+rdesktop
+libreoffice
+keepassxc
+cabextract unrar p7zip unzip tar
+galculator' >>"$HOME"/packages.txt
+  # emulators
+  echo \
+    'qemu' >>"$HOME"/packages.txt
+
+  sudo apt-get -y install $(cat "$HOME"/packages.txt)
+  #rm packages.txt
+  
+  print "install packages... DONE"
+fi
+
+# Section: Install external packages 'other browsers'
+read -rp "Install external packages 'other browsers'?: (y|N)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas pkg_add chromium
+  doas pkg_add firefox-esr
+  doas pkg_add surf
+  print "Install packages 'other browsers'... DONE"
+fi
+
+# Section: Install external packages 'development'
+read -rp "Install external packages 'development'?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas pkg_add intellij
+  print "Install packages 'development'... DONE"
+fi
+
+# Section: Disable xconsole in xenodm
+read -rp "Disable xconsole in xenodm?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas sed -i 's/xconsole/#xconsole/' /etc/X11/xenodm/Xsetup_0
+  print "Disable xconsole in xenodm... DONE"
+fi
+
+# Section: Generate ssh keys
+read -rp "Generate ssh keys?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  print "Generating ssh keys..."
+  print "In a web browser, create or access your personal Github account (Optional):"
+  print "  1) In a new tab, open https://github.com in a web browser."
+  print "  2) Access with your personal Github credentials or create a new one."
+  print "  3) Access to https://github.com/settings/keys and leave it open"
+  print ""
+  echo -e "\033[33;5m Don't close Github page when finished... \033[0m"
+  print ""
+  read -rp "Press enter when finish to create ssh keys..."
+
+  cat /dev/zero | ssh-keygen -q -N ""
+  print "Generate ssh key in $HOME/.ssh/id_rsa.pub file... DONE"
+
+  xclip -sel PRIMARY <"$HOME"/.ssh/id_rsa.pub
+  print "Copying content of '$HOME/.ssh/id_rsa.pub' file to the clipboard... DONE"
+  print ""
+  echo -e "\033[33;5m If you copy other thing to the clipboard, here is your ssh public key, ready to copy again... \033[0m"
+  print ""
+  cat "$HOME"/.ssh/id_rsa.pub
+  print ""
+
+  print "Add SSH keys to Github account (Optional):"
+  print "  1) Access ssh-keys settings in https://github.com/settings/keys"
+  print "  2) Paste the key copied from $HOME/.ssh/id_rsa.pub and press 'Add key' button."
+  print ""
+  read -rp "Press enter when finish to continue..."
+  print "Generate ssh keys... DONE"
+fi
+
+# Section: Set keyboard layout
+read -rp "Set keyboard layout?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  cd || return
+  print "setxkbmap -layout latam -variant deadtilde" >>"$HOME"/.profile
+  print "Set keyboard layout... DONE"
+fi
+
+# Section: Configure Git
+read -rp "Configure Git?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  read -rp "Enter Git user email: " gitUserEmail
+  git config --global user.email "$gitUserEmail"
+  read -rp "Enter Git user name: " gitUserName
+  git config --global user.name "$gitUserName"
+  git config --global pull.rebase false
+  print "Configure Git... DONE"
+fi
+
+# Section: Clone personal repos
+read -rp "Clone personal repos?: (y|N)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  mkdir -p "$HOME"/src
+  print "Create $HOME/src directory... DONE"
+  cd "$HOME"/src || return
+  git clone git@github.com:lea2501/dotfiles.git
+  git clone git@github.com:lea2501/scripts.git
+  print "Clone Github repos... DONE"
+fi
+
+# Section: Update clamav antivirus
+read -rp "Update clamav antivirus?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas sed -i 's/Example/#Example/g' /etc/freshclam.conf
+  doas freshclam
+  print "Update clamav virus definition database... Done"
+fi
+
+# Section: Set PATH in $HOME/profile file
+read -rp "Set PATH in $HOME/profile file?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  cd || return
+  mkdir -p "$HOME"/bin
+  print "PATH=\$PATH:$HOME/bin/" >>"$HOME"/.profile
+  source "$HOME"/.profile
+  print "Create user 'bin' directory... DONE"
+fi
+
+# Section: Enable UTF8 support
+read -rp "Enable UTF8 support?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  print "export LC_CTYPE=en_US.UTF-8" >>"$HOME"/.profile
+  print "export GTK_IM_MODULE=xim # without this GTK apps will use their own compose key settings" >>"$HOME"/.profile
+  print "export LESSCHARSET=utf-8 # not strictly necessary, but for when you view Unicode files in less" >>"$HOME"/.profile
+  print "Enable UTF8 support... DONE"
+fi
+
+# Section: Enable apmd CPU scaling daemon
+read -rp "Enable apmd CPU scaling daemon?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas rcctl enable apmd
+  doas rcctl set apmd flags -A -z 10
+  doas rcctl start apmd
+  print "Enable apmd CPU scaling daemon... DONE"
+fi
+
+# Section: Improve disk performance
+read -rp "Improve disk performance (using 'noatime' in fstab mounts)?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  doas cp /etc/fstab /etc/fstab.bak
+  doas sed -i 's/rw/rw,noatime/' /etc/fstab
+  print "Improve disk performance... DONE"
+fi
+
+# Section: Update system
+read -rp "Update system with syspatch?: (Y|n)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  print "$option: not recognized. Valid options are:"
+  print "${options[@]/%/,}"
+  read -rp "?: (y|N)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  print "Installed patches:"
+  doas syspatch -l
+  print "available packages:"
+  doas syspatch -c
+  print "Installing available patches:"
+  doas syspatch
+  print "Update system with syspatch... DONE"
+fi
