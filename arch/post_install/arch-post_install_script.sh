@@ -142,130 +142,42 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "installing packages..."
   cd || return
   # system
-  echo \
-    'pacman-contrib
-base-devel
-tmux
-vi
-vim
-nano
-udisks2
-brightnessctl
-dos2unix
-exfatprogs
-picom
-terminus-font
-xclip
-autocutsel
-xosd
-ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-liberation ttf-opensans
-gnu-free-fonts
-usbutils
-udftools
-bash-completion
-htop
-findutils
-acpi
-lm_sensors
-ntp
-alsa-plugins alsa-utils' >packages.txt
-  # pulseaudio
-  echo \
-    'pulseaudio pavucontrol pulseaudio-alsa' >>packages.txt
-  # devel
-  echo \
-    'cmake
-jre-openjdk
-jdk-openjdk
-jdk8-openjdk
-jdk11-openjdk
-maven
-gradle
-npm
-jq
-git
-subversion
-groovy
-intellij-idea-community-edition
-kotlin
-docker
-mariadb mariadb-clients
-geany geany-plugins
-android-tools' >>packages.txt
-  # multimedia
-  echo \
-    'flac faac mac opus-tools vorbis-tools wavpack
-mpv
-ffmpeg
-sox
-shntool
-libdvdcss
-lsdvd' >>packages.txt
-  # extra tools
-  echo \
-    'wmname
-moc
-avidemux-qt
-lynx
-w3m
-newsboat
-rtorrent
-amule
-aria2
-youtube-dl
-dmenu
-pcmanfm
-detox
-scrot
-slock
-mc
-hdparm lshw
-mcomix
-qpdf
-zathura zathura-pdf-mupdf
-mupdf mupdf-tools' >>packages.txt
-  # forensic tools
-  echo \
-    'foremost
-testdisk
-sleuthkit' >>packages.txt
-  # images
-  echo \
-    'feh
-geeqie
-gimp
-imagemagick' >>packages.txt
-  # net
-  echo \
-    'curl
-wget
-axel
-tigervnc
-filezilla
-openconnect
-networkmanager-openconnect
-samba' >>packages.txt
-  # tools
-  echo \
-    'ntfs-3g
-rsync
-clamav
-gparted
-freerdp
-rdesktop
-libreoffice-still libreoffice-still-es
-keepassxc
-cabextract arj unrar p7zip unarj unace unzip zip tar
-xarchiver
-galculator' >>packages.txt
-  # emulators
-  echo \
-    'qemu qemu-arch-extra' >>packages.txt
-  #  virtualbox virtualbox-guest-utils libvirt virtualbox-host-dkms
-  #  vagrant plugin install vagrant-vbguest
+  sudo pacman -S pacman-contrib base-devel tmux vi vim nano udisks2 brightnessctl dos2unix exfatprogs picom
+  sudo pacman -S xclip autocutsel xosd usbutils udftools bash-completion htop findutils acpi lm_sensors ntp alsa-plugins alsa-utils
+  sudo pacman -S terminus-font ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-liberation ttf-opensans gnu-free-fonts
 
-  sudo pacman -Sy --noconfirm --needed $(cat packages.txt)
-  #rm packages.txt
+  # pulseaudio
+  sudo pacman -S pulseaudio pavucontrol pulseaudio-alsa
+
+  # devel
+  sudo pacman -S cmake jre-openjdk jdk-openjdk jdk8-openjdk jdk11-openjdk maven gradle npm
+  sudo pacman -S jq git subversion groovy intellij-idea-community-edition kotlin docker mariadb mariadb-clients geany geany-plugins android-tools
+
+  # multimedia
+  sudo pacman -S flac faac mac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool libdvdcss lsdvd
+
+  # extra tools
+  sudo pacman -S wmname moc avidemux-qt lynx w3m newsboat rtorrent amule aria2 youtube-dl
+  sudo pacman -S dmenu pcmanfm detox scrot slock mc hdparm lshw
+  sudo pacman -S mcomix qpdf zathura zathura-pdf-mupdf mupdf mupdf-tools
+
+  # forensic tools
+  sudo pacman -S foremost testdisk sleuthkit
+
+  # images
+  sudo pacman -S feh geeqie gimp imagemagick
+
+  # net
+  sudo pacman -S curl wget axel tigervnc filezilla openconnect networkmanager-openconnect samba
+
+  # tools
+  sudo pacman -S ntfs-3g rsync clamav gparted freerdp rdesktop libreoffice-still libreoffice-still-es keepassxc galculator
+  sudo pacman -S cabextract arj unrar p7zip unarj unace unzip zip tar xarchiver
+
+  # emulators
+  sudo pacman -S qemu qemu-arch-extra
+  #sudo pacman -S virtualbox virtualbox-guest-utils libvirt virtualbox-host-dkms
+  #vagrant plugin install vagrant-vbguest
 
   echo "installing packages... DONE"
 fi
@@ -292,15 +204,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc"
 
   # browsers
-  echo \
-    'chromium
-firefox-esr-bin
-surf
-amfora
-bombadillo
-lagrange' >packages.txt
-
-  paru -S $(cat packages.txt)
+  paru -S chromium firefox-esr-bin surf amfora bombadillo lagrange
   echo "Installing AUR packages 'other browsers'... DONE"
 fi
 
@@ -314,15 +218,7 @@ done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "Installing AUR packages 'tools'..."
   # tools
-  echo \
-    'bash-git-prompt
-tsmuxer-git
-vim-gnupg
-vscodium-bin
-scalpel-git
-guymager' >packages.txt
-
-  paru -S $(cat packages.txt)
+  paru -S bash-git-prompt tsmuxer-git vim-gnupg vscodium-bin scalpel-git guymager
   echo "Installing AUR packages 'tools'... DONE"
 fi
 
@@ -336,13 +232,7 @@ done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "Installing AUR packages 'testing tools'..."
   # tools
-  echo \
-    'postman-bin
-jmeter
-jmeter-plugins-manager
-allure-commandline' >packages.txt
-
-  paru -S $(cat packages.txt)
+  paru -S postman-bin jmeter jmeter-plugins-manager allure-commandline
 
   # schema guru
   mkdir -p ~/bin && cd ~/bin || return
@@ -362,12 +252,7 @@ done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "Installing AUR packages 'testing browsers'..."
   # browsers
-  echo \
-    'firefox geckodriver
-google-chrome
-chromedriver' >packages.txt
-
-  paru -S $(cat packages.txt)
+  paru -S firefox geckodriver google-chrome chromedriver
 
   # opera
   #sudo pacman -Sy --noconfirm opera
@@ -392,14 +277,7 @@ done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "Installing AUR packages 'android tools'..."
   # android
-  echo \
-    'android-sdk
-android-sdk-platform-tools
-android-sdk-build-tools
-android-platform
-scrcpy' >packages.txt
-
-  paru -S $(cat packages.txt)
+  paru -S android-sdk android-sdk-platform-tools android-sdk-build-tools android-platform scrcpy
 
   {
     echo "export ANDROID_HOME=/opt/android-sdk/"
