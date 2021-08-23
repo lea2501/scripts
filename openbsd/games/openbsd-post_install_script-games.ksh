@@ -49,7 +49,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add dosbox gambatte dolphin mednafen higan hatari ppsspp scummvm scummvm-tools fs-uae fs-uae-launcher nestopia sameboy mame
 
   # retroarch
-  doas pkg_add retroarch
+  #doas pkg_add retroarch
 
   # other games
   doas pkg_add chromium-bsu devilutionx lbreakout2 micropolis lincity

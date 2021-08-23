@@ -122,116 +122,40 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "installing packages..."
   cd || return
   # system
-  echo \
-    'build-essential
-tmux
-vim
-nano
-udisks2
-suckless-tools
-brightnessctl brightness-udev
-dos2unix
-exfat-utils
-xclip autocutsel
-xosd-bin
-ttf-bitstream-vera fonts-dejavu fonts-inconsolata fonts-liberation
-usbutils
-udftools
-bash-completion
-htop
-findutils
-acpi cpufreqd
-lm-sensors
-ntp
-alsa-tools alsa-utils
-pass xdotool
-tree' >packages.txt
+  sudo apt-get -y install build-essential tmux vim nano udisks2 suckless-tools brightnessctl brightness-udev dos2unix exfat-utils xclip autocutsel xosd-bin
+  sudo apt-get -y install ttf-bitstream-vera fonts-dejavu fonts-inconsolata fonts-liberation
+  sudo apt-get -y install usbutils udftools bash-completion htop findutils acpi cpufreqd lm-sensors ntp alsa-tools alsa-utils pass xdotool tree
+
   # pulseaudio
-  echo \
-    'pulseaudio pavucontrol pulseaudio-alsa' >>packages.txt
+  sudo apt-get -y install pulseaudio pavucontrol pulseaudio-alsa
+
   # devel
-  echo \
-    'cmake
-openjdk-11-jdk
-openjdk-11-jdk-headless
-openjdk-11-jre
-maven
-gradle
-npm
-jq
-git
-subversion
-groovy
-docker.io
-mariadb-server mariadb-client
-geany geany-plugins
-adb android-sdk android-sdk-build-tools android-sdk-platform-tools fastboot' >>packages.txt
+  sudo apt-get -y install cmake openjdk-11-jdk openjdk-11-jdk-headless openjdk-11-jre maven gradle npm
+  sudo apt-get -y install jq git subversion groovy docker.io mariadb-server mariadb-client geany geany-plugins
+  sudo apt-get -y install adb android-sdk android-sdk-build-tools android-sdk-platform-tools fastboot
+
   # multimedia
-  echo \
-    'flac opus-tools vorbis-tools wavpack
-mpv
-ffmpeg
-sox
-shntool
-lsdvd' >>packages.txt
+  sudo apt-get -y install flac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool lsdvd
+
   # extra tools
-  echo \
-    'moc
-lynx
-w3m
-newsboat
-rtorrent
-amule
-youtube-dl
-pcmanfm
-detox
-scrot
-mc
-hdparm lshw
-mcomix
-qpdf
-zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb
-mupdf mupdf-tools' >>packages.txt
+  sudo apt-get -y install moc lynx w3m newsboat rtorrent amule youtube-dl
+  sudo apt-get -y install pcmanfm detox scrot mc hdparm lshw
+  sudo apt-get -y install  mcomix qpdf zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb mupdf mupdf-tools
+
   # forensic tools
-  echo \
-    'foremost
-testdisk
-sleuthkit
-scalpel
-guymager' >>packages.txt
+  sudo apt-get -y install foremost testdisk sleuthkit scalpel guymager
+
   # images
-  echo \
-    'feh
-geeqie
-gimp
-imagemagick' >>packages.txt
+  sudo apt-get -y install feh geeqie gimp imagemagick
+
   # net
-  echo \
-    'curl
-axel
-tigervnc-viewer
-openconnect
-network-manager network-manager-openconnect
-samba' >>packages.txt
+  sudo apt-get -y install curl axel tigervnc-viewer openconnect network-manager network-manager-openconnect samba
+
   # tools
-  echo \
-    'ntfs-3g
-rsync
-clamav
-gparted
-rdesktop
-libreoffice
-keepassxc
-cabextract arj unrar-free p7zip-full unace unzip zip tar
-xarchiver
-galculator' >>packages.txt
+  sudo apt-get -y install ntfs-3g rsync clamav gparted rdesktop libreoffice keepassxc cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator
 
   # emulators
-  echo \
-    'qemu qemu-kvm qemu-system-x86 qemu-utils' >>packages.txt
-
-  sudo apt-get -y install $(cat packages.txt)
-  #rm packages.txt
+  sudo apt-get -y install qemu qemu-kvm qemu-system-x86 qemu-utils
   
   echo "installing packages... DONE"
 fi

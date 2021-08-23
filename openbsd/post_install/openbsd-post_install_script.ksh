@@ -80,95 +80,36 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   print "Update system repositories and packages... DONE"
   cd || return
   # system
-  echo \
-    'vim
-dos2unix
-exfat-fuse
-xclip autocutsel
-xosd
-inconsolata-font hack-fonts dina-fonts liberation-fonts terminus-font
-usbutils
-htop
-findutils
-tree' >"$HOME"/packages.txt
-  # minimal-tools
-  echo \
-    'st
-' >"$HOME"/packages.txt
-  # devel
-  echo \
-    'cmake
-jdk
-maven
-gradle
-jq
-git
-mariadb-server mariadb-client
-geany' >>"$HOME"/packages.txt
-  # multimedia
-  echo \
-    'flac opus-tools vorbis-tools wavpack
-mpv
-ffmpeg ffmpeg-normalize
-sox
-shntool
-lsdvd' >>"$HOME"/packages.txt
-  # extra tools
-  echo \
-    'moc
-lynx
-w3m
-newsboat
-rtorrent
-amule
-youtube-dl
-pcmanfm
-detox
-scrot
-mc
-comix
-qpdf
-zathura zathura-pdf-poppler zathura-pdf-mupdf zathura-djvu zathura-ps zathura-cb
-mupdf
-rarcrack
-fcrackzip
-pdfcrack
-ddrescue
-fdupes' >>"$HOME"/packages.txt
-  # forensic tools
-  echo \
-    'foremost
-testdisk
-sleuthkit' >>"$HOME"/packages.txt
-  # images
-  echo \
-    'feh
-geeqie
-gimp
-ImageMagick' >>"$HOME"/packages.txt
-  # net
-  echo \
-    'curl
-axel
-tigervnc
-openconnect
-samba' >>"$HOME"/packages.txt
-  # tools
-  echo \
-    'ntfs_3g
-rsync
-clamav
-rdesktop
-libreoffice
-keepassxc
-cabextract unrar p7zip unzip tar
-galculator' >>"$HOME"/packages.txt
-  # emulators
-  echo \
-    'qemu' >>"$HOME"/packages.txt
+  doas pkg_add vim dos2unix exfat-fuse xclip autocutsel xosd usbutils htop findutils tree
+  doas pkg_add inconsolata-font hack-fonts dina-fonts liberation-fonts terminus-font
 
-  sudo apt-get -y install $(cat "$HOME"/packages.txt)
-  #rm packages.txt
+  # minimal-tools
+  doas pkg_add st
+
+  # devel
+  doas pkg_add cmake jdk maven gradle jq git mariadb-server mariadb-client geany
+
+  # multimedia
+  doas pkg_add flac opus-tools vorbis-tools wavpack mpv ffmpeg ffmpeg-normalize sox shntool lsdvd
+
+  # extra tools
+  doas pkg_add moc lynx w3m newsboat rtorrent amule youtube-dl pcmanfm detox scrot mc rarcrack fcrackzip pdfcrack ddrescue fdupes
+  doas pkg_add comix qpdf zathura zathura-pdf-poppler zathura-pdf-mupdf zathura-djvu zathura-ps zathura-cb mupdf
+
+  # forensic tools
+  doas pkg_add foremost testdisk sleuthkit
+
+  # images
+  doas pkg_add feh geeqie gimp ImageMagick
+
+  # net
+  doas pkg_add curl axel tigervnc openconnect samba
+
+  # tools
+  doas pkg_add ntfs_3g rsync clamav rdesktop libreoffice keepassxc cabextract unrar p7zip unzip tar galculator
+
+  # emulators
+  doas pkg_add qemu
 
   print "install packages... DONE"
 fi
