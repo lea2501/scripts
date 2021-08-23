@@ -103,7 +103,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add feh geeqie gimp ImageMagick
 
   # net
-  doas pkg_add curl axel tigervnc openconnect samba
+  doas pkg_add curl axel tigervnc openconnect samba tor tor-browser onionshare
 
   # tools
   doas pkg_add ntfs_3g rsync clamav rdesktop libreoffice keepassxc cabextract unrar p7zip unzip galculator
@@ -118,8 +118,9 @@ fi
 print -n "Install external packages 'other browsers'?: (y|N) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add chromium
-  doas pkg_add firefox-esr
+  doas pkg_add firefox-esr geckodriver
   doas pkg_add surf
+  doas pkg_add amfora bombadillo lagrange
   print "Install packages 'other browsers'... DONE"
 fi
 
