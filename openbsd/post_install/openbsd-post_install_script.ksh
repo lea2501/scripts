@@ -94,7 +94,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 
   # extra tools
   doas pkg_add moc lynx w3m newsboat rtorrent amule youtube-dl pcmanfm detox scrot mc rarcrack fcrackzip pdfcrack ddrescue fdupes
-  doas pkg_add comix qpdf zathura zathura-pdf-poppler zathura-pdf-mupdf zathura-djvu zathura-ps zathura-cb mupdf
+  doas pkg_add comix qpdf zathura zathura-pdf-mupdf zathura-djvu zathura-ps zathura-cb mupdf
 
   # forensic tools
   doas pkg_add foremost testdisk sleuthkit
@@ -106,7 +106,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add curl axel tigervnc openconnect samba
 
   # tools
-  doas pkg_add ntfs_3g rsync clamav rdesktop libreoffice keepassxc cabextract unrar p7zip unzip tar galculator
+  doas pkg_add ntfs_3g rsync clamav rdesktop libreoffice keepassxc cabextract unrar p7zip unzip galculator
 
   # emulators
   doas pkg_add qemu
