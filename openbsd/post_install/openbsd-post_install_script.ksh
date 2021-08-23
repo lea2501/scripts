@@ -19,18 +19,10 @@ cloneRepo() {
   fi
 }
 
-options=(Y y N n)
-
 # Section: Create xinitrc
-read -rp "Create $HOME/.xsession file in user home directory?: (y|N)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
-if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  #TODO
-  {
+print -n "Create $HOME/.xsession file in user home directory?: (y|N) ";read -r option; print ""
+if [[ $option = "y" || $option = "Y" ]];then
+   {
     print "export ENV=\$HOME/.kshrc"
     print "xsetroot -solid grey &"
     print "xterm -bg black -fg white +sb &"
@@ -40,12 +32,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Get personal dotfiles
-read -rp "Get personal dotfiles backups from Github?: (y|N)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Get personal dotfiles backups from Github?: (y|N) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add curl
   cd || return
@@ -87,12 +74,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Install common packages
-read -rp "Install common packages?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Install common packages?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add -u
   print "Update system repositories and packages... DONE"
@@ -187,17 +169,12 @@ galculator' >>"$HOME"/packages.txt
 
   sudo apt-get -y install $(cat "$HOME"/packages.txt)
   #rm packages.txt
-  
+
   print "install packages... DONE"
 fi
 
 # Section: Install external packages 'other browsers'
-read -rp "Install external packages 'other browsers'?: (y|N)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Install external packages 'other browsers'?: (y|N) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add chromium
   doas pkg_add firefox-esr
@@ -206,36 +183,21 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Install external packages 'development'
-read -rp "Install external packages 'development'?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Install external packages 'development'?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas pkg_add intellij
   print "Install packages 'development'... DONE"
 fi
 
 # Section: Disable xconsole in xenodm
-read -rp "Disable xconsole in xenodm?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Disable xconsole in xenodm?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas sed -i 's/xconsole/#xconsole/' /etc/X11/xenodm/Xsetup_0
   print "Disable xconsole in xenodm... DONE"
 fi
 
 # Section: Generate ssh keys
-read -rp "Generate ssh keys?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Generate ssh keys?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   print "Generating ssh keys..."
   print "In a web browser, create or access your personal Github account (Optional):"
@@ -246,6 +208,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo -e "\033[33;5m Don't close Github page when finished... \033[0m"
   print ""
   read -rp "Press enter when finish to create ssh keys..."
+  print -n "Generate ssh keys?: (Y|n) ";read; print ""
 
   cat /dev/zero | ssh-keygen -q -N ""
   print "Generate ssh key in $HOME/.ssh/id_rsa.pub file... DONE"
@@ -262,17 +225,12 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   print "  1) Access ssh-keys settings in https://github.com/settings/keys"
   print "  2) Paste the key copied from $HOME/.ssh/id_rsa.pub and press 'Add key' button."
   print ""
-  read -rp "Press enter when finish to continue..."
+  print -n "Generate ssh keys?: (Y|n) ";read; print ""
   print "Generate ssh keys... DONE"
 fi
 
 # Section: Set keyboard layout
-read -rp "Set keyboard layout?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Set keyboard layout?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   cd || return
   print "setxkbmap -layout latam -variant deadtilde" >>"$HOME"/.profile
@@ -280,12 +238,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Configure Git
-read -rp "Configure Git?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Configure Git?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   read -rp "Enter Git user email: " gitUserEmail
   git config --global user.email "$gitUserEmail"
@@ -296,12 +249,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Clone personal repos
-read -rp "Clone personal repos?: (y|N)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Clone personal repos?: (y|N) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   mkdir -p "$HOME"/src
   print "Create $HOME/src directory... DONE"
@@ -312,12 +260,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Update clamav antivirus
-read -rp "Update clamav antivirus?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Update clamav antivirus?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas sed -i 's/Example/#Example/g' /etc/freshclam.conf
   doas freshclam
@@ -325,12 +268,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Set PATH in $HOME/profile file
-read -rp "Set PATH in $HOME/profile file?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Set PATH in $HOME/profile file?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   cd || return
   mkdir -p "$HOME"/bin
@@ -340,12 +278,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Enable UTF8 support
-read -rp "Enable UTF8 support?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Enable UTF8 support?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   print "export LC_CTYPE=en_US.UTF-8" >>"$HOME"/.profile
   print "export GTK_IM_MODULE=xim # without this GTK apps will use their own compose key settings" >>"$HOME"/.profile
@@ -354,12 +287,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Enable apmd CPU scaling daemon
-read -rp "Enable apmd CPU scaling daemon?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Enable apmd CPU scaling daemon?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas rcctl enable apmd
   doas rcctl set apmd flags -A -z 10
@@ -368,12 +296,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Improve disk performance
-read -rp "Improve disk performance (using 'noatime' in fstab mounts)?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Improve disk performance (using 'noatime' in fstab mounts)?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   doas cp /etc/fstab /etc/fstab.bak
   doas sed -i 's/rw/rw,noatime/' /etc/fstab
@@ -381,12 +304,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Update system
-read -rp "Update system with syspatch?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  print "$option: not recognized. Valid options are:"
-  print "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "Update system with syspatch?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   print "Installed patches:"
   doas syspatch -l

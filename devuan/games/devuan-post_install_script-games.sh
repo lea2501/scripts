@@ -52,90 +52,52 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "Installing games..."
 
   # roguelikes
-  echo \
-    'angband
-moria
-nethack-console
-cataclysm-dda-curses
-games-rogue' >packages_games.txt
+  sudo apt-get -y install angband nethack-console cataclysm-dda-curses games-rogue
 
   # doom
-  echo \
-    'chocolate-doom
-crispy-doom
-prboom-plus
-glbsp zdbsp' >>packages_games.txt
+  sudo apt-get -y install chocolate-doom crispy-doom prboom-plus glbsp zdbsp
 
   # doom3
-  echo \
-    'dhewm3 dhewm3-doom3 dhewm3-d3xp
-  rbdoom3bfg' >>packages_games.txt
+  sudo apt-get -y install dhewm3 dhewm3-doom3 dhewm3-d3xp rbdoom3bfg
 
   # quake
-  echo \
-    'quakespasm' >>packages_games.txt
+  sudo apt-get -y install quakespasm
 
   # quake2
-  echo \
-    'yamagi-quake2' >>packages_games.txt
+  sudo apt-get -y install yamagi-quake2
 
   # hexen2
-  echo \
-    'uhexen2' >>packages_games.txt
+  sudo apt-get -y install uhexen2
 
   # rtcw
-  echo \
-    'rtcw' >>packages_games.txt
+  sudo apt-get -y install rtcw
 
   # descent
-  #echo \
-  #  'd1x-rebirth
-  #d2x-rebirth' >>packages_games.txt
+  #sudo apt-get -y install d1x-rebirth d2x-rebirth
 
   # uqm
-  echo \
-    'uqm' >>packages_games.txt
+  sudo apt-get -y install uqm
 
   # minetest
-  echo \
-    'minetest minetest-server' >>packages_games.txt
+  sudo apt-get -y install minetest minetest-server
 
   # tor
-  echo \
-    'tor obfs4proxy' >>packages_games.txt
+  sudo apt-get -y install tor obfs4proxy
 
   # torcs
-  echo \
-    'torcs torcs-data' >>packages_games.txt
+  sudo apt-get -y install torcs torcs-data
 
   # emulators
-  echo \
-    'dosbox
-mgba-sdl
-mednafen
-higan
-hatari
-scummvm scummvm-tools
-fs-uae fs-uae-launcher
-nestopia
-mame mame-tools' >>packages_games.txt
+  sudo apt-get -y install dosbox mgba-sdl mednafen higan hatari scummvm scummvm-tools fs-uae fs-uae-launcher nestopia mame mame-tools
 
   # wine
-  echo \
-    'wine wine64' >>packages_games.txt
-    #'wine wine64 dxvk' >>packages_games.txt
+  sudo apt-get -y install wine wine64
 
   # retroarch
-  echo \
-    'retroarch' >>packages_games.txt
+  #sudo apt-get -y install retroarch
 
   # other games
-  echo \
-    'lbreakout2
-micropolis
-lincity' >>packages_games.txt
-
-  sudo apt-get -y install $(cat packages_games.txt)
+  sudo apt-get -y install lbreakout2 micropolis lincity
 
   echo "Installing games... DONE"
 fi
