@@ -5,115 +5,54 @@ set -e
 # debug log
 #set -x
 
-username=$USER
-
-cloneRepo() {
-  mkdir -p "$HOME"/src
-  cd "$HOME"/src || return
-  if [[ ! -e "$1" ]];then
-    git clone https://aur.archlinux.org/"$1".git
-    cd "$1" || return
-  else
-    cd "$1" || return
-    git pull
-  fi
-}
-
-options=(Y y N n)
-
 # Section: games
-read -rp "install games?: (y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  echo "$option: not recognized. Valid options are:"
-  echo "${options[@]/%/,}"
-  read -rp "?: (y|N)" option
-done
+print -n "install games?: (y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  cd || return
-
-  echo "Installing games..."
 
   # roguelikes
-  echo \
-    'angband
-moria
-nethack
-cataclysm-dda' >"$HOME"/packages_games.txt
+  doas pkg_add angband moria nethack cataclysm-dda
 
   # doom
-  echo \
-    'chocolate-doom
-prboom-plus
-gzdoom' >>"$HOME"/packages_games.txt
+  doas pkg_add chocolate-doom prboom-plus gzdoom
 
   # doom3
-  echo \
-    'dhewm3' >>"$HOME"/packages_games.txt
+  doas pkg_add dhewm3
 
   # quake
-  echo \
-    'quakespasm' >>"$HOME"/packages_games.txt
+  doas pkg_add quakespasm
 
   # quake2
-  echo \
-    'yquake2' >>"$HOME"/packages_games.txt
+  doas pkg_add yquake2
 
   # hexen2
-  echo \
-    'uhexen2' >>"$HOME"/packages_games.txt
+  doas pkg_add uhexen2
 
   # descent
-  echo \
-    'dxx-rebirth' >>"$HOME"/packages_games.txt
+  doas pkg_add dxx-rebirth
 
-    # diablo
-  echo \
-    'devilutionx' >>"$HOME"/packages_games.txt
+  # diablo
+  doas pkg_add devilutionx
 
-    # build engine
-  echo \
-    'eduke32 nblood' >>"$HOME"/packages_games.txt
+  # build engine
+  doas pkg_add eduke32 nblood
 
   # uqm
-  echo \
-    'uqm uqm-content uqm-voice uqm-threedomusic' >>"$HOME"/packages_games.txt
+  doas pkg_add uqm uqm-content uqm-voice uqm-threedomusic
 
   # minetest
-  echo \
-    'minetest' >>"$HOME"/packages_games.txt
+  doas pkg_add minetest
 
   # tor
-  echo \
-    'tor tor-browser' >>"$HOME"/packages_games.txt
+  doas pkg_add tor tor-browser
 
   # emulators
-  echo \
-    'dosbox
-gambatte
-dolphin
-mednafen
-higan
-hatari
-ppsspp
-scummvm scummvm-tools
-fs-uae fs-uae-launcher
-nestopia
-sameboy
-mame' >>"$HOME"/packages_games.txt
+  doas pkg_add dosbox gambatte dolphin mednafen higan hatari ppsspp scummvm scummvm-tools fs-uae fs-uae-launcher nestopia sameboy mame
 
   # retroarch
-  echo \
-    'retroarch' >>"$HOME"/packages_games.txt
+  doas pkg_add retroarch
 
   # other games
-  echo \
-    'chromium-bsu
-devilutionx
-lbreakout2
-micropolis
-lincity' >>"$HOME"/packages_games.txt
-
-  sudo apt-get -y install $(cat "$HOME"/packages_games.txt)
+  doas pkg_add chromium-bsu devilutionx lbreakout2 micropolis lincity
 
   echo "Installing games... DONE"
 fi
