@@ -1,6 +1,11 @@
 #!/bin/sh
 
-RAM=$(top -b -n 1 | grep "MiB Mem" | awk {'print $6'})
-DISK=$(df -h | grep "/dev/mapper/root" | awk {'print $4'})
-DATE=$(date '+%Y-%m-%d %H:%M')
-echo -en "$DISK $RAM | $DATE"
+ram=$(top -b -n 1 | grep "MiB Mem" | awk {'print $6'})
+distro=$(cat /etc/issue | awk '{print $1}')
+if [[ $distro = 'Arch' ]]; then
+    disk=$(df -h | grep "/dev/mapper/root" | awk {'print $4'})
+elif [[ $distro = 'devuan' ]]; then
+    disk=$(df -h | grep "/dev/mapper/devuan--vg-home" | awk {'print $4'})
+fi
+date=$(date '+%Y-%m-%d %H:%M')
+echo -en "$disk $ram | $date"
