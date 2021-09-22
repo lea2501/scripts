@@ -127,20 +127,19 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   sudo apt-get -y install usbutils udftools bash-completion htop findutils acpi cpufreqd lm-sensors ntp alsa-tools alsa-utils pass xdotool tree
 
   # pulseaudio
-  sudo apt-get -y install pulseaudio pavucontrol pulseaudio-alsa
+  sudo apt-get -y install pulseaudio pavucontrol
 
   # devel
   sudo apt-get -y install cmake openjdk-11-jdk openjdk-11-jdk-headless openjdk-11-jre maven gradle npm
   sudo apt-get -y install jq git subversion groovy docker.io mariadb-server mariadb-client geany geany-plugins
-  sudo apt-get -y install adb android-sdk android-sdk-build-tools android-sdk-platform-tools fastboot
 
   # multimedia
-  sudo apt-get -y install flac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool lsdvd
+  sudo apt-get -y install flac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool lsdvd libbluray-bdj
 
   # extra tools
   sudo apt-get -y install moc lynx w3m newsboat rtorrent amule youtube-dl
   sudo apt-get -y install pcmanfm detox scrot mc hdparm lshw
-  sudo apt-get -y install  mcomix qpdf zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb mupdf mupdf-tools
+  sudo apt-get -y install mcomix qpdf zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb mupdf mupdf-tools
 
   # forensic tools
   sudo apt-get -y install foremost testdisk sleuthkit scalpel guymager
@@ -149,7 +148,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   sudo apt-get -y install feh geeqie gimp imagemagick
 
   # net
-  sudo apt-get -y install curl axel tigervnc-viewer openconnect network-manager network-manager-openconnect samba
+  sudo apt-get -y install curl axel tigervnc-viewer openconnect network-manager network-manager-openconnect samba x11vnc
 
   # tools
   sudo apt-get -y install ntfs-3g rsync clamav gparted rdesktop libreoffice keepassxc cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator
@@ -243,8 +242,10 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   ln -s Postman/app/Postman postman
 
   # jmeter
+  mkdir -p ~/bin
+  cd ~/bin || return
   export JMETER_VERSION="5.4.1"
-  export JMETER_HOME=/opt/apache-jmeter-${JMETER_VERSION}
+  export JMETER_HOME=$HOME/bin/apache-jmeter-${JMETER_VERSION}
   export JMETER_BIN="${JMETER_HOME}"/bin
   export JMETER_DOWNLOAD_URL=https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
@@ -252,15 +253,9 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   sudo apt-get install -qq -y curl unzip && \
   mkdir -p /tmp/dependencies && \
   curl -L --silent "${JMETER_DOWNLOAD_URL}" > /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz && \
-  sudo mkdir -p /opt && \
-  sudo tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt && \
+  tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C "$HOME"/bin/ && \
   rm -rf /tmp/dependencies
-
-  # Set global PATH such that "jmeter" command is found
-  {
-    echo "export PATH=$PATH:$JMETER_BIN"
-  }>>~/.bashrc
-  source ~/.bashrc
+  ln -s "$JMETER_BIN"/jmeter "$HOME"/bin/
 
   # Allure
   sudo apt-get -y install allure
@@ -286,6 +281,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   sudo apt-get -y install android-sdk
   sudo apt-get -y install android-sdk-platform-tools
   sudo apt-get -y install android-sdk-build-tools
+  sudo apt-get -y install fastboot
   #sudo apt-get -y install scrcpy #available in testing and sid for now
 
   #{
@@ -344,23 +340,21 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   # intellij
   mkdir -p ~/bin
   cd ~/bin || return
-  curl -OL "https://download-cf.jetbrains.com/idea/ideaIC-2020.1.tar.gz"
-  tar -zxvf ideaIC-*.tar.gz
-  sudo mkdir /opt/idea/
-  sudo chmod 777 /opt/idea/
-  mv idea-*/* /opt/idea/
+  export INTELLIJ_VERSION="2020.1"
+  export INTELLIJ_DOWNLOAD_URL="https://download-cf.jetbrains.com/idea/ideaIC-${INTELLIJ_VERSION}.tar.gz"
 
-  # Set global PATH such that "idea" command is found
-  {
-    echo "export PATH=$PATH:/opt/idea/bin"
-  }>>~/.bashrc
-  source ~/.bashrc
+  sudo apt-get update && \
+  sudo apt-get install -qq -y curl unzip && \
+  rm -rf idea*
+  curl -L --silent "${INTELLIJ_DOWNLOAD_URL}" > ideaIC-${INTELLIJ_VERSION}.tar.gz
+  tar -xvf ideaIC-${INTELLIJ_VERSION}.tar.gz
+  mv idea-IC-* ideaIC-${INTELLIJ_VERSION}
+  ln -s ideaIC-${INTELLIJ_VERSION}/bin/idea.sh ~/bin/idea
 
   # vscodium
   mkdir -p ~/bin
   cd ~/bin || return
-  curl -O -L "$(curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | jq -r ".assets[] | select(.name | test(\"AppImage\")) | .browser_download_url" | head
-  -n 1)"
+  curl -O -L "$(curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | jq -r ".assets[] | select(.name | test(\"AppImage\")) | .browser_download_url" | head -n 1)"
   echo "installing development tools... DONE"
 fi
 
