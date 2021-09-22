@@ -218,7 +218,7 @@ done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   echo "Installing AUR packages 'tools'..."
   # tools
-  paru -S bash-git-prompt tsmuxer-git vim-gnupg vscodium-bin scalpel-git guymager
+  paru -S bash-git-prompt tsmuxer-git vim-gnupg vscodium scalpel-git guymager
   echo "Installing AUR packages 'tools'... DONE"
 fi
 
