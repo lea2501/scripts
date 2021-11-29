@@ -101,7 +101,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   paru -S dosbox mgba snes9x mupen64plus dolphin-emu higan mednafen hatari ppsspp scummvm scummvm-tools fs-uae fs-uae-launcher sameboy nestopia pcsx2-git yuzu-git
 
   # wine
-  paru -S wine wine-gecko wine-mono winetricks zenity vkd3d lutris
+  paru -S wine wine-gecko wine-mono winetricks zenity vkd3d
 
   # retroarch
   paru -S retroarch libretro libretro-dosbox-pure-git libretro-beetle-saturn-git libretro-opera-git
