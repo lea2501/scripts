@@ -3,7 +3,7 @@
 # fail if any commands fails
 set -e
 # debug log
-set -x
+#set -x
 
 # Set java version to JDK 8
 export JAVA_HOME=$(/usr/libexec/java_home -v1.8)

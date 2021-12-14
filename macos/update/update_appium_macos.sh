@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # fail if any commands fails
-#set -e
+set -e
 # debug log
-set -x
+#set -x
 
 echo "installing appium..."
 brew install -q libimobiledevice

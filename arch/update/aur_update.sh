@@ -14,7 +14,7 @@ for dir in ~/aur/*; do
   git fetch
   LOCAL=$(git rev-parse HEAD)
   REMOTE=$(git rev-parse @{u})
-  if [ ! $LOCAL = $REMOTE ]; then
+  if [ ! "$LOCAL" = "$REMOTE" ]; then
     pwd
     echo "Need to pull"
     git pull

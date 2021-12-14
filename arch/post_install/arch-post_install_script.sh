@@ -29,7 +29,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-create_xinitrc.sh
+  ./create_xinitrc.sh
 fi
 
 # Section: Disable login manager
@@ -40,7 +40,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-disable_login_manager.sh
+  ./disable_login_manager.sh
 fi
 
 # Section: Get personal dotfiles
@@ -51,18 +51,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-get_personal_backup_files.sh
-fi
-
-# Section: Remove asking sudo password
-read -rp "Remove asking for sudo password?: (Y|n)" option
-while [[ " "${options[@]}" " != *" $option "* ]]; do
-  echo "$option: not recognized. Valid options are:"
-  echo "${options[@]/%/,}"
-  read -rp "?: (y|n)" option
-done
-if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-remove_sudo_password.sh
+  ./get_personal_backup_files.sh
 fi
 
 # Section: Configure pacman settings
@@ -73,7 +62,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-configure_pacman_settings.sh
+  ./configure_pacman_settings.sh
 fi
 
 # Section: Install common packages
@@ -84,7 +73,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_common_packages.sh
+  ./install_common_packages.sh
 fi
 
 # Section: Install package 'paru'
@@ -95,7 +84,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_paru.sh
+  ./install_paru.sh
 fi
 
 # Section: Install packages 'suckless'
@@ -106,7 +95,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_suckless.sh
+  ./install_suckless.sh
 fi
 
 # Section: Install packages 'tools'
@@ -117,7 +106,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_tools.sh
+  ./install_tools.sh
 fi
 
 # Section: Install packages 'testing tools'
@@ -128,7 +117,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_testing_tools.sh
+  ./install_testing_tools.sh
 fi
 
 # Section: Install packages 'testing browsers'
@@ -139,7 +128,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_testing_browsers.sh
+  ./install_testing_browsers.sh
 fi
 
 # Section: Install packages 'other browsers'
@@ -150,7 +139,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_other_browsers.sh
+  ./install_other_browsers.sh
 fi
 
 # Section: Install packages 'android tools'
@@ -161,7 +150,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_android_tools.sh
+  ./install_android_tools.sh
 fi
 
 # Section: Install packages 'appium'
@@ -172,7 +161,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-install_android_tools.sh
+  ./install_android_tools.sh
 fi
 
 # Section: Clean temporary AUR files
@@ -183,7 +172,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-clean_temporary_aur_files.sh
+  ./clean_temporary_aur_files.sh
 fi
 
 # Section: Create user aliases in bash_aliases file
@@ -194,7 +183,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-create_user_aliases.sh
+  ./create_user_aliases.sh
 fi
 
 # Section: Generate ssh keys
@@ -205,7 +194,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-generate_ssh_keys.sh
+  ./generate_ssh_keys.sh
 fi
 
 # Section: Apply fix for misbehaving java applications
@@ -216,7 +205,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-apply_java_applications_fix.sh
+  ./apply_java_applications_fix.sh
 fi
 
 # Section: Set keyboard layout
@@ -227,7 +216,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-set_keyboard_layout.sh
+  ./set_keyboard_layout.sh
 fi
 
 # Section: Configure Git
@@ -238,7 +227,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-configure_git.sh
+  ./configure_git.sh
 fi
 
 # Section: Clone personal repos
@@ -249,7 +238,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-clone_personal_repos.sh
+  ./clone_personal_repos.sh
 fi
 
 # Section: Set java default version
@@ -260,7 +249,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-set_java_default_version.sh
+  ./set_java_default_version.sh
 fi
 
 # Section: Start and configure services
@@ -271,7 +260,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-start_services.sh
+  ./start_services.sh
 fi
 
 # Section: Enable Bash git prompt
@@ -282,7 +271,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-enable_bash_git_prompt.sh
+  ./enable_bash_git_prompt.sh
 fi
 
 # Section: Update clamav antivirus
@@ -293,7 +282,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-update_clamav.sh
+  ./update_clamav.sh
 fi
 
 # Section: Set PATH in ~/bashrc file
@@ -304,7 +293,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./arch-post_install_script-create_bin_directory.sh
+  ./create_bin_directory.sh
 fi
 
 
