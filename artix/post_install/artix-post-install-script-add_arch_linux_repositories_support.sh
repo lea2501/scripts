@@ -5,13 +5,14 @@
 # debug log
 #set -x
 
-############ Script
-
-options=(y n)
+# Set superuser privileges command if not set
+if [[ -z $su ]]; then
+  export su="sudo"
+fi
 
 # Add arch linux support
 echo "Adding Arch Linux packages support..."
-sudo pacman -Syu artix-archlinux-support
+$su pacman -Syu artix-archlinux-support
   {
     echo "#[testing]"
     echo "#Include = /etc/pacman.d/mirrorlist"
@@ -30,6 +31,6 @@ sudo pacman -Syu artix-archlinux-support
     echo ""
     echo "[multilib]"
     echo "Include = /etc/pacman.d/mirrorlist"
-  } | sudo tee -a /etc/pacman.conf
-sudo pacman-key --populate archlinux
+  } | $su tee -a /etc/pacman.conf
+$su pacman-key --populate archlinux
 echo "Adding arch linux packages support... DONE"

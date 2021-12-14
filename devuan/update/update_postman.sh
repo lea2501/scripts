@@ -3,7 +3,7 @@
 # fail if any commands fails
 set -e
 # debug log
-set -x
+#set -x
 
 mkdir -p ~/bin
 cd ~/bin || return
