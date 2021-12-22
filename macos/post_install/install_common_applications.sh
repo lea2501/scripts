@@ -6,7 +6,7 @@ set -e
 #set -x
 
 # system
-brew install -q tmux vim nano dos2unix bash-completion htop coreutils findutils
+brew install -q tmux vim nano dos2unix bash-completion htop coreutils findutils lm-sensors
 
 # devel
 brew install -q cmake gradle maven npm jq git subversion groovy kotlin allure geany intellij-idea-ce

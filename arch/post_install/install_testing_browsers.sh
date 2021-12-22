@@ -6,5 +6,5 @@ set -e
 #set -x
 
 echo "Installing packages 'testing browsers'..."
-paru -S chromium firefox-esr-bin surf amfora bombadillo lagrange
+paru -S google-chrome chromedriver 
 echo "Installing packages 'testing browsers'... DONE"
