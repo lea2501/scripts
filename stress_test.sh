@@ -31,11 +31,17 @@ temp_command_archlinux() {
 temp_command_artix() {
   sensors | grep "Core 0" | awk '{print $3}'
 }
+temp_command_devuan() {
+  sensors | grep "Core 3" | awk '{print $3}'
+}
 top_command_archlinux() {
   top -b -d2 -n2 | grep "Cpu" | tail -n 1 | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
 }
 top_command_artix() {
   top -b -d2 -n2 | grep "Cpu" | tail -n 1 | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print $1"%"}'
+}
+top_command_devuan() {
+  top -b -d2 -n2 | grep "Cpu" | tail -n 1 | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
 }
 date_command() {
   date '+%Y-%m-%d_%H-%M'
@@ -126,7 +132,7 @@ do
       echo "CPU Usage: $(top_command_artix) | CPU Temp: $(temp_command_artix)" | tee -a "$report_path"
       ;;
     devuan)
-      echo ""
+      echo "CPU Usage: $(top_command_devuan) | CPU Temp: $(temp_command_devuan)" | tee -a "$report_path"
       ;;
     macos)
       echo ""
