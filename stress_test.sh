@@ -25,6 +25,9 @@ function show_usage() {
   exit
 }
 
+cpu0_cur_freq_linux(){
+  cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq
+}
 temp_command_archlinux() {
   sensors | grep "Tctl:" | awk '{print $2}'
 }
@@ -126,13 +129,13 @@ do
   sleep $interval
   case "$system" in
     archlinux)
-      echo "CPU Usage: $(top_command_archlinux) | CPU Temp: $(temp_command_archlinux)" | tee -a "$report_path"
+      echo "CPU Usage: $(top_command_archlinux) | CPU Temp: $(temp_command_archlinux) | CPU Freq: $(cpu0_cur_freq_linux)" | tee -a "$report_path"
       ;;
     artix)
-      echo "CPU Usage: $(top_command_artix) | CPU Temp: $(temp_command_artix)" | tee -a "$report_path"
+      echo "CPU Usage: $(top_command_artix) | CPU Temp: $(temp_command_artix) | CPU Freq: $(cpu0_cur_freq_linux)" | tee -a "$report_path"
       ;;
     devuan)
-      echo "CPU Usage: $(top_command_devuan) | CPU Temp: $(temp_command_devuan)" | tee -a "$report_path"
+      echo "CPU Usage: $(top_command_devuan) | CPU Temp: $(temp_command_devuan) | CPU Freq: $(cpu0_cur_freq_linux)" | tee -a "$report_path"
       ;;
     macos)
       echo ""
