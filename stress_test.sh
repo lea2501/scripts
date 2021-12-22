@@ -26,7 +26,7 @@ function show_usage() {
 }
 
 cpu0_cur_freq_linux(){
-  cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq
+  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
 }
 temp_command_archlinux() {
   sensors | grep "Tctl:" | awk '{print $2}'
