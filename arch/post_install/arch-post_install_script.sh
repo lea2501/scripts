@@ -296,4 +296,3 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   ./create_bin_directory.sh
 fi
 
-
