@@ -161,7 +161,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./install_android_tools.sh
+  ./install_appium.sh
 fi
 
 # Section: Clean temporary AUR files
