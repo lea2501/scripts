@@ -6,5 +6,5 @@ set -e
 #set -x
 
 echo "Installing packages 'testing browsers'..."
-paru -S google-chrome chromedriver 
+paru -S firefox google-chrome chromedriver 
 echo "Installing packages 'testing browsers'... DONE"
