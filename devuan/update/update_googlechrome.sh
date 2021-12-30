@@ -10,6 +10,9 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
+$su apt-get update -qq
+$su apt-get install -qq -y curl
+
 mkdir -p ~/Downloads
 cd ~/Downloads || return
 curl -OL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
