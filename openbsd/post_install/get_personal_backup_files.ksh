@@ -35,6 +35,7 @@ cd || return
 mkdir -p "$HOME"/.config/geany/colorschemes/ && cd "$HOME"/.config/geany/colorschemes/ || return
 curl -OL "https://raw.github.com/geany/geany-themes/master/colorschemes/bespin.conf"
 cd || return
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc-linux"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc-openbsd"
 cd || return
 print "Get backup dotfiles from github... DONE"

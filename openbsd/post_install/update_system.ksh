@@ -2,8 +2,7 @@
 
 print "Installed patches:"
 doas syspatch -l
-print "available packages:"
+print "available patches:"
 doas syspatch -c
 print "Installing available patches:"
 doas syspatch
-print "Update system with syspatch... DONE"

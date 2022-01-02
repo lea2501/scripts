@@ -12,4 +12,3 @@ fi
 
 cd Quake || return
 make DO_USERDIRS=1 USE_SDL2=1
-echo "Installing Quakespasm... DONE"

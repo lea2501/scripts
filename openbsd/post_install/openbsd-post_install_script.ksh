@@ -11,6 +11,12 @@ if [[ $option = "y" || $option = "Y" ]];then
     ./create_xsession_file.ksh
 fi
 
+# Section: Create kshrc
+print -n "Create $HOME/.xsession file in user home directory?: (y|N) ";read -r option; print ""
+if [[ $option = "y" || $option = "Y" ]];then
+    ./create_ksh_file.ksh
+fi
+
 # Section: Get personal dotfiles
 print -n "Get personal dotfiles backups from Github?: (y|N) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
@@ -97,7 +103,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Update system
-print -n "Update system with syspatch?: (Y|n) ";read -r option; print ""
+print -n "Update system with syspatch? (-release only): (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
     ./update_system.ksh
 fi
