@@ -7,4 +7,3 @@ cd ~/src/angband || return
 ./configure --with-no-install -disable-x11
 gmake clean
 gmake
-echo "Installing angband... DONE"

@@ -11,4 +11,3 @@ mkdir -p ncursesw/lib
 ln -s /usr/lib/libncursesw.so* ncursesw/lib
 cmake -DCMAKE_PREFIX_PATH=`pwd`/ncursesw -DSUPPORT_GCU_FRONTEND=ON
 make
-echo "Installing angband... DONE"
