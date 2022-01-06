@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ram=$(top -b -n 1 | grep "MiB Mem" | awk {'print $6'})
+disk=$(df -h 2>/dev/null | grep "/dev/mapper/devuan--vg-home" | awk {'print $4'})
+cpu_temp=$(sensors | grep CPU: | awk {'print $2'})
+batt=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'percentage' | awk '{print $2}')
+date=$(date '+%Y-%m-%d %H:%M')
+echo "T:$cpu_temp D:$disk R:$ram B:$batt | $date"
