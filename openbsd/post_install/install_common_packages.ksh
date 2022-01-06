@@ -28,7 +28,7 @@ doas pkg_add foremost testdisk sleuthkit
 doas pkg_add feh geeqie gimp ImageMagick
 
 # net
-doas pkg_add curl axel tigervnc openconnect samba tor tor-browser onionshare
+doas pkg_add curl axel tigervnc openconnect samba onionshare
 
 # tools
 doas pkg_add ntfs_3g rsync clamav rdesktop libreoffice keepassxc cabextract unrar p7zip unzip galculator password-store pass-otp zbar
