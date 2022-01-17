@@ -25,13 +25,13 @@ doas pkg_add comix qpdf zathura zathura-pdf-mupdf zathura-djvu zathura-ps zathur
 doas pkg_add foremost testdisk sleuthkit
 
 # images
-doas pkg_add feh geeqie gimp ImageMagick
+doas pkg_add feh geeqie gimp ImageMagick tesseract tesseract-eng tesseract-spa
 
 # net
 doas pkg_add curl axel tigervnc openconnect samba onionshare
 
 # tools
-doas pkg_add ntfs_3g rsync clamav rdesktop libreoffice keepassxc cabextract unrar p7zip unzip galculator password-store pass-otp zbar
+doas pkg_add ntfs_3g rsync clamav rdesktop libreoffice keepassxc cabextract unrar p7zip unzip galculator zbar geany
 
 # emulators
 #doas pkg_add qemu
