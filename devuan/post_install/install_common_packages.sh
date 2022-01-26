@@ -19,7 +19,7 @@ cd || return
 # system
 $su apt-get -y install build-essential tmux vim nano udisks2 suckless-tools brightnessctl brightness-udev dos2unix exfat-utils xclip autocutsel xosd-bin picom renameutils bsdmainutils firejail
 $su apt-get -y install ttf-bitstream-vera fonts-dejavu fonts-inconsolata fonts-liberation
-$su apt-get -y install usbutils udftools bash-completion htop findutils acpi cpufreqd lm-sensors ntp alsa-tools alsa-utils pass xdotool tree
+$su apt-get -y install usbutils udftools bash-completion htop findutils acpi cpufreqd lm-sensors ntp alsa-tools alsa-utils xdotool tree
 
 # pulseaudio
 $su apt-get -y install pulseaudio pavucontrol

@@ -7,13 +7,18 @@ set -e
 
 echo "Getting backup dotfiles from github..."
 cd || return
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xinitrc"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xresources"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xdefaults"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.tmux.conf"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.vimrc"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xbindkeysrc"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.picom.conf"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.xinitrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.Xresources"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.Xdefaults"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.bashrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.bash_profile"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.bash_aliases"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.tmux.conf"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.cwmrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.vimrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.rtorrent.rc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.xbindkeysrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.picom.conf"
 mkdir -p ~/.prboom-plus/ && cd ~/.prboom-plus/ || return
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.prboom-plus/prboom-plus.cfg"
 cd || return

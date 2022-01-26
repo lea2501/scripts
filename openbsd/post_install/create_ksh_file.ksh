@@ -8,7 +8,7 @@ set -e
 cd || return
 
 {
-    print "export PS1='$HOSTNAME (${PWD##*/}) $ '"
+    print "export PS1='$USER (${PWD##*/}) $ '"
 } >>$HOME/.kshrc
 
 {
