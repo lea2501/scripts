@@ -3,13 +3,16 @@
 doas pkg_add curl
 
 cd || return
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xinitrc"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xresources"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.Xdefaults"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.tmux.conf"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.vimrc"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.xbindkeysrc"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.picom.conf"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.Xresources"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.Xdefaults"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.profile"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.xsession"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.kshrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.tmux.conf"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.cwmrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.vimrc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.rtorrent.rc"
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/openbsd/.picom.conf"
 mkdir -p "$HOME"/.prboom-plus/ && cd "$HOME"/.prboom-plus/ || return
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.prboom-plus/prboom-plus.cfg"
 cd || return
@@ -34,8 +37,5 @@ curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.config/mpv/mp
 cd || return
 mkdir -p "$HOME"/.config/geany/colorschemes/ && cd "$HOME"/.config/geany/colorschemes/ || return
 curl -OL "https://raw.github.com/geany/geany-themes/master/colorschemes/bespin.conf"
-cd || return
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc-linux"
-curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/.cwmrc-openbsd"
 cd || return
 print "Get backup dotfiles from github... DONE"
