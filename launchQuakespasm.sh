@@ -1,6 +1,8 @@
 #!/bin/sh
 echo "Usage: $0 [map]"
 
+#find ~/games/quake/*/{maps/*.bsp,pak0.pak} -type f
+
 mapdir=$(dirname $1)
 mapdir=$(awk -F/ '{print $(NF-1)}' <<< "${mapdir}")
 mapname=$(basename -- "$1" ".bsp")
