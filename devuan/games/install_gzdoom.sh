@@ -39,6 +39,6 @@ cmake .. -DNO_FMOD=ON
 #cd ~/gzdoom_build/gzdoom/build &&
 #cmake .. -DNO_FMOD=OFF
 
-cd ~/gzdoom_build/gzdoom &&
-git checkout master
+#cd ~/gzdoom_build/gzdoom &&
+#git checkout master
 echo "Installing gzdoom... DONE"
