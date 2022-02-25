@@ -8,7 +8,7 @@ set -e
 cd || return
 
 # roguelikes
-paru -S nethack rogue stone-soup cataclysm-dda bsd-games angband infra-arcana umoria
+paru -S nethack rogue stone-soup cataclysm-dda bsd-games angband umoria
 
 # doom
 paru -S chocolate-doom crispy-doom prboom-plus gzdoom
@@ -23,10 +23,10 @@ paru -S quakespasm qpakman
 paru -S yamagi-quake2 yamagi-quake2-rogue yamagi-quake2-xatrix
 
 # hexen2
-paru -S hexen2
+#paru -S hexen2
 
 # half life
-paru -S xash3d-fwgs-git
+#paru -S xash3d-fwgs-git
 
 # build games
 paru -S eduke32 nblood raze
@@ -35,7 +35,7 @@ paru -S eduke32 nblood raze
 #paru -S iortcw-git iortcw-data
 
 # marathon
-paru -S alephone alephone-marathon alephone-marathon2 alephone-rubiconx alephone-infinity
+#paru -S alephone alephone-marathon alephone-marathon2 alephone-rubiconx alephone-infinity
 
 # descent
 paru -S d1x-rebirth d2x-rebirth
@@ -44,7 +44,7 @@ paru -S d1x-rebirth d2x-rebirth
 paru -S devilutionx
 
 # uqm
-paru -S uqm uqm-sound uqm-remix
+#paru -S uqm uqm-sound uqm-remix
 
 # minetest
 paru -S minetest minetest-server
@@ -53,18 +53,18 @@ paru -S minetest minetest-server
 paru -S flacon tsmuxer-git jdownloader2 mangohud
 
 # torcs
-paru -S torcs torcs-data speed-dreams-svn
+paru -S torcs torcs-data
 
 # emulators
-paru -S dosbox mgba snes9x mupen64plus dolphin-emu higan mednafen hatari ppsspp scummvm scummvm-tools fs-uae fs-uae-launcher sameboy nestopia pcsx2-git yuzu-git
+paru -S dosbox dolphin-emu higan mednafen hatari ppsspp scummvm scummvm-tools sameboy nestopia
 
 # wine
-paru -S wine wine-gecko wine-mono winetricks zenity vkd3d lutris
+#paru -S wine wine-gecko wine-mono winetricks zenity vkd3d lutris
 
 # retroarch
-paru -S retroarch libretro libretro-dosbox-pure-git libretro-beetle-saturn-git libretro-opera-git
+#paru -S retroarch libretro libretro-dosbox-pure-git libretro-beetle-saturn-git libretro-opera-git
 
 # games
-paru -S lbreakout2
+#paru -S lbreakout2
 
 echo "Installing games... DONE"
