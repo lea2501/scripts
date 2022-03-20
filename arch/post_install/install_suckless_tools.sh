@@ -23,6 +23,10 @@ cloneRepo st
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/aur/st/config.def.h"
 makepkg -sic --noconfirm --skipinteg
 
+cloneRepo dwm
+curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/aur/dwm/config.h"
+#makepkg -sic --noconfirm --skipinteg
+
 cloneRepo cwm
 makepkg -sic --noconfirm --skipinteg
 cd || return
