@@ -15,5 +15,3 @@ cd || return
     print "alias syncthing='syncthing -no-browser'"
     print "alias ls='ls -lahF'"
 } >>$HOME/.kshrc
-
-#source ~/.bashrc
