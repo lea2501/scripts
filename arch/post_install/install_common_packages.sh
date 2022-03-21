@@ -17,7 +17,7 @@ echo "Updating system repositories and packages... DONE"
 echo "installing common packages..."
 cd || return
 # system
-$su pacman -S pacman-contrib base-devel tmux vi vim nano udisks2 brightnessctl dos2unix exfatprogs picom firejail upower
+$su pacman -S pacman-contrib base-devel arch-install-scripts devtools tmux vi vim nano udisks2 brightnessctl dos2unix exfatprogs picom firejail upower lsof
 $su pacman -S xclip autocutsel xosd usbutils udftools bash-completion htop findutils acpi lm_sensors ntp alsa-plugins alsa-utils
 $su pacman -S terminus-font ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-liberation ttf-opensans gnu-free-fonts
 
