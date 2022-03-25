@@ -1,7 +1,10 @@
 #!/bin/sh
-echo "Usage: $0 [map]"
-
-#find ~/games/quake/*/{maps/*.bsp,pak0.pak} -type f
+if [[ -z $1 ]]; then
+	echo "Usage: $0 [map]"
+	echo "Find available maps with:"
+	echo "  $ find ~/games/quake/*/{maps/*.bsp,pak0.pak} -type f"
+	exit
+fi
 
 mapdir=$(dirname $1)
 mapdir=$(awk -F/ '{print $(NF-1)}' <<< "${mapdir}")
