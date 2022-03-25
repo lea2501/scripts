@@ -1,9 +1,17 @@
 #!/bin/sh
-if [[ -z $1 ]]; then
-	echo "Usage: $0 [map]"
-	echo "Find available maps with:"
-	echo "  $ find ~/games/quake/*/{maps/*.bsp,pak0.pak} -type f"
-	exit
+if [[ -z $1 ]] || [[ "$1" == "-h" ]]; then
+  echo "Usage:"
+  echo "  $(basename $0) [map]"
+  echo ""
+  echo "To list all available game and maps:"
+  echo "  $(basename $0) --list|-l"
+  echo ""
+  exit
+fi
+if [[ "$1" == "--list" ]] || [[ "$1" == "-l" ]]; then
+  find ~/games/quake/*/{maps/*.bsp,pak0.pak} -type f
+  echo ""
+  exit
 fi
 
 mapdir=$(dirname $1)
