@@ -7,5 +7,5 @@ set -e
 
 echo "Installing packages 'other browsers'..."
 #paru -S chromium firefox-esr-bin surf amfora bombadillo lagrange
-paru -S chromium firefox-esr-bin surf lagrange
+paru -S chromium firefox-esr-bin surf lagrange dooble-bin badwolf
 echo "Installing packages 'other browsers'... DONE"

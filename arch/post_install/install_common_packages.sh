@@ -22,7 +22,7 @@ $su pacman -S xclip autocutsel xosd usbutils udftools bash-completion htop findu
 $su pacman -S terminus-font ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-liberation ttf-opensans gnu-free-fonts
 
 # pulseaudio
-$su pacman -S pipewire pipewire-pulse pipewire-alsa pavucontrol
+$su pacman -S pulseaudio pavucontrol
 
 # devel
 $su pacman -S cmake jre-openjdk jdk-openjdk jdk8-openjdk jdk11-openjdk jdk17-openjdk maven gradle npm
@@ -46,7 +46,7 @@ $su pacman -S feh geeqie gimp imagemagick
 $su pacman -S curl wget axel tigervnc filezilla openconnect networkmanager-openconnect samba
 
 # tools
-$su pacman -S ntfs-3g rsync clamav gparted freerdp rdesktop libreoffice-fresh libreoffice-fresh-es keepassxc galculator pass pass-otp zbar
+$su pacman -S ntfs-3g rsync clamav gparted freerdp rdesktop libreoffice-fresh libreoffice-fresh-es keepassxc galculator zbar
 $su pacman -S cabextract arj unrar p7zip unarj unace unzip zip tar xarchiver libxml2
 
 # emulators
