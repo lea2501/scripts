@@ -1,7 +1,19 @@
 #!/bin/ksh
 
 doas pkg_add autoconf gcc gmake
-./clone_src.ksh angband https://github.com/angband/angband.git
+
+application=angband
+repository=https://github.com/angband/angband.git
+mkdir -p ~/src
+cd ~/src || return
+if [[ ! -d $application ]]; then
+  git clone $repository
+  cd $application || return
+else
+  cd $application || return
+  git pull
+fi
+
 cd ~/src/angband || return
 #./autogen.sh
 mkdir build && cd build

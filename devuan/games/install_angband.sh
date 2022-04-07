@@ -11,10 +11,21 @@ if [[ -z $su ]]; then
 fi
 
 $su apt-get install -y build-essential autoconf gcc libc6-dev libncursesw5-dev libx11-dev
-./clone_src.sh angband https://github.com/angband/angband.git
+
+application=angband
+repository=https://github.com/angband/angband.git
+mkdir -p ~/src
+cd ~/src || return
+if [ ! -d $application ]; then
+  git clone $repository
+  cd $application || return
+else
+  cd $application || return
+  git pull
+fi
+
 cd ~/src/angband || return
 ./autogen.sh
 ./configure --with-no-install -disable-x11
 make clean
 make
-echo "Installing angband... DONE"
