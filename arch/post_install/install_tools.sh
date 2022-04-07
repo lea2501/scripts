@@ -7,5 +7,5 @@ set -e
 
 echo "Installing packages 'tools'..."
 # tools
-paru -S bash-git-prompt tsmuxer-git vim-gnupg scalpel-git guymager
+paru -S bash-git-prompt tsmuxer-git vim-gnupg scalpel-git guymager mcomix shntool
 echo "Installing packages 'tools'... DONE"

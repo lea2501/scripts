@@ -29,12 +29,12 @@ $su pacman -S cmake jre-openjdk jdk-openjdk jdk8-openjdk jdk11-openjdk jdk17-ope
 $su pacman -S jq git subversion groovy intellij-idea-community-edition kotlin docker mariadb mariadb-clients geany geany-plugins android-tools
 
 # multimedia
-$su pacman -S flac faac mac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool libdvdcss lsdvd
+$su pacman -S flac faac mac opus-tools vorbis-tools wavpack mpv ffmpeg sox libdvdcss lsdvd
 
 # extra tools
 $su pacman -S wmname moc avidemux-qt lynx w3m newsboat rtorrent amule aria2 youtube-dl
-$su pacman -S dmenu pcmanfm detox scrot slock mc hdparm lshw
-$su pacman -S mcomix qpdf zathura zathura-pdf-mupdf mupdf mupdf-tools
+$su pacman -S dmenu pcmanfm detox scrot slock mc hdparm lshw fdupes
+$su pacman -S qpdf zathura zathura-pdf-mupdf mupdf mupdf-tools
 
 # forensic tools
 $su pacman -S foremost testdisk sleuthkit

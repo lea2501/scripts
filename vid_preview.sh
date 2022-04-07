@@ -6,8 +6,8 @@
 function show_usage (){
     printf "Usage: $0 [options [parameters]]\n"
     printf "  For all files in directory use like this:\n"
-    printf "  $ for file in *.mp4; do $0 -f \"\$file\"; done\n"
-    printf "  $ for file in *.mp4; do $0 -f \"\$file\" -h 120 -c 2 -r 4; done\n"
+    printf "  $ for file in *{.mp4,h264,mkv,avi,rm,ts}; do $0 -f \"\$file\"; done\n"
+    printf "  $ for file in *{.mp4,h264,mkv,avi,rm,ts}; do $0 -f \"\$file\" -h 120 -c 2 -r 4; done\n"
     printf "\n"
     printf "Mandatory options:\n"
     printf " -f|--file          [FILENAME.EXT]\n"

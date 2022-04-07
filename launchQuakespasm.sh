@@ -24,7 +24,7 @@ if [[ -z $retro ]] || [[ "$retro" == "0" ]]; then
   elif [[ "$retro" == "1" ]]; then
       export r_lerpmodels=0
       export r_lerpmove=0
-      export r_scale=3
+      export r_scale=4
 else
     echo "invalid retro variable options, valid ones are 0 or 1, exiting"
 fi

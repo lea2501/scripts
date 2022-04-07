@@ -46,7 +46,7 @@ $su apt-get -y install feh geeqie gimp imagemagick
 $su apt-get -y install curl axel tigervnc-viewer openconnect network-manager network-manager-openconnect samba x11vnc
 
 # tools
-$su apt-get -y install ntfs-3g rsync clamav gparted rdesktop libreoffice keepassxc pass pass-extension-otp zbar cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator libxml2-utils aapt
+$su apt-get -y install ntfs-3g rsync clamav gparted rdesktop libreoffice keepassxc zbar cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator libxml2-utils aapt
 
 # emulators
 $su apt-get -y install qemu qemu-kvm qemu-system-x86 qemu-utils
