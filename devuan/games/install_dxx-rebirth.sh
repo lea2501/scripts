@@ -12,7 +12,18 @@ fi
 
 $su apt-get install -y build-essential scons libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libphysfs-dev
 
-./clone_src.sh dxx-rebirth https://github.com/dxx-rebirth/dxx-rebirth.git
+application=dxx-rebirth
+repository=https://github.com/dxx-rebirth/dxx-rebirth.git
+mkdir -p ~/src
+cd ~/src || return
+if [ ! -d $application ]; then
+  git clone $repository
+  cd $application || return
+else
+  cd $application || return
+  git pull
+fi
+
 cd ~/src/ || return
 cd dxx-rebirth || return
 scons sdl2=1 builddir_prefix=build/

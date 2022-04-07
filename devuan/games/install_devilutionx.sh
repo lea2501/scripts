@@ -12,7 +12,18 @@ fi
 
 $su apt-get install -y cmake g++ libsdl2-dev libsodium-dev libpng-dev libbz2-dev
 
-./clone_src.sh devilutionX https://github.com/diasurgical/devilutionX.git
+application=devilutionX
+repository=https://github.com/diasurgical/devilutionX.git
+mkdir -p ~/src
+cd ~/src || return
+if [ ! -d $application ]; then
+  git clone $repository
+  cd $application || return
+else
+  cd $application || return
+  git pull
+fi
+
 cd ~/src/ || return
 cd devilutionX || return
 cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release

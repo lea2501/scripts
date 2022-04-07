@@ -12,7 +12,18 @@ fi
 
 $su apt-get install -y build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats
 
-./clone_src.sh NBlood https://github.com/nukeykt/NBlood.git
+application=NBlood
+repository=https://github.com/nukeykt/NBlood.git
+mkdir -p ~/src
+cd ~/src || return
+if [ ! -d $application ]; then
+  git clone $repository
+  cd $application || return
+else
+  cd $application || return
+  git pull
+fi
+
 cd NBlood || return
 make
 echo "Installing nblood... DONE"
