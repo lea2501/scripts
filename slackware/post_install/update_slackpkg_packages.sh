@@ -12,5 +12,6 @@ slackpkg upgrade-all
 
 read -rp "Enter kernel version if updated (leave empty if not updated): " kernel_version
 if [[ -z $kernel_version ]]; then
-  mkinitrd -c -k "$kernel_version" -f ext2 -r /dev/sda1 -o /boot/initrd.gz
+  #mkinitrd -c -k "$kernel_version" -f ext2 -r /dev/sda1 -o /boot/initrd.gz
+  mkinitrd -i
 fi

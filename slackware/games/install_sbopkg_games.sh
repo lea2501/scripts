@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sbopkg -b "moria angband"
+
 sbopkg -b chocolate-doom
 sbopkg -b crispy-doom
 sbopkg -b prboom-plus
@@ -14,8 +16,6 @@ sbopkg -b ecwolf
 
 sbopkg -b eduke32
 sbopkg -b nblood
-
-sbopkg -b "moria angband"
 
 sbopkg -b dosbox
 sbopkg -b mednafen
