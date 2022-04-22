@@ -1,4 +1,5 @@
 #/bin/bash
+
 find . -depth -name '*[[:upper:]]*' -exec sh -c '
   for f do
     dir=${f%/*}
