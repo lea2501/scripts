@@ -9,7 +9,7 @@
 
 for dir in ~/aur/*; do
   cd "$dir" || exit
-  #pwd
+  pwd
   CURRENT_DIR=$(basename "$PWD")
   git fetch
   LOCAL=$(git rev-parse HEAD)
