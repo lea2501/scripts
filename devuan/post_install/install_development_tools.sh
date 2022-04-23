@@ -26,7 +26,7 @@ mv idea-IC-* ideaIC-${INTELLIJ_VERSION}
 ln -s ideaIC-${INTELLIJ_VERSION}/bin/idea.sh ~/bin/idea
 
 # vscodium
-mkdir -p ~/bin
-cd ~/bin || return
+mkdir -p ~/Applications
+cd ~/Applications || return
 curl -O -L "$(curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | jq -r ".assets[] | select(.name | test(\"AppImage\")) | .browser_download_url" | head -n 1)"
 echo "installing development tools... DONE"

@@ -22,3 +22,4 @@ fi
 
 ./configure
 make
+$su make install
