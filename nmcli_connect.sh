@@ -5,5 +5,4 @@ set -e
 # debug log
 #set -x
 
-read -rp "Enter password: " password
 nmcli device wifi connect 8C:FD:DE:94:90:3F password CREDENTIAL_REMOVED

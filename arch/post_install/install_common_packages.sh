@@ -26,7 +26,7 @@ $su pacman -S terminus-font ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-li
 
 # devel
 $su pacman -S cmake jre-openjdk jdk-openjdk jdk8-openjdk jdk11-openjdk jdk17-openjdk maven gradle npm
-$su pacman -S jq git subversion groovy intellij-idea-community-edition kotlin docker mariadb mariadb-clients geany geany-plugins android-tools
+$su pacman -S jq git subversion groovy intellij-idea-community-edition kotlin podman mariadb mariadb-clients geany geany-plugins android-tools #docker
 
 # multimedia
 $su pacman -S flac faac mac opus-tools vorbis-tools wavpack mpv ffmpeg sox libdvdcss lsdvd
