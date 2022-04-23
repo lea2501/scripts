@@ -5,7 +5,6 @@ set -e
 # debug log
 #set -x
 
-echo "Removing asking for sudo password for user..."
+pacman -Sy sudo
 read -rp "Enter user name: " username
 echo "${username} ALL=(ALL) NOPASSWD: ALL" | EDITOR='tee -a' visudo
-echo "Removing asking for sudo password for user... DONE"
