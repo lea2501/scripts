@@ -11,8 +11,8 @@ if [[ -z $su ]]; then
 fi
 
 echo "Installing packages 'minimal tools'..."
-$su apt-get -y install stterm
-$su apt-get -y install --no-install-recommends cwm
+$su apt-get -y --fix-missing install stterm
+$su apt-get -y --fix-missing install --no-install-recommends cwm
 cd || return
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/devuan/.cwmrc"
 echo "Installing packages 'minimal tools'... DONE"

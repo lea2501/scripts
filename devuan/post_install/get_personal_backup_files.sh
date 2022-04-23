@@ -10,7 +10,7 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-$su apt-get -y install curl
+$su apt-get -y --fix-missing install curl
 cd || return
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/devuan/.xinitrc"
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/devuan/.Xresources"

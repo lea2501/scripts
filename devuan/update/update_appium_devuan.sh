@@ -7,7 +7,7 @@ fi
 
 echo "installing appium..."
 cd || return
-$su apt-get -y install npm cmake
+$su apt-get -y --fix-missing install npm cmake
 $su npm install -g appium --unsafe-perm=true --allow-root
 $su npm install -g appium-doctor
 #$su npm install -g opencv4nodejs --unsafe-perm=true --allow-root
