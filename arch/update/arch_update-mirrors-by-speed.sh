@@ -10,9 +10,8 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-$su pacman -Sy pacman-contrib
+$su pacman -S pacman-contrib
 
-############ Script
 FILE=/etc/pacman.d/mirrorlist.backup
 if [ -f "$FILE" ]; then
     echo "Mirrorlist $FILE backup file exists."
