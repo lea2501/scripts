@@ -5,6 +5,6 @@ set -e
 # debug log
 #set -x
 
-apt install doas
+apt-get -y --fix-missing install doas
 read -rp "Enter user name: " username
 echo "permit nopass ${username} as root" > /etc/doas.conf
