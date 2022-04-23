@@ -16,22 +16,22 @@ $su pacman -S pacman-contrib
 $su pacman -S artix-archlinux-support
   {
     echo "#[testing]"
-    echo "#Include = /etc/pacman.d/mirrorlist"
+    echo "#Include = /etc/pacman.d/mirrorlist-arch"
     echo ""
     echo "[extra]"
-    echo "Include = /etc/pacman.d/mirrorlist"
+    echo "Include = /etc/pacman.d/mirrorlist-arch"
     echo ""
     echo "#[community-testing]"
-    echo "#Include = /etc/pacman.d/mirrorlist"
+    echo "#Include = /etc/pacman.d/mirrorlist-arch"
     echo ""
     echo "[community]"
-    echo "Include = /etc/pacman.d/mirrorlist"
+    echo "Include = /etc/pacman.d/mirrorlist-arch"
     echo ""
     echo "#[multilib-testing]"
-    echo "#Include = /etc/pacman.d/mirrorlist"
+    echo "#Include = /etc/pacman.d/mirrorlist-arch"
     echo ""
     echo "[multilib]"
-    echo "Include = /etc/pacman.d/mirrorlist"
+    echo "Include = /etc/pacman.d/mirrorlist-arch"
   } | $su tee -a /etc/pacman.conf
 $su pacman-key --populate archlinux
 
