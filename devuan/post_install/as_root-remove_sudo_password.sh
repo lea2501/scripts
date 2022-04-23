@@ -5,6 +5,6 @@ set -e
 # debug log
 #set -x
 
-apt install sudo
+apt-get -y --fix-missing install sudo
 read -rp "Enter user name: " username
 echo "${username} ALL=(ALL) NOPASSWD: ALL" | EDITOR='tee -a' visudo
