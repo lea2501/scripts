@@ -10,20 +10,30 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "installing development tools..."
-# intellij
+#https://www.jetbrains.com/idea/download/download-thanks.html?platform=linux&code=IIC
+
 mkdir -p ~/bin
 cd ~/bin || return
-export INTELLIJ_VERSION="2020.1"
+export INTELLIJ_VERSION=$(curl --silent "https://raw.githubusercontent.com/archlinux/svntogit-community/packages/intellij-idea-community-edition/trunk/PKGBUILD" | grep "pkgver=" | sed 's/pkgver=//')
 export INTELLIJ_DOWNLOAD_URL="https://download-cf.jetbrains.com/idea/ideaIC-${INTELLIJ_VERSION}.tar.gz"
 
-$su apt-get update && \
-$su apt-get install -qq -y curl unzip && \
-rm -rf idea*
-curl -L --silent "${INTELLIJ_DOWNLOAD_URL}" > ideaIC-${INTELLIJ_VERSION}.tar.gz
-tar -xvf ideaIC-${INTELLIJ_VERSION}.tar.gz
-mv idea-IC-* ideaIC-${INTELLIJ_VERSION}
-ln -s ideaIC-${INTELLIJ_VERSION}/bin/idea.sh ~/bin/idea
+$su apt-get update -qq
+$su apt-get install -qq -y curl
+
+# Remove previous file
+rm -rf ideaIC-"${INTELLIJ_VERSION}".tar.gz
+# Download new version
+curl -L --silent "${INTELLIJ_DOWNLOAD_URL}" > ideaIC-"${INTELLIJ_VERSION}".tar.gz
+# Remove previous directory
+rm -rf ideaIC-"${INTELLIJ_VERSION}"
+# Remove previous symlink
+rm -f idea
+# Extract new version
+tar -xvf ideaIC-"${INTELLIJ_VERSION}".tar.gz
+mv idea-IC-* ideaIC-"${INTELLIJ_VERSION}"
+# Create new symlink
+ln -s ideaIC-"${INTELLIJ_VERSION}"/bin/idea.sh ~/bin/idea
+
 
 # vscodium
 mkdir -p ~/Applications
