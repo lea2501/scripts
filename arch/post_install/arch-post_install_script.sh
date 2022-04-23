@@ -21,6 +21,17 @@ elif [ "$superuser" == "doas" ]; then
   export su=doas
 fi
 
+# Section: Artix. Add arch linux repos
+read -rp "Add arch linux repos to Artix linux?: (y|N)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  echo "$option: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  read -rp "?: (y|n)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  ./artix-post-install-script-add_arch_linux_repositories_support.sh
+fi
+
 # Section: Create xinitrc
 read -rp "Create .xinit file in user home directory?: (y|N)" option
 while [[ " "${options[@]}" " != *" $option "* ]]; do
