@@ -17,6 +17,7 @@ $su apt-get -y --fix-missing install android-sdk-platform-tools
 $su apt-get -y --fix-missing install android-sdk-build-tools
 $su apt-get -y --fix-missing install fastboot
 #$su apt-get -y --fix-missing install scrcpy #available in testing and sid for now
+$su apt-get -y --fix-missing install scrcpy/chimaera-backports
 
 #{
 #  echo "export ANDROID_HOME=/opt/android-sdk/"
