@@ -5,7 +5,6 @@ set -e
 # debug log
 #set -x
 
-echo "Removing asking for doas password for user..."
+apt install doas
 read -rp "Enter user name: " username
 echo "permit nopass ${username} as root" > /etc/doas.conf
-echo "Removing asking for doas password for user... DONE"
