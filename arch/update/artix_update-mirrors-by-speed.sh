@@ -10,9 +10,8 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-$su pacman -Sy pacman-contrib
+$su pacman -S pacman-contrib
 
-############ Script
 arch_file=/etc/pacman.d/mirrorlist-arch.backup
 artix_file=/etc/pacman.d/mirrorlist.backup
 if [ -f "$artix_file" ]; then
