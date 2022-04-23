@@ -5,7 +5,12 @@ set -e
 # debug log
 #set -x
 
-echo "Getting backup dotfiles from github..."
+# Set superuser privileges command if not set
+if [[ -z $su ]]; then
+  export su="sudo"
+fi
+
+$su apt-get -y install curl
 cd || return
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/devuan/.xinitrc"
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/devuan/.Xresources"

@@ -29,7 +29,7 @@ ln -s Postman/app/Postman postman
 # jmeter
 mkdir -p ~/bin
 cd ~/bin || return
-export JMETER_VERSION="5.4.1"
+export JMETER_VERSION="5.4.3"
 export JMETER_HOME=$HOME/bin/apache-jmeter-${JMETER_VERSION}
 export JMETER_BIN="${JMETER_HOME}"/bin
 export JMETER_DOWNLOAD_URL=https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz

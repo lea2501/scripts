@@ -26,7 +26,7 @@ $su apt-get -y install pulseaudio pavucontrol
 
 # devel
 $su apt-get -y install cmake openjdk-17-jdk openjdk-11-jdk openjdk-11-jdk-headless openjdk-11-jre maven gradle npm
-$su apt-get -y install jq git subversion groovy docker.io mariadb-server mariadb-client geany geany-plugins
+$su apt-get -y install jq git subversion groovy podman mariadb-server mariadb-client geany geany-plugins #docker.io
 
 # multimedia
 $su apt-get -y install flac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool lsdvd libbluray-bdj
@@ -46,7 +46,7 @@ $su apt-get -y install feh geeqie gimp imagemagick
 $su apt-get -y install curl axel tigervnc-viewer openconnect network-manager network-manager-openconnect samba x11vnc
 
 # tools
-$su apt-get -y install ntfs-3g rsync clamav gparted rdesktop libreoffice keepassxc zbar cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator libxml2-utils aapt
+$su apt-get -y install ntfs-3g rsync clamav gparted rdesktop libreoffice keepassxc zbar-tools cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator libxml2-utils aapt
 
 # emulators
 $su apt-get -y install qemu qemu-kvm qemu-system-x86 qemu-utils
