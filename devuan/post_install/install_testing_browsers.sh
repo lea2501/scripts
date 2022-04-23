@@ -11,6 +11,6 @@ if [[ -z $su ]]; then
 fi
 
 echo "Installing external packages 'testing browsers'..."
-$su apt-get -y install chromium chromium-driver
-$su apt-get -y install firefox-esr
+$su apt-get -y --fix-missing install chromium chromium-driver
+$su apt-get -y --fix-missing install firefox-esr
 echo "Installing external packages 'testing browsers'... DONE"

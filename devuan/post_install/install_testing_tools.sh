@@ -43,7 +43,7 @@ rm -rf /tmp/dependencies
 ln -s "$JMETER_BIN"/jmeter "$HOME"/bin/
 
 # Allure
-$su apt-get -y install allure
+$su apt-get -y --fix-missing install allure
 
 # SchemaGuru
 mkdir -p ~/bin

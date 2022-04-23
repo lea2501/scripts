@@ -14,51 +14,51 @@ fi
 cd || return
 
 # roguelikes
-$su apt-get -y install moria angband nethack-console cataclysm-dda-curses games-rogue
+$su apt-get -y --fix-missing install moria angband nethack-console cataclysm-dda-curses games-rogue
 
 # doom
-$su apt-get -y install chocolate-doom crispy-doom prboom-plus glbsp zdbsp
+$su apt-get -y --fix-missing install chocolate-doom crispy-doom prboom-plus glbsp zdbsp
 
 # doom3
-$su apt-get -y install dhewm3 dhewm3-doom3 dhewm3-d3xp rbdoom3bfg
+$su apt-get -y --fix-missing install dhewm3 dhewm3-doom3 dhewm3-d3xp rbdoom3bfg
 
 # quake
-$su apt-get -y install quakespasm
+$su apt-get -y --fix-missing install quakespasm
 
 # quake2
-$su apt-get -y install yamagi-quake2
+$su apt-get -y --fix-missing install yamagi-quake2
 
 # hexen2
-$su apt-get -y install uhexen2
+$su apt-get -y --fix-missing install uhexen2
 
 # rtcw
-$su apt-get -y install rtcw
+$su apt-get -y --fix-missing install rtcw
 
 # descent
-#$su apt-get -y install d1x-rebirth d2x-rebirth
+#$su apt-get -y --fix-missing install d1x-rebirth d2x-rebirth
 
 # uqm
-$su apt-get -y install uqm
+$su apt-get -y --fix-missing install uqm
 
 # minetest
-$su apt-get -y install minetest minetest-server minetest-mod-basic-materials minetest-mod-homedecor minetest-mod-nether minetest-mod-player-3d-armor minetest-mod-mobs-redo
+$su apt-get -y --fix-missing install minetest minetest-server minetest-mod-basic-materials minetest-mod-homedecor minetest-mod-nether minetest-mod-player-3d-armor minetest-mod-mobs-redo
 
 # tor
-$su apt-get -y install tor obfs4proxy
+$su apt-get -y --fix-missing install tor obfs4proxy
 
 # torcs
-$su apt-get -y install torcs torcs-data
+$su apt-get -y --fix-missing install torcs torcs-data
 
 # emulators
-$su apt-get -y install dosbox mgba-sdl mednafen mednaffe higan hatari scummvm scummvm-tools fs-uae fs-uae-launcher nestopia mame mame-tools pcsxr pcsx2
+$su apt-get -y --fix-missing install dosbox mgba-sdl mednafen mednaffe higan hatari scummvm scummvm-tools fs-uae fs-uae-launcher nestopia mame mame-tools pcsxr pcsx2
 
 # wine
-$su apt-get -y install wine wine64
+$su apt-get -y --fix-missing install wine wine64
 
 # retroarch
-#$su apt-get -y install retroarch
+#$su apt-get -y --fix-missing install retroarch
 
 # other games
-$su apt-get -y install lbreakout2 micropolis lincity
+$su apt-get -y --fix-missing install lbreakout2 micropolis lincity
 
 echo "Installing games... DONE"

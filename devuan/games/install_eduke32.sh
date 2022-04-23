@@ -10,7 +10,7 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-$su apt-get -y install build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats
+$su apt-get -y --fix-missing install build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats
 
 application=eduke32
 repository=https://voidpoint.io/terminx/eduke32.git

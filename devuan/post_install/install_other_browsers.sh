@@ -11,8 +11,8 @@ if [[ -z $su ]]; then
 fi
 
 echo "Installing packages 'other browsers'..."
-$su apt-get -y install chromium
-$su apt-get -y install firefox-esr
-$su apt-get -y install surf
-$su apt-get -y install qutebrowser
+$su apt-get -y --fix-missing install chromium
+$su apt-get -y --fix-missing install firefox-esr
+$su apt-get -y --fix-missing install surf
+$su apt-get -y --fix-missing install qutebrowser
 echo "Installing packages 'other browsers'... DONE"

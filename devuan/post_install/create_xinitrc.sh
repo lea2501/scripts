@@ -12,7 +12,7 @@ fi
 
 echo "Installing xorg packages..."
 echo ""
-$su apt-get -y install xorg
+$su apt-get -y --fix-missing install xorg
 echo "Installing xorg packages... DONE"
 
 echo "Creating ~/.xinitrc file..."
