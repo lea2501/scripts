@@ -26,6 +26,7 @@ fi
 
 cd ~/src/frogcomposband || return
 sh autogen.sh
+chmod +x configure
 ./configure --prefix "$HOME"/.frogcomposband --with-no-install
 make clean
 make
