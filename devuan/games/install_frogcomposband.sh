@@ -24,7 +24,7 @@ else
   git pull
 fi
 
-cd ~/src/frogcomposband || return
+cd ~/src/$application || return
 sh autogen.sh
 chmod +x configure
 ./configure --prefix "$HOME"/.frogcomposband --with-no-install

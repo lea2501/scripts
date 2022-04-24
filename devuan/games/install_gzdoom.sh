@@ -10,34 +10,43 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-$su apt-get install -y g++ make cmake libsdl2-dev git zlib1g-dev libbz2-dev libjpeg-dev libfluidsynth-dev libgme-dev libopenal-dev libmpg123-dev libsndfile1-dev libgtk-3-dev timidity nasm libgl1-mesa-dev tar libsdl1.2-dev libglew-dev
+$su apt-get install -y --no-install-recommends g++ make cmake libsdl2-dev git zlib1g-dev libbz2-dev libjpeg-dev libgme-dev libopenal-dev libmpg123-dev libsndfile1-dev libgtk-3-dev timidity nasm libgl1-mesa-dev tar libsdl1.2-dev libglew-dev #libfluidsynth-dev
 
-mkdir -p ~/src/gzdoom_build
-cd ~/src/gzdoom_build || return
-if [ ! -d gzdoom ]; then
-  git clone https://github.com/coelckers/gzdoom.git
-  cd gzdoom || return
+application=ZMusic
+repository=https://github.com/coelckers/ZMusic.git
+mkdir -p ~/src
+cd ~/src || return
+if [ ! -d $application ]; then
+  git clone $repository
+  cd $application || return
 else
-  cd gzdoom || return
+  cd $application || return
   git pull
 fi
 
-cd ~/gzdoom_build &&
-mkdir -pv gzdoom/build
+mkdir -pv build
+cd build || return
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build .
+$su make install
 
-cd gzdoom || return
-git config --local --add remote.origin.fetch +refs/tags/*:refs/tags/*
-git pull
+application=gzdoom
+repository=https://github.com/coelckers/gzdoom.git
+mkdir -p ~/src
+cd ~/src || return
+if [ ! -d $application ]; then
+  git clone $repository
+  cd $application || return
+else
+  cd $application || return
+  git pull
+fi
 
-cd ~/gzdoom_build &&
+mkdir -pv build
+cd build || return
 wget -nc http://zdoom.org/files/fmod/fmodapi44464linux.tar.gz &&
-tar -xvzf fmodapi44464linux.tar.gz -C gzdoom
+tar -xvzf fmodapi44464linux.tar.gz -C .
 
-cd ~/gzdoom_build/gzdoom/build &&
 cmake .. -DNO_FMOD=ON
-
-#cd ~/gzdoom_build/gzdoom/build &&
 #cmake .. -DNO_FMOD=OFF
-
-#cd ~/gzdoom_build/gzdoom &&
-#git checkout master
+$su make install
