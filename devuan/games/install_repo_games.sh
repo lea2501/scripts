@@ -52,9 +52,6 @@ $su apt-get -y --fix-missing install torcs torcs-data
 # emulators
 $su apt-get -y --fix-missing install dosbox mgba-sdl mednafen mednaffe higan hatari scummvm scummvm-tools fs-uae fs-uae-launcher nestopia mame mame-tools pcsxr pcsx2
 
-# wine
-$su apt-get -y --fix-missing install wine wine64
-
 # retroarch
 #$su apt-get -y --fix-missing install retroarch
 

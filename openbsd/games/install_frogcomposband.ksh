@@ -16,6 +16,7 @@ fi
 
 cd ~/src/frogcomposband || return
 sh autogen.sh
+chmod +x configure
 ./configure --prefix "$HOME"/.frogcomposband --with-no-install --disable-x11
 gmake clean
 gmake
