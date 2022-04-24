@@ -5,6 +5,13 @@ set -e
 # debug log
 #set -x
 
+# Set superuser privileges command if not set
+if [[ -z $su ]]; then
+  export su="sudo"
+fi
+
+$su apt-get install -y libsdl2-dev libvorbis-dev libmad0-dev
+
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d quakespasm-quakespasm ]; then

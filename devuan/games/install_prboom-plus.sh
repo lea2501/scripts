@@ -5,6 +5,8 @@ set -e
 # debug log
 #set -x
 
+$su apt-get install -y libsdl2-dev
+
 application=prboom-plus
 repository=https://github.com/coelckers/prboom-plus.git
 mkdir -p ~/src
