@@ -60,5 +60,3 @@ $su apt-get -y --fix-missing install wine wine64
 
 # other games
 $su apt-get -y --fix-missing install lbreakout2 micropolis lincity
-
-echo "Installing games... DONE"

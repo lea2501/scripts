@@ -9,4 +9,3 @@ DOWNLOAD_URL=$(curl -s https://api.github.com/repos/"$appimage"/releases/latest 
 curl -OL "$DOWNLOAD_URL"
 chmod +x ./*.AppImage ./*.appimage
 cd - || return
-echo "installing $appimage... DONE"

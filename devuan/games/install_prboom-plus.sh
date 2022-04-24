@@ -20,4 +20,3 @@ fi
 cd ~/src/prboom-plus/prboom2 || return
 cmake .
 make
-echo "Installing prboom-plus... DONE"

@@ -5,7 +5,6 @@ set -e
 # debug log
 #set -x
 
-echo "Generating ssh keys..."
 echo "In a web browser, create or access your personal Github account (Optional):"
 echo "  1) In a new tab, open https://github.com in a web browser."
 echo "  2) Access with your personal Github credentials or create a new one."
@@ -15,16 +14,16 @@ echo -e "\033[33;5m Don't close Github page when finished... \033[0m"
 echo ""
 read -rp "Press enter when finish to create ssh keys..."
 
-echo "Generating ssh key in ~/.ssh/id_rsa.pub file..."
+echo "Generating ssh key in $HOME/.ssh/id_rsa.pub file..."
 cat /dev/zero | ssh-keygen -q -N ""
-echo "Generating ssh key in ~/.ssh/id_rsa.pub file... DONE"
+echo "Generating ssh key in $HOME/.ssh/id_rsa.pub file... DONE"
 
-echo "Copying content of '~/.ssh/id_rsa.pub' file to the clipboard..."
-xclip -sel c <~/.ssh/id_rsa.pub
-echo "Copying content of '~/.ssh/id_rsa.pub' file to the clipboard... DONE"
-echo ""
-echo -e "\033[33;5m If you copy other thing to the clipboard, here is your ssh public key, ready to copy again... \033[0m"
-echo ""
+#echo "Copying content of '~/.ssh/id_rsa.pub' file to the clipboard..."
+#xclip -sel c <~/.ssh/id_rsa.pub
+#echo "Copying content of '~/.ssh/id_rsa.pub' file to the clipboard... DONE"
+#echo ""
+#echo -e "\033[33;5m If you copy other thing to the clipboard, here is your ssh public key, ready to copy again... \033[0m"
+#echo ""
 cat ~/.ssh/id_rsa.pub
 echo ""
 
@@ -33,4 +32,3 @@ echo "  1) Access ssh-keys settings in https://github.com/settings/keys"
 echo "  2) Paste the key copied from ~/.ssh/id_rsa.pub and press 'Add key' button."
 echo ""
 read -rp "Press enter when finish to continue..."
-echo "Generating ssh keys... DONE"

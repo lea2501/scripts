@@ -5,6 +5,4 @@ set -e
 # debug log
 #set -x
 
-echo "Installing packages 'testing browsers'..."
-paru -S firefox google-chrome chromedriver 
-echo "Installing packages 'testing browsers'... DONE"
+paru -S firefox google-chrome chromedriver

@@ -7,4 +7,3 @@ set -e
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" </dev/null
 brew tap homebrew/cask
-echo "Installing brew... DONE"

@@ -14,7 +14,7 @@ else
   git pull
 fi
 
-cd ~/src/angband || return
+cd ~/src/$application || return
 #./autogen.sh
 mkdir build && cd build
 mkdir -p ncursesw/include/ncursesw

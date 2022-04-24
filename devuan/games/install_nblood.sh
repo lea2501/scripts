@@ -26,4 +26,3 @@ fi
 
 cd NBlood || return
 make
-echo "Installing nblood... DONE"

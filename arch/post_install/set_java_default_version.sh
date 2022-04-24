@@ -10,6 +10,4 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "Setting java default version..."
 $su archlinux-java set java-17-openjdk
-echo "Setting java default version... DONE"

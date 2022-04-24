@@ -10,8 +10,6 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "Apply fix for misbehaving java applications..."
 $su echo "export _JAVA_AWT_WM_NONREPARENTING=1" | $su tee -a /etc/profile.d/jre.sh
 #echo "export AWT_TOOLKIT=MToolkit" >> ~/.xinitrc
 #echo "wmname compiz"
-echo "Apply fix for misbehaving java applications... DONE"

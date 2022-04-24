@@ -66,5 +66,3 @@ paru -S dosbox dolphin-emu higan mednafen hatari ppsspp scummvm scummvm-tools sa
 
 # games
 #paru -S lbreakout2
-
-echo "Installing games... DONE"

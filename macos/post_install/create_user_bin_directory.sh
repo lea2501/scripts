@@ -9,4 +9,3 @@ cd || return
 mkdir -p ~/bin
 echo "PATH=\$PATH:~/bin/" >>~/.profile
 source ~/.profile
-echo "Creating user 'bin' directory... DONE"

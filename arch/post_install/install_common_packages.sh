@@ -10,11 +10,8 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "Updating system repositories and packages..."
 $su pacman -Syu --noconfirm
-echo "Updating system repositories and packages... DONE"
 
-echo "installing common packages..."
 cd || return
 # system
 $su pacman -S pacman-contrib base-devel arch-install-scripts devtools tmux vi vim nano udisks2 brightnessctl dos2unix exfat-utils picom firejail upower lsof
@@ -53,5 +50,3 @@ $su pacman -S cabextract arj unrar p7zip unarj unace unzip zip tar xarchiver lib
 $su pacman -S qemu qemu-arch-extra
 #$su pacman -S virtualbox virtualbox-guest-utils libvirt virtualbox-host-dkms
 #$su pacman -S vagrant plugin install vagrant-vbguest
-
-echo "installing common packages... DONE"

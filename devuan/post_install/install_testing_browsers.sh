@@ -10,7 +10,5 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "Installing external packages 'testing browsers'..."
 $su apt-get -y --fix-missing install chromium chromium-driver
 $su apt-get -y --fix-missing install firefox-esr
-echo "Installing external packages 'testing browsers'... DONE"

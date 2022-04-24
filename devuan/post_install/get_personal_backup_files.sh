@@ -49,4 +49,3 @@ cd || return
 mkdir -p ~/.config/geany/colorschemes/ && cd ~/.config/geany/colorschemes/ || return
 curl -OL "https://raw.github.com/geany/geany-themes/master/colorschemes/bespin.conf"
 cd || return
-echo "Getting backup dotfiles from github... DONE"

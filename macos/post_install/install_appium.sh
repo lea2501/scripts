@@ -13,7 +13,6 @@ sudo npm install -g appium --unsafe-perm=true --allow-root
 sudo npm install -g appium-doctor
 #sudo npm install -g opencv4nodejs --unsafe-perm=true --allow-root
 npm install wd
-echo "installing appium... DONE"
 
 # appium-desktop
 cd || return
@@ -23,4 +22,3 @@ curl -OL "$(curl -s https://api.github.com/repos/appium/appium-desktop/releases/
 curl -OL "$(curl -s https://api.github.com/repos/appium/appium-inspector/releases/latest | jq -r ".assets[] | select(.name | test(\"dmg\")) | .browser_download_url")" --output appium-inspector-latest.out
 open ~/Downloads
 read -p "Press enter key after installing appium-server and appium-inspector"
-echo "installing appium desktop... DONE"

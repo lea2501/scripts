@@ -10,7 +10,5 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "Setting java default version..."
 $su update-alternatives --config java
 java -version
-echo "Setting java default version... DONE"

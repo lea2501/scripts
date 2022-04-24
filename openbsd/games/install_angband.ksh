@@ -14,7 +14,7 @@ else
   git pull
 fi
 
-cd ~/src/angband || return
+cd ~/src/$application || return
 ./autogen.sh
 ./configure --with-no-install -disable-x11
 gmake clean

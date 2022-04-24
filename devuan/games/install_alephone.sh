@@ -62,4 +62,3 @@ curl -o "AOPID_v1.2.zip" -L "https://simplici7y.com/items/aleph-one-pathways-int
 unzip AOPID_v1.2.zip -d pathways_into_darkness/
 mv pathways_into_darkness/AOPID_v1.2/
 rm -rf pathways_into_darkness/AOPID_v1.2/
-echo "Installing alephone... DONE"

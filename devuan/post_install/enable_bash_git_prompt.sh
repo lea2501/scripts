@@ -5,9 +5,9 @@ set -e
 # debug log
 #set -x
 
-echo "Enabling Bash git prompt..."
-
 {
+  echo ""
+  echo "# bash git prompt"
   echo "if [ -f ~/src/bash-git-prompt/gitprompt.sh ]; then"
   echo "    # To only show the git prompt in or under a repository directory"
   echo "     GIT_PROMPT_ONLY_IN_REPO=1"
@@ -17,5 +17,3 @@ echo "Enabling Bash git prompt..."
   echo "fi"
 }>>~/.bashrc
 source ~/.bashrc
-
-echo "Enabling Bash git prompt... DONE"

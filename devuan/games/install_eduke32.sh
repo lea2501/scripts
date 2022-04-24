@@ -26,4 +26,3 @@ fi
 
 cd eduke32 || return
 make
-echo "Installing eduke32... DONE"

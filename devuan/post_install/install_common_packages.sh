@@ -10,11 +10,9 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "Updating system repositories and packages..."
 $su apt update
 $su apt full-upgrade -y
-echo "Updating system repositories and packages... DONE"
-echo "installing packages..."
+
 cd || return
 # system
 $su apt-get -y --fix-missing install build-essential tmux vim nano udisks2 suckless-tools brightnessctl brightness-udev dos2unix exfat-utils xclip autocutsel xosd-bin picom renameutils bsdmainutils firejail manpages
@@ -50,5 +48,3 @@ $su apt-get -y --fix-missing install ntfs-3g rsync clamav gparted rdesktop libre
 
 # emulators
 $su apt-get -y --fix-missing install qemu qemu-kvm qemu-system-x86 qemu-utils
-
-echo "installing packages... DONE"
