@@ -14,4 +14,8 @@ if [[ "$1" == "--list" ]] || [[ "$1" == "-l" ]]; then
   exit
 fi
 
-gzdoom -width 1920 -height 1080 -fullscreen -iwad ~/games/doom/wads/iwads/"$1".wad -file "$2" ~/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad ~/games/doom/mods/vanilla/jovian_palette/JoyPal.wad ~/games/doom/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3 -savedir ~/games/doom/savegames/"$1"/ -skill 3 -warp 01
+if [ -f ~/src/gzdoom/build/gzdoom ]; then
+  cd ~/src/gzdoom/build/ && ./gzdoom -width 1920 -height 1080 -fullscreen -iwad ~/games/doom/wads/iwads/"$1".wad -file "$2" ~/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad ~/games/doom/mods/vanilla/jovian_palette/JoyPal.wad ~/games/doom/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3 -savedir ~/games/doom/savegames/"$1"/ -skill 3 -warp 01 && cd -
+else
+  gzdoom -width 1920 -height 1080 -fullscreen -iwad ~/games/doom/wads/iwads/"$1".wad -file "$2" ~/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad ~/games/doom/mods/vanilla/jovian_palette/JoyPal.wad ~/games/doom/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3 -savedir ~/games/doom/savegames/"$1"/ -skill 3 -warp 01
+fi
