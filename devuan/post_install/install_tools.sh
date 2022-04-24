@@ -5,18 +5,15 @@ set -e
 # debug log
 #set -x
 
-cloneRepo() {
-  mkdir -p ~/aur
-  cd ~/aur || return
-  if [ ! -d "$1" ]; then
-    git clone https://aur.archlinux.org/"$1".git
-    cd "$1" || return
-  else
-    cd "$1" || return
-    git pull
-  fi
-}
-
-echo "Installing external packages 'tools'..."
-cloneRepo bash-git-prompt https://github.com/magicmonty/bash-git-prompt.git
-echo "Installing external packages 'tools'... DONE"
+# bash-git-prompt
+application=bash-git-prompt
+repository=https://github.com/magicmonty/bash-git-prompt.git
+mkdir -p ~/src
+cd ~/src || return
+if [ ! -d $application ]; then
+  git clone $repository
+  cd $application || return
+else
+  cd $application || return
+  git pull
+fi

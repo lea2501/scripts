@@ -17,7 +17,5 @@ cloneRepo() {
   fi
 }
 
-echo "Installing AUR package 'paru'..."
 cloneRepo paru-bin
 makepkg -sic --noconfirm
-echo "Installing AUR package 'paru'... DONE"

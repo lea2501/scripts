@@ -5,7 +5,6 @@ set -e
 # debug log
 #set -x
 
-echo "Getting backup dotfiles from github..."
 cd || return
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.xinitrc"
 curl -OL "https://raw.githubusercontent.com/lea2501/dotfiles/main/arch/.Xresources"
@@ -44,4 +43,3 @@ cd || return
 mkdir -p ~/.config/geany/colorschemes/ && cd ~/.config/geany/colorschemes/ || return
 curl -OL "https://raw.github.com/geany/geany-themes/master/colorschemes/bespin.conf"
 cd || return
-echo "Getting backup dotfiles from github... DONE"

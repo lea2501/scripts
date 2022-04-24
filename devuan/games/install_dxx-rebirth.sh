@@ -27,4 +27,3 @@ fi
 cd ~/src/ || return
 cd dxx-rebirth || return
 scons sdl2=1 builddir_prefix=build/
-echo "Installing dxx-rebirth... DONE"

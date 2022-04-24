@@ -12,4 +12,3 @@ curl -OL $(curl -s https://api.github.com/repos/appium/appium-desktop/releases/l
 curl -OL $(curl -s https://api.github.com/repos/appium/appium-inspector/releases/latest | jq -r ".assets[] | select(.name | test(\"dmg\")) | .browser_download_url") --output appium-inspector-latest.out
 open ~/Downloads
 read -p "Press enter key after installing appium-server and appium-inspector"
-echo "installing appium desktop... DONE"

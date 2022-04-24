@@ -5,7 +5,6 @@ set -e
 # debug log
 #set -x
 
-echo "Creating user aliases in ~/.bash_aliases file..."
 cd || return
 
 {
@@ -20,10 +19,11 @@ cd || return
 } >>~/.bash_aliases
 
 {
+  echo ""
+  echo "# bash aliases"
   echo "if [ -f ~/.bash_aliases ]; then"
   echo "  . ~/.bash_aliases"
   echo "fi"
 } >>~/.bashrc
 
 source ~/.bashrc
-echo "Creating user aliases in ~/.bash_aliases file... DONE"

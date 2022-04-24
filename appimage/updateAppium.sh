@@ -9,7 +9,6 @@ DOWNLOAD_URL=$(curl -s https://api.github.com/repos/"$appimage"/releases/latest 
 curl -OL "$DOWNLOAD_URL"
 chmod +x ./*.AppImage
 cd - || return
-echo "installing $appimage... DONE"
 
 appimage=appium/appium-inspector
 cd || return
@@ -20,4 +19,3 @@ DOWNLOAD_URL=$(curl -s https://api.github.com/repos/"$appimage"/releases/latest 
 curl -OL "$DOWNLOAD_URL"
 chmod +x ./*.AppImage
 cd - || return
-echo "installing $appimage... DONE"

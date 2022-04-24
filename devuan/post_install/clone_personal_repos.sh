@@ -5,11 +5,10 @@ set -e
 # debug log
 #set -x
 
-echo "Creating ~/src directory..."
 mkdir -p ~/src
-echo "Creating ~/src directory... DONE"
-echo "Cloning Github repos..."
 cd ~/src || return
 git clone git@github.com:lea2501/dotfiles.git
 git clone git@github.com:lea2501/scripts.git
-echo "Cloning Github repos... DONE"
+git clone git@github.com:lea2501/guides.git
+git clone git@github.com:lea2501/doom-random-map-sh.git
+git clone git@github.com:lea2501/quake-random-map-sh.git

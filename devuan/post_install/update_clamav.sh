@@ -10,6 +10,4 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-echo "Updating clamav virus definition database..."
 $su freshclam
-echo "Updating clamav virus definition database... Done"

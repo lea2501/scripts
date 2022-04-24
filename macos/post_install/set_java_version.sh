@@ -8,4 +8,3 @@ set -e
 export JAVA_HOME=$(/usr/libexec/java_home -v11)
 echo "Setting JAVA HOME... DONE"
 export PATH=$JAVA_HOME/bin:$PATH
-echo "Setting java default version... DONE"

@@ -11,7 +11,6 @@ if [[ -z $su ]]; then
 fi
 
 # Add arch linux support
-echo "Adding Arch Linux packages support..."
 $su pacman -S pacman-contrib
 $su pacman -S artix-archlinux-support
   {

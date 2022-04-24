@@ -29,4 +29,3 @@ sh autogen.sh
 ./configure --prefix "$HOME"/.frogcomposband --with-no-install
 make clean
 make
-echo "Installing frogcomposband... DONE"

@@ -14,7 +14,6 @@ else
   git pull
 fi
 
-cd ~/src/ || return
-cd devilutionX || return
+cd ~/src/$application || return
 cmake -S. -Bbuild -DCMAKE_MAKE_PROGRAM=gmake -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j $(sysctl -n hw.ncpuonline)

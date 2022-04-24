@@ -23,4 +23,3 @@ cd ~/bin || return
 curl -OL "https://dl.google.com/android/repository/platform-tools-latest-darwin.zip"
 unzip platform-tools-latest-darwin.zip
 cd || return
-echo "Installing packages 'android tools'... DONE"

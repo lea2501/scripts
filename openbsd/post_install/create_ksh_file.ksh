@@ -12,6 +12,7 @@ cd || return
 } >>$HOME/.kshrc
 
 {
+    print "# aliases"
     print "alias syncthing='syncthing -no-browser'"
     print "alias ls='ls -lahF'"
 } >>$HOME/.kshrc
