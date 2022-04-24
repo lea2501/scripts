@@ -5,4 +5,9 @@ set -e
 # debug log
 #set -x
 
-gpasswd -a "$USER" games
+# Set superuser privileges command if not set
+if [[ -z $su ]]; then
+  export su="sudo"
+fi
+
+$su gpasswd -a "$USER" games
