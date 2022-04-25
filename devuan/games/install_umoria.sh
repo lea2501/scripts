@@ -10,10 +10,10 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
-$su apt-get install -y build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats
+$su apt-get install -y build-essential autoconf gcc libc6-dev libncursesw5-dev libx11-dev
 
-application=NBlood
-repository=https://github.com/nukeykt/NBlood.git
+application=umoria
+repository=https://github.com/dungeons-of-moria/umoria.git
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
@@ -25,4 +25,6 @@ else
 fi
 
 cd ~/src/$application || return
+mkdir build && cd build
+cmake ..
 make

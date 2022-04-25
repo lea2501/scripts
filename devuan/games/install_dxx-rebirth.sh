@@ -24,6 +24,5 @@ else
   git pull
 fi
 
-cd ~/src/ || return
-cd dxx-rebirth || return
+cd ~/src/$application || return
 scons sdl2=1 builddir_prefix=build/

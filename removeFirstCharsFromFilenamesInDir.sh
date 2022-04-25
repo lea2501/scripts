@@ -8,7 +8,11 @@ if { [ -z "$1" ] || [ "$1" = -h ] || [ "$1" = --help ];}; then
 fi
 
 amount=$1
-for i in *.*; do
-   newName=$(echo "$i" | cut -c"$amount"-)
-   mv -v "$i" "$newName"
+for dir in *; do
+  cd "$dir" || return
+  for i in *.*; do
+     newName=$(echo "$i" | cut -c"$amount"-)
+     mv -v "$i" "$newName"
+  done
+  cd .. || return
 done

@@ -19,6 +19,7 @@ else
   git pull
 fi
 
-cd ~/src/prboom-plus/prboom2 || return
+cd ~/src/$application || return
+cd prboom2 || return
 cmake .
 make
