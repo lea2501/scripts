@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if { [ -z "$1" ] || [ "$1" = -h ] || [ "$1" = --help ];}; then
   echo "Usage:"
   echo "  $(basename "$0") [game] [map]"
@@ -9,7 +10,7 @@ if { [ -z "$1" ] || [ "$1" = -h ] || [ "$1" = --help ];}; then
   exit
 fi
 if { [ "$1" = --list ] || [ "$1" = -l ];}; then
-  find ~/games/doom/wads/{doom,doom2,tnt,plutonia}/{vanilla,nolimit,boom}/*/*.wad ! -name *tex*.* ! -name *res*.* ! -name *fix.* ! -name *demo*.* ! -name *credits*.* -type f
+  find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia}/{vanilla,nolimit,boom}/*/*.wad ! -name *tex*.* ! -name *res*.* ! -name *fix.* ! -name *demo*.* ! -name *credits*.* -type f
   echo ""
   exit
 fi
