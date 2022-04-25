@@ -15,7 +15,7 @@ if { [ "$1" = --list ] || [ "$1" = -l ];}; then
 fi
 
 if [ -f ~/src/prboom-plus/prboom2/prboom-plus ]; then
-  cd ~/src/prboom-plus/prboom2/ && ./prboom-plus -config ~/src/prboom-plus/prboom2/prboom-plus.cfg -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad ~/games/doom/wads/iwads/"$1".wad -file "$2" ~/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad ~/games/doom/mods/vanilla/jovian_palette/JoyPal.wad -save ~/games/doom/savegames/"$1"/ -skill 3 -warp 01 && cd -
+  cd ~/src/prboom-plus/prboom2/ && ./prboom-plus -config ~/games/doom/config/prboom-plus/prboom-plus_vanilla.cfg -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad ~/games/doom/wads/iwads/"$1".wad -file "$2" ~/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad ~/games/doom/mods/vanilla/jovian_palette/JoyPal.wad -save ~/games/doom/savegames/"$1"/ -skill 3 -warp 01 && cd -
 else
-  prboom-plus -config ~/src/prboom-plus/prboom2/prboom-plus.cfg -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad ~/games/doom/wads/iwads/"$1".wad -file "$2" ~/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad ~/games/doom/mods/vanilla/jovian_palette/JoyPal.wad -save ~/games/doom/savegames/"$1"/ -skill 3 -warp 01
+  prboom-plus -config ~/games/doom/config/prboom-plus/prboom-plus_vanilla.cfg -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad ~/games/doom/wads/iwads/"$1".wad -file "$2" ~/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad ~/games/doom/mods/vanilla/jovian_palette/JoyPal.wad -save ~/games/doom/savegames/"$1"/ -skill 3 -warp 01
 fi
