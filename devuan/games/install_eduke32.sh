@@ -24,5 +24,5 @@ else
   git pull
 fi
 
-cd eduke32 || return
+cd ~/src/$application || return
 make
