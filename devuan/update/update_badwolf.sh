@@ -10,6 +10,8 @@ if [[ -z $su ]]; then
   export su="sudo"
 fi
 
+$su apt-get install -y mandoc shellcheck flawfinder libxml2-dev libwebkit2gtk-4.1-dev gettext
+
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d badwolf ]; then
