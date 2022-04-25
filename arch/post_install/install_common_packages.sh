@@ -14,7 +14,7 @@ $su pacman -Syu --noconfirm
 
 cd || return
 # system
-$su pacman -S pacman-contrib base-devel arch-install-scripts devtools tmux vi vim nano udisks2 brightnessctl dos2unix exfat-utils picom firejail upower lsof
+$su pacman -S pacman-contrib base-devel arch-install-scripts devtools tmux vi vim nano udisks2 brightnessctl dos2unix picom firejail upower lsof #exfatprogs
 $su pacman -S xclip autocutsel xosd usbutils udftools bash-completion htop findutils acpi lm_sensors ntp alsa-plugins alsa-utils
 $su pacman -S terminus-font ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-liberation ttf-opensans gnu-free-fonts
 
