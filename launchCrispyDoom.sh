@@ -14,4 +14,4 @@ if { [ "$1" = --list ] || [ "$1" = -l ];}; then
   exit
 fi
 
-crispy-doom -fullscreen -iwad $HOME/games/doom/wads/iwads/"$1".wad -file "$2" $HOME/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad $HOME/games/doom/mods/vanilla/jovian_palette/JoyPal.wad -savedir $HOME/games/doom/savegames/"$1"/ -skill 3 -warp 01
+crispy-doom -fullscreen -config ~/games/doom/config/crispy/config_nolimit.ini -iwad $HOME/games/doom/wads/iwads/"$1".wad -file "$2" $HOME/games/doom/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad $HOME/games/doom/mods/vanilla/jovian_palette/JoyPal.wad -savedir $HOME/games/doom/savegames/"$1"/ -skill 3 -warp 01
