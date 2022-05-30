@@ -7,7 +7,7 @@ print "  3) Access to https://github.com/settings/keys and leave it open"
 print ""
 echo -e "\033[33;5m Don't close Github page when finished... \033[0m"
 print ""
-read -rp "Press enter when finish to create ssh keys..."
+read -r "Press enter when finish to create ssh keys..."
 print -n "Generate ssh keys?: (Y|n) ";read -r option; print ""
 
 cat /dev/zero | ssh-keygen -q -N ""

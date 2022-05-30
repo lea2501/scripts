@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ksh
 
 print -n "Enter user name: ";read -r username; print ""
-usermod -G games $username
+doas usermod -G games $username
