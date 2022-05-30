@@ -13,10 +13,10 @@ match=$(cat $HOME/Documentos/data/bookmarks | grep $in | cut -d ',' -f 2)      #
 
 if [ "$match" != "" ]; then
   #surf -bdfgIS -a @ -z 1 $match        # exec bookmark url
-  #badwolf $match >/dev/null 2>&1    # exec bookmark url
-  qutebrowser $match                # exec bookmark url
+  badwolf $match >/dev/null 2>&1    # exec bookmark url
+  #qutebrowser $match                # exec bookmark url
 elif [ -n "$in" ]; then
   #surf -bdfgIS -a @ -z 1 "https://search.disroot.org/search?q=$in    # search in searx
-  #badwolf "https://search.disroot.org/search?q=$in" >/dev/null 2>&1    # search in searx
-  qutebrowser "https://search.disroot.org/search?q=$in"     # search in searx
+  badwolf "https://search.disroot.org/search?q=$in" >/dev/null 2>&1    # search in searx
+  #qutebrowser "https://search.disroot.org/search?q=$in"     # search in searx
 fi

@@ -1,7 +1,7 @@
 #!/bin/ksh
 
 # roguelikes
-doas pkg_add angband moria nethack cataclysm-dda
+doas pkg_add angband moria #nethack cataclysm-dda
 
 # doom
 doas pkg_add chocolate-doom prboom-plus gzdoom
@@ -16,13 +16,13 @@ doas pkg_add quakespasm
 doas pkg_add yquake2
 
 # hexen2
-doas pkg_add uhexen2
+#doas pkg_add uhexen2
 
 # descent
-doas pkg_add dxx-rebirth
+#doas pkg_add dxx-rebirth
 
 # diablo
-doas pkg_add devilutionx
+#doas pkg_add devilutionx
 
 # build engine
 #doas pkg_add eduke32 nblood
@@ -34,7 +34,7 @@ doas pkg_add devilutionx
 doas pkg_add minetest
 
 # emulators
-doas pkg_add dosbox gambatte dolphin mednafen higan hatari ppsspp scummvm scummvm-tools fs-uae nestopia sameboy mame
+doas pkg_add dosbox gambatte dolphin mednafen higan hatari ppsspp scummvm scummvm-tools nestopia sameboy mame #fs-uae
 
 # retroarch
 #doas pkg_add retroarch

@@ -5,16 +5,10 @@ set -e
 # debug log
 #set -x
 
-# Section: Create xinitrc
-print -n "Create $HOME/.xsession file in user home directory?: (y|N) ";read -r option; print ""
+# Section: Create session files
+print -n "Create $HOME session files?: (y|N) ";read -r option; print ""
 if [[ $option = "y" || $option = "Y" ]];then
-    ./create_xsession_file.ksh
-fi
-
-# Section: Create kshrc
-print -n "Create $HOME/.xsession file in user home directory?: (y|N) ";read -r option; print ""
-if [[ $option = "y" || $option = "Y" ]];then
-    ./create_ksh_file.ksh
+    ./create_user_session_files.ksh
 fi
 
 # Section: Get personal dotfiles
@@ -27,19 +21,6 @@ fi
 print -n "Install common packages?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
     ./install_common_packages.ksh
-fi
-
-# Section: Install external packages 'other browsers'
-print -n "Install external packages 'other browsers'?: (y|N) ";read -r option; print ""
-if [[ "$option" == "y" || "$option" == "Y" ]]; then
-    ./install_other_browsers.ksh
-fi
-
-# Section: Install external packages 'development'
-print -n "Install external packages 'development'?: (Y|n) ";read -r option; print ""
-if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  doas pkg_add intellij
-  print "Install packages 'development'... DONE"
 fi
 
 # Section: Disable xconsole in xenodm
@@ -82,12 +63,6 @@ fi
 print -n "Set PATH in $HOME/profile file?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
     ./set_path_in_profile_file.ksh
-fi
-
-# Section: Enable UTF8 support
-print -n "Enable UTF8 support?: (Y|n) ";read -r option; print ""
-if [[ "$option" == "y" || "$option" == "Y" ]]; then
-    ./enable_utf8_support.ksh
 fi
 
 # Section: Enable apmd CPU scaling daemon
