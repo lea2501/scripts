@@ -13,4 +13,4 @@ else
 fi
 
 cd Quake || return
-make DO_USERDIRS=1 USE_SDL2=1
+gmake DO_USERDIRS=1 USE_SDL2=1
