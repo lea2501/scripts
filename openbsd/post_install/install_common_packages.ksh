@@ -9,7 +9,7 @@ doas pkg_add vim dos2unix exfat-fuse xclip autocutsel xosd usbutils findutils tr
 doas pkg_add inconsolata-font hack-fonts dina-fonts liberation-fonts terminus-font
 
 # minimal-tools
-doas pkg_add st
+doas pkg_add st slock dmenu
 
 # devel
 doas pkg_add cmake gmake jdk maven gradle jq git adb intellij
