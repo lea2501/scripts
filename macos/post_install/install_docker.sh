@@ -12,4 +12,4 @@ cd ~/Downloads || return
 curl -OL "https://desktop.docker.com/mac/stable/Docker.dmg"
 open "Docker.dmg"
 read -p "Press enter to continue after Docker installation..."
-rm "Docker.dmg
+rm Docker.dmg

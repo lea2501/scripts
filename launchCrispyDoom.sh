@@ -22,7 +22,7 @@ if { [ "$1" = --help ] || [ "$1" = -h ];}; then
   show_usage
 fi
 if { [ "$1" = --list ] || [ "$1" = -l ];}; then
-    find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia,heretic,hexen}/{vanilla,nolimit}/*/*.wad ! -name *tex*.* ! -name *res*.* ! -name *fix.* ! -name *demo*.* ! -name *credits*.* -type f
+    find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia,heretic,hexen}/{vanilla,nolimit}/*/*.wad ! -name *tex*.* ! -name *res*.* ! -name *fix.* ! -name *demo*.* ! -name *credits*.* -type f 2>/dev/null
     echo ""
     exit
 fi

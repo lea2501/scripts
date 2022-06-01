@@ -28,7 +28,7 @@ if { [ "$1" = --help ] || [ "$1" = -h ];}; then
   show_usage
 fi
 if { [ "$1" = --list ] || [ "$1" = -l ];}; then
-    find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia,heretic,hexen}/{vanilla,nolimit,boom,zdoom}/*/*.wad ! -name *tex*.* ! -name *res*.* ! -name *fix.* ! -name *demo*.* ! -name *credits*.* -type f
+    find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia,heretic,hexen}/{vanilla,nolimit,boom,zdoom}/*/*.wad ! -name *tex*.* ! -name *res*.* ! -name *fix.* ! -name *demo*.* ! -name *credits*.* -type f 2>/dev/null
     echo ""
     exit
 fi
@@ -45,9 +45,13 @@ while [ -n "$1" ]; do
     echo "wad: $1"
     wad=$1
     ;;
-  --brutal | -b)
+  --brutal)
     shift
     mod_brutal=1
+    ;;
+  --beautiful)
+    shift
+    mod_beautiful=1
     ;;
   *)
     show_usage
@@ -79,6 +83,11 @@ if [ $mod_brutal = 1 ]; then
   doom_mods="$doom_mods $base_dir/mods/zdoom/brutal/brutal_doom/brutalv21.11.3.pk3"
   heretic_mods="$heretic_mods $base_dir/mods/zdoom/brutal/brutal_heretic/Heretic-Shadow_Collection/1_BRUTAL_HERETIC/BrutalHereticRPG_V5.0.pk3"
   hexen_mods="$hexen_mods $base_dir/mods/zdoom/brutal/brutal_hexen/Hexen/1_BRUTAL_HEXEN/BrutalHexenRPG_V4.7.pk3"
+fi
+if [ $mod_beautiful = 1 ]; then
+  doom_mods="$doom_mods $base_dir/mods/zdoom/beautiful_doom/beautiful_doom_716.pk3"
+  heretic_mods="$base_dir/mods/vanilla/dimm_pal/her-pal.wad $base_dir/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3"
+  hexen_mods="$base_dir/mods/vanilla/dimm_pal/hex-pal.wad $base_dir/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3"
 fi
 doom_config="$base_dir"/config/zdoom/config_zdoom.ini
 heretic_config="$base_dir"/config/zdoom/config_zdoom.ini
