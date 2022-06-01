@@ -1,3 +1,3 @@
-#/bin/bash
+#/bin/sh
 
-feh --bg-scale $(find ~/pictures/wallpapers/* -type f | shuf -n 1)
+feh --bg-scale $(find ~/pictures/wallpapers/* -type f | sort --random-sort | head -n 1)
