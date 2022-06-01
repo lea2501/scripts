@@ -12,7 +12,7 @@ if { [ -z "$1" ] || [ "$1" = -h ] || [ "$1" = --help ];}; then
   exit
 fi
 if { [ "$1" = --list ] || [ "$1" = -l ];}; then
-  find "$HOME"/games/quake/*/{maps/*.bsp,pak0.pak} -type f
+  find "$HOME"/games/quake/*/{maps/*.bsp,pak0.pak} -type f 2>/dev/null
   echo ""
   exit
 fi
