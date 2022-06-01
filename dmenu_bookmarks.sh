@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 dmenu_font="monospace:size=10"
 col_black="#000000"
