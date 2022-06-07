@@ -23,7 +23,7 @@ $su apt-get install -qq -y curl
 # Remove previous file
 rm -rf ideaIC-"${INTELLIJ_VERSION}".tar.gz
 # Download new version
-curl -L --silent "${INTELLIJ_DOWNLOAD_URL}" > ideaIC-"${INTELLIJ_VERSION}".tar.gz
+curl -L "${INTELLIJ_DOWNLOAD_URL}" > ideaIC-"${INTELLIJ_VERSION}".tar.gz
 # Remove previous directory
 rm -rf ideaIC-"${INTELLIJ_VERSION}"
 # Remove previous symlink
