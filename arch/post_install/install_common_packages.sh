@@ -19,7 +19,7 @@ $su pacman -S xclip autocutsel xosd usbutils udftools bash-completion htop findu
 $su pacman -S terminus-font ttf-bitstream-vera ttf-dejavu ttf-inconsolata ttf-liberation ttf-opensans gnu-free-fonts
 
 # pulseaudio
-#$su pacman -S pulseaudio pavucontrol
+#$su pacman -S pulseaudio pulseaudio-alsa pavucontrol
 
 # devel
 $su pacman -S cmake jre-openjdk jdk-openjdk jdk8-openjdk jdk11-openjdk jdk17-openjdk maven gradle npm

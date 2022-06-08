@@ -29,7 +29,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./artix-post-install-script-add_arch_linux_repositories_support.sh
+  ./artix-add_arch_linux_repositories_support.sh
 fi
 
 # Section: Create xinitrc
@@ -106,7 +106,7 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
   read -rp "?: (y|n)" option
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-  ./install_suckless.sh
+  ./install_suckless_tools.sh
 fi
 
 # Section: Install packages 'tools'
@@ -208,6 +208,17 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
   ./generate_ssh_keys.sh
 fi
 
+# Section: Add ssh key to Github account
+read -rp "Add ssh key to Github account?: (y|N)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  echo "$option: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  read -rp "?: (y|n)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  ./add_ssh_key_to_github.sh
+fi
+
 # Section: Apply fix for misbehaving java applications
 read -rp "Apply fix for misbehaving java applications?: (Y|n)" option
 while [[ " "${options[@]}" " != *" $option "* ]]; do
@@ -264,7 +275,7 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
 fi
 
 # Section: Start and configure services
-read -rp "Start and configure services?: (Y|n)" option
+read -rp "Start and configure services?: (y|N)" option
 while [[ " "${options[@]}" " != *" $option "* ]]; do
   echo "$option: not recognized. Valid options are:"
   echo "${options[@]/%/,}"
@@ -305,4 +316,15 @@ while [[ " "${options[@]}" " != *" $option "* ]]; do
 done
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
   ./create_bin_directory.sh
+fi
+
+# Section: Nvidia optimus
+read -rp "Set nvidia optimus integrated card?: (y|N)" option
+while [[ " "${options[@]}" " != *" $option "* ]]; do
+  echo "$option: not recognized. Valid options are:"
+  echo "${options[@]/%/,}"
+  read -rp "?: (y|n)" option
+done
+if [[ "$option" == "y" || "$option" == "Y" ]]; then
+  ./configure_nvidia_optimus.sh
 fi
