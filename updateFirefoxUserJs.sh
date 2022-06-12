@@ -5,16 +5,16 @@ set -e
 # debug log
 #set -x
 
-repo="user.js"
+repo="https://github.com/arkenfox/user.js.git"
 
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d "$repo" ]; then
-  git clone https://github.com/arkenfox/$repo.git
+  git clone $repo
   cd "$repo" || return
 else
   cd "$repo" || return
   git pull
 fi
 
-cp -v user.js ~/.mozilla/firefox/*default*/
+cp -rv user.js ~/.mozilla/firefox/*default*/
