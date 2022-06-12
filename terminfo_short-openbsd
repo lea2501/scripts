@@ -1,7 +1,6 @@
 #!/bin/ksh
 
 ram=$(top -b -n 1 | grep "Memory: " | awk {'print $6'})
-#disk=$(df -h 2>/dev/null | grep '\/$' | awk {'print $4'})
 disk=$(df -h /home 2>/dev/null | grep '\/home$' | awk {'print $4'})
 cpu_temp=$(sysctl hw.sensors | grep "cpu0.temp0" | cut -d"=" -f 2 | awk {'print $1'})
 batt=$(apm -l)
