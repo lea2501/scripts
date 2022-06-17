@@ -33,7 +33,9 @@ sed -i 's/\/\/ user_pref("javascript.options.wasm", false);/ user_pref("javascri
 sed -i 's/\/\/ user_pref("network.trr.mode", 5);/ user_pref("network.trr.mode", 3);/g' user.js
 echo ' user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");' >> user.js
 
-cp -rv user.js ~/.mozilla/firefox/*default*/
+for dir in ~/.mozilla/firefox/*.default-*; do
+    cp -v user.js "$dir"
+done
 
 mv -v user.js user.js.new
 mv -v user.js.bak user.js
