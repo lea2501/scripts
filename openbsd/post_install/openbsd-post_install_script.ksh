@@ -23,12 +23,6 @@ if [[ "$option" == "y" || "$option" == "Y" ]]; then
     ./install_common_packages.ksh
 fi
 
-# Section: Disable xconsole in xenodm
-print -n "Disable xconsole in xenodm?: (Y|n) ";read -r option; print ""
-if [[ "$option" == "y" || "$option" == "Y" ]]; then
-    ./disable_xconsole_in_xenodm.ksh
-fi
-
 # Section: Generate ssh keys
 print -n "Generate ssh keys?: (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
@@ -80,5 +74,5 @@ fi
 # Section: Update system
 print -n "Update system with syspatch? (-release only): (Y|n) ";read -r option; print ""
 if [[ "$option" == "y" || "$option" == "Y" ]]; then
-    ./update_system.ksh
+    ./update_base_system.ksh
 fi
