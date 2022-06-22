@@ -17,46 +17,49 @@ cloneRepo() {
   fi
 }
 
-#cloneRepo commander-genius-git
-#cloneRepo libstdc++296
+#cloneRepo commander-genius-git && makepkg -sic --noconfirm
+#cloneRepo libstdc++296 && makepkg -sic --noconfirm
+
 cloneRepo dxvk-bin && makepkg -sic --noconfirm
-cloneRepo ncurses5-compat-libs
-cloneRepo alephone
-cloneRepo alephone-evil
-cloneRepo alephone-infinity
-cloneRepo alephone-marathon
-cloneRepo alephone-marathon2
-cloneRepo alephone-rubiconx
+cloneRepo alephone && makepkg -sic --noconfirm
+cloneRepo alephone-evil && makepkg -sic --noconfirm
+cloneRepo alephone-infinity && makepkg -sic --noconfirm
+cloneRepo alephone-marathon && makepkg -sic --noconfirm
+cloneRepo alephone-marathon2 && makepkg -sic --noconfirm
+cloneRepo alephone-rubiconx && makepkg -sic --noconfirm
 cloneRepo chocolate-doom && makepkg -sic --noconfirm --skippgpcheck
-cloneRepo crispy-doom
-cloneRepo d1x-rebirth
-cloneRepo d2x-rebirth
-cloneRepo devilutionx
-cloneRepo dhewm3
-cloneRepo dosbox-staging
-cloneRepo eduke32
-cloneRepo zmusic
-#cloneRepo vtable-dumper
-#cloneRepo abi-dumper
-#cloneRepo abi-compliance-checker
-cloneRepo gzdoom
-#cloneRepo hexen2
-#cloneRepo infra-arcana
-cloneRepo mangohud
-cloneRepo nblood-git
-cloneRepo nestopia
-#cloneRepo pcsx2-git
-cloneRepo prboom-plus
-cloneRepo qpakman
-cloneRepo quakespasm
-cloneRepo raze
-cloneRepo sameboy
-#cloneRepo serious-engine-git
-cloneRepo tyrquake-git
-#cloneRepo termcap
-cloneRepo umoria
-cloneRepo xash3d-fwgs-git
-cloneRepo yamagi-quake2
-cloneRepo yamagi-quake2-rogue
-cloneRepo yamagi-quake2-xatrix
-cloneRepo yuzu-mainline-bin
+cloneRepo crispy-doom && makepkg -sic --noconfirm --skippgpcheck
+cloneRepo d1x-rebirth # && makepkg -sic --noconfirm
+cloneRepo d2x-rebirth # && makepkg -sic --noconfirm
+cloneRepo smpq && makepkg -sic --noconfirm
+cloneRepo devilutionx # && makepkg -sic --noconfirm
+cloneRepo dhewm3 && makepkg -sic --noconfirm
+cloneRepo munt && makepkg -sic --noconfirm
+cloneRepo dosbox-staging && makepkg -sic --noconfirm
+cloneRepo eduke32 && makepkg -sic --noconfirm
+cloneRepo zmusic && makepkg -sic --noconfirm
+#cloneRepo vtable-dumper && makepkg -sic --noconfirm
+#cloneRepo abi-dumper && makepkg -sic --noconfirm
+#cloneRepo abi-compliance-checker && makepkg -sic --noconfirm
+cloneRepo gzdoom && makepkg -sic --noconfirm
+#cloneRepo hexen2 && makepkg -sic --noconfirm
+#cloneRepo infra-arcana && makepkg -sic --noconfirm
+cloneRepo mangohud && makepkg -sic --noconfirm
+cloneRepo nblood-git && makepkg -sic --noconfirm
+cloneRepo nestopia && makepkg -sic --noconfirm
+cloneRepo pcsx2-git && makepkg -sic --noconfirm
+cloneRepo prboom-plus && makepkg -sic --noconfirm
+cloneRepo qpakman && makepkg -sic --noconfirm
+cloneRepo quakespasm && makepkg -sic --noconfirm
+cloneRepo raze && makepkg -sic --noconfirm
+cloneRepo sameboy && makepkg -sic --noconfirm
+#cloneRepo serious-engine-git && makepkg -sic --noconfirm
+cloneRepo tyrquake-git && makepkg -sic --noconfirm
+cloneRepo termcap && makepkg -sic --noconfirm
+cloneRepo ncurses5-compat-libs && makepkg -sic --noconfirm
+cloneRepo umoria && makepkg -sic --noconfirm
+#cloneRepo xash3d-fwgs-git && makepkg -sic --noconfirm
+cloneRepo yamagi-quake2 && makepkg -sic --noconfirm
+cloneRepo yamagi-quake2-rogue && makepkg -sic --noconfirm
+cloneRepo yamagi-quake2-xatrix && makepkg -sic --noconfirm
+#cloneRepo yuzu-mainline-bin && makepkg -sic --noconfirm

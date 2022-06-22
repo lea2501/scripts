@@ -11,10 +11,12 @@ match=$(cat $HOME/Documentos/data/bookmarks | grep $in | cut -d ',' -f 2)      #
 #match=$(cat $HOME/Documentos/data/bookmarks | grep $in)     # check match with ~/.bookmarks file
 
 if [ "$match" != "" ]; then
-  firefox-esr -P default-nojs "$match"
+  #firefox-esr -P default-nojs "$match"
   #surf -bdfgIs -a @ -z 1 >/dev/null 2>&1 $match        # exec bookmark url
   #badwolf $match >/dev/null 2>&1    # exec bookmark url
+  echo "$match" | xclip -selection clipboard
 elif [ -n "$in" ]; then
-  firefox-esr -P default-nojs "https://search.disroot.org/search?q=$in"     # search in searx
+  #firefox-esr -P default-nojs "https://search.disroot.org/search?q=$in"     # search in searx
   #surf -bdfgIs -a @ -z 1 "https://search.disroot.org/search?q=$in"     # search in searx
+  echo "https://search.disroot.org/search?q=$in" | xclip -selection clipboard
 fi
