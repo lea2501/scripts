@@ -21,6 +21,7 @@ cloneRepo() {
 #cloneRepo libstdc++296 && makepkg -sic --noconfirm
 
 cloneRepo dxvk-bin && makepkg -sic --noconfirm
+cloneRepo lgogdownloader && makepkg -sic --noconfirm
 cloneRepo alephone && makepkg -sic --noconfirm
 cloneRepo alephone-evil && makepkg -sic --noconfirm
 cloneRepo alephone-infinity && makepkg -sic --noconfirm

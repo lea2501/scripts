@@ -13,4 +13,4 @@ fi
 # wine
 $su dpkg --add-architecture i386
 $su apt-get update
-$su apt-get -y --fix-missing install lutris wine32 wine64
+$su apt-get -y --fix-missing install lutris wine32 wine64 lgogdownloader

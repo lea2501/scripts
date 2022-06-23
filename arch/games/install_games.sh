@@ -59,7 +59,7 @@ paru -S torcs torcs-data
 paru -S dosbox dolphin-emu higan mednafen hatari ppsspp scummvm scummvm-tools sameboy nestopia
 
 # wine
-paru -S wine wine-gecko wine-mono winetricks zenity vkd3d lutris
+paru -S wine wine-gecko wine-mono winetricks zenity vkd3d lutris lgogdownloader
 
 # retroarch
 #paru -S retroarch libretro libretro-dosbox-pure-git libretro-beetle-saturn-git libretro-opera-git
