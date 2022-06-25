@@ -13,9 +13,9 @@ fi
 $su pacman -Sy --noconfirm autoconf
 $su pacman -Sy --noconfirm gcc
 $su pacman -Sy --noconfirm libx11
-gpg --keyserver keys.gnupg.net --recv-keys 702353E0F7E48EDB
-paru ncurses5-compat-libs
-paru libstdc++296 # Edit PKGBUILD manually (https://aur.archlinux.org/packages/libstdc%2B%2B296/)
+#gpg --keyserver keys.gnupg.net --recv-keys 702353E0F7E48EDB
+#paru ncurses5-compat-libs
+#paru libstdc++296 # Edit PKGBUILD manually (https://aur.archlinux.org/packages/libstdc%2B%2B296/)
 
 application=frogcomposband
 repository=https://github.com/sulkasormi/frogcomposband.git
