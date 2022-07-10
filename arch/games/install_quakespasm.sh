@@ -6,7 +6,7 @@ set -e
 #set -x
 
 application=quakespasm-quakespasm
-repository=https://git.code.sf.net/p/quakespasm/quakespasm quakespasm-quakespasm
+repository="https://git.code.sf.net/p/quakespasm/quakespasm quakespasm-quakespasm"
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
