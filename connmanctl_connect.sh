@@ -5,7 +5,7 @@ set -e
 # debug log
 #set -x
 
-#doas rfkill unblock wifi
+doas rfkill unblock wifi
 #doas ip link set wlan0 up
 connmanctl scan wifi && wait $!
 connmanctl services && wait $!
