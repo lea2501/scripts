@@ -1,4 +1,4 @@
-!!! MOVED TO https://notabug.org/lea2501/doom-random-map-sh !!!
+!!! MOVED TO https://notabug.org/lea2501/scripts !!!
 
 
 # scripts
