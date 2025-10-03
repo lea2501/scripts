@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ram=$(top -b -n 1 | grep "MiB Mem" | awk '{print $6}')
+disk_root=$(df -h / 2>/dev/null | grep " /" | awk '{print $4}')
+disk_home=$(df -h /home 2>/dev/null | grep " /home" | awk '{print $4}')
+#cpu_temp=$(sensors | grep CPU: | awk '{print $2}')
+cpu_temp=$(sensors | grep "Package id 0:" | awk '{print $4}')
+batt=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'percentage' | awk '{print $2}')
+date=$(date '+%Y-%m-%d %H:%M')
+ip_address_public=$(curl --silent --connect-timeout 1 ifconfig.me)
+ip_address_private=$(hostname -I | awk '{print $1}')
+top_proc=$(top -b -n 1  | grep $(whoami) | awk '{print $9"|"$12}' | head -n 1)
+echo "ip:$ip_address_public ip:$ip_address_private degC:$cpu_temp /:$disk_root /home:$disk_home top:$top_proc R:$ram B:$batt | $date"
