@@ -12,18 +12,24 @@ fi
 
 $su apt-get install -y supertuxkart
 
-application=quakespasm-quakespasm
-repository=https://git.code.sf.net/p/quakespasm/quakespasm
-mkdir -p ~/src
-cd ~/src || return
-if [ ! -d $application ]; then
-  git clone $repository $application
-  cd $application || return
-else
-  cd $application || return
-  git pull
-fi
+mkdir -p $HOME/.local/share/supertuxkart/addons/
+cd $HOME/.local/share/supertuxkart/addons/ || return
 
-cd ~/src/$application || return
-cd Quake || return
-make DO_USERDIRS=1 USE_SDL2=1
+echo ""
+echo "================================================================="
+echo "Please download manually the file from Box:"
+echo "  https://app.box.com/s/bb2opvj3e5tctpg802rs9ar1pjutaj9j"
+echo "Save it in ~/Downloads"
+echo "After downloading, press any key to continue..."
+echo "================================================================="
+read -n 1 -s -r
+echo ""
+
+mv $HOME/Downloads/supertuxkart_tente3D.zip .
+unzip supertuxkart_tente3D.zip
+
+# to have it in all users
+#$su cp supertuxkart_tente3D.zip /usr/share/games/supertuxkart/data/
+#cd /usr/share/games/supertuxkart/data/ || return
+#unzip supertuxkart_tente3D.zip
+#rm supertuxkart_tente3D.zip
