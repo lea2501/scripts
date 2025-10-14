@@ -5,8 +5,8 @@ set -e
 #set -x
 
 # Set superuser privileges command if not set
-if [[ -z $su ]]; then
-  export su="sudo"
+if [ -z "${su+x}" ]; then
+  su="sudo"
 fi
 
 $su apt-get install -y build-essential cmake libpillowfight-dev

@@ -1,22 +1,45 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# fail if any commands fails
-set -e
-# debug log
-#set -x
-
-# Set superuser privileges command if not set
-if [[ -z $su ]]; then
-  export su="sudo"
+# Set superuser command if not defined
+if [ -z "${su+x}" ]; then
+  su="sudo"
 fi
 
+# Ensure curl and jq are installed
 $su apt-get update -qq
-$su apt-get install -qq -y curl
+$su apt-get install -qq -y curl jq
 
-cd || return
+cd || exit 1
 mkdir -p ~/Applications
-cd ~/Applications || return
-curl -O -L "$(curl -s https://api.github.com/repos/appium/appium-desktop/releases/latest | jq -r ".assets[] | select(.name | test(\"AppImage\")) | .browser_download_url")"
-curl -O -L "$(curl -s https://api.github.com/repos/appium/appium-inspector/releases/latest | jq -r ".assets[] | select(.name | test(\"AppImage\")) | .browser_download_url")"
+cd ~/Applications || exit 1
+
+# Function to download the latest AppImage for x86_64 only
+download_latest_appimage() {
+  local repo="$1"
+  echo "Checking latest release for $repo..."
+
+  curl -s "https://api.github.com/repos/${repo}/releases/latest" \
+    | jq -r '.assets[] | select(.name | test("x86_64\\.AppImage$")) | .browser_download_url' \
+    | while read -r url; do
+        [ -z "$url" ] && continue
+        filename=$(basename "$url")
+        if [ -f "$filename" ]; then
+          echo "Skipping $filename (already exists)"
+        else
+          echo "Downloading $filename..."
+          curl -LO "$url"
+        fi
+      done
+}
+
+# Download Appium Desktop (x86_64 only)
+download_latest_appimage "appium/appium-desktop"
+
+# Download Appium Inspector (x86_64 only)
+download_latest_appimage "appium/appium-inspector"
+
 chmod +x ./*.AppImage
-cd - || return
+cd - || exit 1
+
+echo "All done."
