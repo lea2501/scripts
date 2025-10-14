@@ -6,8 +6,8 @@ set -e
 #set -x
 
 # Set superuser privileges command if not set
-if [[ -z $su ]]; then
-  export su="sudo"
+if [ -z "${su+x}" ]; then
+  su="sudo"
 fi
 
 $su apt-get install -y g++ libxi-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev libglew-dev libxrandr-dev build-essential libglm-dev libxxf86vm-dev libfreetype6-dev libfreeimage-dev libtinyxml2-dev pandoc cmake p7zip-full ninja-build curl

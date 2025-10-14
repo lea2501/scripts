@@ -6,8 +6,8 @@ set -e
 #set -x
 
 # Set superuser privileges command if not set
-if [[ -z $su ]]; then
-  export su="sudo"
+if [ -z "${su+x}" ]; then
+  su="sudo"
 fi
 
 $su apt-get install -y --no-install-recommends g++ make cmake libsdl2-dev git zlib1g-dev libbz2-dev libjpeg-dev libgme-dev libopenal-dev libmpg123-dev libsndfile1-dev libgtk-3-dev timidity nasm libgl1-mesa-dev tar libsdl1.2-dev libglew-dev libvpx-dev #libfluidsynth-dev

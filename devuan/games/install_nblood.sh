@@ -6,8 +6,8 @@ set -e
 #set -x
 
 # Set superuser privileges command if not set
-if [[ -z $su ]]; then
-  export su="sudo"
+if [ -z "${su+x}" ]; then
+  su="sudo"
 fi
 
 $su apt-get install -y build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats

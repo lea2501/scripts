@@ -6,8 +6,8 @@ set -e
 #set -x
 
 # Set superuser privileges command if not set
-if [[ -z $su ]]; then
-  export su="sudo"
+if [ -z "${su+x}" ]; then
+  su="sudo"
 fi
 
 $su echo "export _JAVA_AWT_WM_NONREPARENTING=1" | $su tee -a /etc/profile.d/jre.sh

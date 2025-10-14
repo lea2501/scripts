@@ -10,14 +10,14 @@ if [ -z "${su+x}" ]; then
   su="sudo"
 fi
 
-$su apt-get -y --fix-missing install build-essential nasm libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev libvorbis-dev libvpx-dev libgtk2.0-dev freepats
+$su apt-get install -y supertuxkart
 
-application=eduke32
-repository=https://voidpoint.io/terminx/eduke32.git
+application=quakespasm-quakespasm
+repository=https://git.code.sf.net/p/quakespasm/quakespasm
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
-  git clone $repository
+  git clone $repository $application
   cd $application || return
 else
   cd $application || return
@@ -25,4 +25,5 @@ else
 fi
 
 cd ~/src/$application || return
-make
+cd Quake || return
+make DO_USERDIRS=1 USE_SDL2=1
