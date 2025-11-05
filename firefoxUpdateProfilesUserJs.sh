@@ -56,6 +56,10 @@ apply_to_profiles() {
   rm -f user.js.new
 }
 
+remove_last_used_search_engine() {
+  rm ~/.mozilla/firefox/*/search.json.mozlz4 2>/dev/null || true
+}
+
 # ------------------------------------------------------------------------------
 # Merge Cheru's custom settings with arkenfox/user.js
 # ------------------------------------------------------------------------------
@@ -148,6 +152,7 @@ apply_custom_settings() {
     echo ''
 
     echo '/** SEARCH SETTINGS ***/'
+    echo 'user_pref("keyword.enabled", false);'                     # Desactiva búsquedas automáticas en la barra de direcciones
     echo 'user_pref("browser.search.defaultenginename", "DuckDuckGo");'
     echo 'user_pref("browser.search.defaultenginename.private", "DuckDuckGo");'
     echo 'user_pref("browser.search.defaultengine", "DuckDuckGo");'
@@ -155,15 +160,19 @@ apply_custom_settings() {
     echo 'user_pref("browser.urlbar.placeholderName", "DuckDuckGo");'
     echo 'user_pref("browser.urlbar.placeholderName.private", "DuckDuckGo");'
     echo 'user_pref("browser.search.hiddenOneOffs", "Google,Bing,Yahoo,Amazon.com,eBay");'
-    echo 'user_pref("browser.search.suggest.enabled", false);'
     echo 'user_pref("browser.search.update", false);'
+    echo 'user_pref("browser.search.suggest.enabled", false);'
     echo 'user_pref("browser.urlbar.suggest.searches", false);'
     echo 'user_pref("browser.urlbar.suggest.history", false);'
     echo 'user_pref("browser.urlbar.suggest.bookmark", false);'
     echo 'user_pref("browser.urlbar.suggest.openpage", false);'
     echo 'user_pref("browser.urlbar.suggest.engines", false);'
+    echo 'user_pref("browser.urlbar.suggest.quickactions", false);'
+    echo 'user_pref("browser.urlbar.suggest.topsites", false);'
     echo 'user_pref("browser.urlbar.suggest.recentsearches", false);'
+    echo 'user_pref("browser.urlbar.quicksuggest.enabled", false);'
     echo 'user_pref("browser.urlbar.recentsearches.featureGate", false);'
+    echo 'user_pref("browser.urlbar.trimURLs", false);'             # Mantiene el "http://" visible (más explícito)
     echo ''
 
     echo '/** ADDRESS BAR ***/'
@@ -187,7 +196,7 @@ apply_custom_settings() {
     echo ''
 
     echo '/** OPTIONAL: DISABLE WEBASSEMBLY ***/'
-    echo 'user_pref("javascript.options.wasm", false);'
+    echo '#user_pref("javascript.options.wasm", false);'
     echo ''
 
     echo '/** OPTIONAL: DNS over HTTPS (commented out) ***/'
@@ -231,6 +240,7 @@ if [ ! -d "$userjsdir" ]; then
   echo "Cloning arkenfox/user.js..."
   git clone "$repo"
   cd "$userjsdir"
+  remove_last_used_search_engine
   apply_custom_settings
   apply_to_profiles
   apply_nojs_profile_tweaks
@@ -244,6 +254,7 @@ else
   if [ "$local_rev" != "$remote_rev" ]; then
     echo "Updating arkenfox repository..."
     git pull
+    remove_last_used_search_engine
     apply_custom_settings
     apply_to_profiles
     apply_nojs_profile_tweaks
