@@ -10,10 +10,10 @@ if [ -z "${su+x}" ]; then
   su="sudo"
 fi
 
-$su apt-get install -y build-essential libgl1-mesa-dev libsdl2-dev libopenal-dev libcurl4-openssl-dev
+$su apt-get install -y golang-go git pkg-config make nasm yasm build-essential libxmp-dev libgtk-3-dev
 
-application=rogue
-repository="https://github.com/yquake2/rogue.git"
+application=Ikemen-GO
+repository="https://github.com/ikemen-engine/Ikemen-GO.git"
 export compile=
 mkdir -p ~/src
 cd ~/src || return
@@ -38,5 +38,6 @@ fi
 
 if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
-  make DO_USERDIRS=1 USE_SDL2=1 USE_CURL=0
+  # build.sh (matches CI default)
+  ./build/build.sh Linux
 fi
