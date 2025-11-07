@@ -38,7 +38,6 @@ fi
 
 if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
-  mkdir -p build && cd build
-  cmake ..
-  make
+  cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+  cmake --build build -j$(nproc)
 fi
