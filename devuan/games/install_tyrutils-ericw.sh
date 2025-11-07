@@ -43,5 +43,6 @@ fi
 
 if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
+  rm -rf build-linux || true
   ./build-linux-64.sh
 fi
