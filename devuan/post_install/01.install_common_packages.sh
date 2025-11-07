@@ -29,6 +29,6 @@ $su apt-get -y --fix-missing install \
     mcomix qpdf zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb mupdf mupdf-tools \
     foremost testdisk sleuthkit scalpel guymager \
     feh geeqie gimp imagemagick \
-    curl axel rsync tigervnc-viewer openconnect network-manager network-manager-openconnect x11vnc clamav \
+    curl axel rsync tigervnc-viewer openconnect x11vnc clamav \
     ntfs-3g gparted libreoffice keepassxc zbar-tools cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator libxml2-utils aapt \
     qemu-system qemu-system-x86 qemu-utils

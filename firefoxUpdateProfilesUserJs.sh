@@ -197,11 +197,59 @@ apply_custom_settings() {
 
     echo '/** OPTIONAL: DISABLE WEBASSEMBLY ***/'
     echo '#user_pref("javascript.options.wasm", false);'
+    echo 'user_pref("javascript.options.wasm", true);'
     echo ''
 
     echo '/** OPTIONAL: DNS over HTTPS (commented out) ***/'
     echo '#user_pref("network.trr.mode", 3);'
     echo '#user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");'
+    echo ''
+
+    echo ''
+    echo '/** OPTIONAL: PARANOID / TOR-LIKE HARDENING ***/'
+    echo '# Estas opciones aumentan el anonimato y reducen el fingerprinting,'
+    echo '# pero pueden romper compatibilidad en algunos sitios web o causar bugs visuales.'
+    echo '# Activá sólo si querés un modo similar a LibreWolf/Tor Browser.'
+    echo ''
+
+    # --- Anti-fingerprinting global ---
+    echo 'user_pref("privacy.resistFingerprinting", true);'
+    echo 'user_pref("privacy.resistFingerprinting.letterboxing", true);'
+    echo 'user_pref("privacy.resistFingerprinting.randomization.enabled", true);'
+
+    # --- Aislamiento total de cookies (First-Party Isolation) ---
+    echo 'user_pref("privacy.firstparty.isolate", true);'
+    echo '#user_pref("privacy.partition.network_state.ocsp_cache", true);'
+    echo '#user_pref("privacy.partition.network_state", true);'
+    echo '#user_pref("privacy.partition.serviceWorkers", true);'
+    echo '#user_pref("privacy.partition.always_partition_third_party_non_cookie_storage", true);'
+    echo '#user_pref("privacy.partition.bloburl_per_agent_cluster", true);'
+
+    # --- Fingerprint noise (reduce precisión de APIs de tiempo y canvas) ---
+    echo '#user_pref("privacy.reduceTimerPrecision", true);'
+    echo '#user_pref("privacy.resistFingerprinting.reduceTimerPrecision.jitter", true);'
+    echo '#user_pref("dom.enable_performance", false);'
+    echo '#user_pref("dom.gamepad.enabled", false);'
+    echo '#user_pref("device.sensors.enabled", false);'
+    echo '#user_pref("dom.battery.enabled", false);'
+
+    # --- Aislamiento de procesos y ventanas ---
+    echo '#user_pref("fission.autostart", true);'
+    echo '#user_pref("fission.webContentIsolationStrategy", 1);'
+    echo '#user_pref("privacy.window.maxInnerWidth", 1000);'
+    echo '#user_pref("privacy.window.maxInnerHeight", 1000);'
+
+    # --- Otros ajustes tipo Tor ---
+    echo '#user_pref("media.navigator.enabled", false);'
+    echo '#user_pref("dom.webaudio.enabled", false);'
+    echo '#user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);'
+    echo '#user_pref("network.http.referer.XOriginPolicy", 2);'
+    echo '#user_pref("network.http.referer.XOriginTrimmingPolicy", 2);'
+    echo '#user_pref("network.cookie.cookieBehavior", 5);  # State Partitioning (Total Cookie Protection)'
+    echo '#user_pref("network.cookie.lifetimePolicy", 2);  # Delete cookies on close'
+    echo ''
+
+    echo '# MODO PARANOICO: activá o descomentá a gusto'
     echo ''
 
     echo '/************************************************************************/'

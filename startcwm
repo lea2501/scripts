@@ -1,0 +1,5 @@
+#!/bin/sh
+dunst &
+tint2 &
+# pcmanfm --desktop &
+exec cwm
