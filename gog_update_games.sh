@@ -30,7 +30,7 @@ echo "------------------------------------------------------------"
 
 # Check for active login session
 echo "[*] Checking GOG login session..."
-if ! lgogdownloader --check-login >/dev/null 2>&1; then
+if ! lgogdownloader --check-login-status >/dev/null 2>&1; then
     echo "[-] No valid session found. Starting login..."
     if ! lgogdownloader --login; then
         echo "[!] Login failed. Aborting."
