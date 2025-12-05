@@ -10,16 +10,11 @@ if [ -z "${su+x}" ]; then
   su="sudo"
 fi
 
-#$su apt-get install -y build-essential nasm libgl1-mesa-dev libglu1-mesa-dev \
-#  libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev \
-#  libvorbis-dev libvpx-dev libgtk2.0-dev freepats
+$su apt-get install -y --no-install-recommends build-essential git cmake ninja-build
+$su apt-get install -y --no-install-recommends libbz2-dev libomp-dev libopenal-dev libsdl2-dev libvpx-dev libwebp-dev waylandpp-dev
 
-$su apt-get install -y git build-essential nasm libsdl2-dev libsdl2-mixer-dev \
-  libogg-dev libvorbis-dev libflac-dev libvpx-dev libgtk-3-dev \
-  libgl1-mesa-dev libglew-dev
-
-application=NBlood
-repository="https://github.com/NBlood/NBlood.git"
+application=UZDoom
+repository="https://github.com/UZDoom/UZDoom.git"
 export compile=
 mkdir -p ~/src
 cd ~/src || return
@@ -44,5 +39,12 @@ fi
 
 if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
-  make
+  mkdir -p build
+  cd build || return
+  cmake                                \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo  \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+    -G Ninja                           \
+    ..
+  cmake --build .
 fi

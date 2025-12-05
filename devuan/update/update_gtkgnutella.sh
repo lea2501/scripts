@@ -10,16 +10,11 @@ if [ -z "${su+x}" ]; then
   su="sudo"
 fi
 
-#$su apt-get install -y build-essential nasm libgl1-mesa-dev libglu1-mesa-dev \
-#  libsdl1.2-dev libsdl-mixer1.2-dev libsdl2-dev libsdl2-mixer-dev flac libflac-dev \
-#  libvorbis-dev libvpx-dev libgtk2.0-dev freepats
+$su apt update
+$su apt-get -y --fix-missing install make g++ libglib2.0-dev zlib1g-dev libgtk2.0-dev
 
-$su apt-get install -y git build-essential nasm libsdl2-dev libsdl2-mixer-dev \
-  libogg-dev libvorbis-dev libflac-dev libvpx-dev libgtk-3-dev \
-  libgl1-mesa-dev libglew-dev
-
-application=NBlood
-repository="https://github.com/NBlood/NBlood.git"
+application=gtk-gnutella
+repository="https://github.com/gtk-gnutella/gtk-gnutella.git"
 export compile=
 mkdir -p ~/src
 cd ~/src || return
@@ -44,5 +39,6 @@ fi
 
 if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
-  make
+  ./build.sh
+  $su gmake install
 fi

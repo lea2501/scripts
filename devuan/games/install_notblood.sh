@@ -18,8 +18,8 @@ $su apt-get install -y git build-essential nasm libsdl2-dev libsdl2-mixer-dev \
   libogg-dev libvorbis-dev libflac-dev libvpx-dev libgtk-3-dev \
   libgl1-mesa-dev libglew-dev
 
-application=NBlood
-repository="https://github.com/NBlood/NBlood.git"
+application=NotBlood
+repository="https://github.com/clipmove/NotBlood.git"
 export compile=
 mkdir -p ~/src
 cd ~/src || return
