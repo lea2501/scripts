@@ -42,6 +42,6 @@ if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
   cd prboom2 || return
   mkdir -p build && cd build
-  cmake .. -DCMAKE_BUILD_TYPE=Release
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
   make
 fi
