@@ -1,38 +1,54 @@
 #!/bin/bash
 
-# fail if any commands fails
-set -e
-# debug log
-#set -x
-
+# Fail on errors
 set -euo pipefail
 
-# Set superuser privileges command if not set
+# Debug
+# set -x
+
+# Set superuser command if not defined
 if [ -z "${su+x}" ]; then
   su="sudo"
 fi
 
-# Ensure curl is installed
-if ! command -v curl &>/dev/null; then
-  $su apt-get update -qq
-  $su apt-get install -qq -y curl
-fi
+# Ensure required tools are installed
+for cmd in curl grep tar file find; do
+  if ! command -v "$cmd" &>/dev/null; then
+    $su apt-get update -qq
+    $su apt-get install -qq -y curl grep tar file findutils
+    break
+  fi
+done
 
 mkdir -p ~/bin
 cd ~/bin || exit 1
 
-# Get latest stable version of IntelliJ IDEA Community (ideaIC)
-INTELLIJ_VERSION=$(curl -s https://data.services.jetbrains.com/products/releases?code=IIC\&latest=true\&type=release \
-  | grep -oP '"version"\s*:\s*"\K[0-9.]+(?=")' | head -n1)
+# Get latest stable IntelliJ IDEA version
+INTELLIJ_VERSION=$(
+  curl -s "https://data.services.jetbrains.com/products/releases?code=IIU&latest=true&type=release" \
+    | grep -oP '"version"\s*:\s*"\K[0-9.]+' \
+    | head -n1
+)
 
-# Build download URL
-INTELLIJ_DOWNLOAD_URL="https://download-cf.jetbrains.com/idea/ideaIC-${INTELLIJ_VERSION}.tar.gz"
+if [ -z "$INTELLIJ_VERSION" ]; then
+  echo "Could not determine latest IntelliJ version"
+  exit 1
+fi
 
-# Get installed version (if any)
+# Download URL
+INTELLIJ_DOWNLOAD_URL="https://download.jetbrains.com/idea/ideaIU-${INTELLIJ_VERSION}.tar.gz"
+
+# Detect installed version (supports old IC and new IU installs)
+CURRENT_VERSION=""
+
 if [ -L idea ]; then
-  CURRENT_VERSION=$(readlink idea | grep -oP 'ideaIC-\K[0-9.]+(?=/)')
-else
-  CURRENT_VERSION=""
+  LINK_TARGET=$(readlink idea || true)
+
+  CURRENT_VERSION=$(
+    echo "$LINK_TARGET" \
+      | grep -oP '(idea(IC|IU)-)\K[0-9.]+' \
+      || true
+  )
 fi
 
 echo "Installed version: ${CURRENT_VERSION:-none}"
@@ -44,19 +60,53 @@ if [ "$INTELLIJ_VERSION" = "$CURRENT_VERSION" ]; then
   exit 0
 fi
 
-echo "Downloading IntelliJ IDEA Community $INTELLIJ_VERSION..."
+echo "Downloading IntelliJ IDEA $INTELLIJ_VERSION..."
 
-# Clean up previous versions and files
-rm -rf ideaIC-*           # remove all old extracted versions
-rm -rf ideaIC-"${INTELLIJ_VERSION}.tar.gz"
+ARCHIVE="/tmp/intellij.tar.gz"
+INSTALL_DIR="ideaIU-${INTELLIJ_VERSION}"
 
-# Download and extract
-curl -L "$INTELLIJ_DOWNLOAD_URL" -o "ideaIC-${INTELLIJ_VERSION}.tar.gz"
-tar -xzf "ideaIC-${INTELLIJ_VERSION}.tar.gz"
-mv idea-IC-* "ideaIC-${INTELLIJ_VERSION}"
+# Cleanup previous download
+rm -f "$ARCHIVE"
+
+# Download
+curl -fL "$INTELLIJ_DOWNLOAD_URL" -o "$ARCHIVE"
+
+# Validate download
+if ! file "$ARCHIVE" | grep -qi 'gzip compressed'; then
+  echo "Downloaded file is not a valid gzip archive."
+  echo
+  echo "Response content:"
+  cat "$ARCHIVE"
+  exit 1
+fi
+
+# Remove previous installs
+rm -rf ideaIC-*
+rm -rf ideaIU-*
+rm -rf idea-IC-*
+rm -rf idea-IU-*
+
+# Extract
+tar -xzf "$ARCHIVE"
+
+# Find extracted directory automatically
+EXTRACTED_DIR=$(find . -maxdepth 1 -type d -name "idea-*" | head -n1)
+
+if [ -z "$EXTRACTED_DIR" ]; then
+  echo "Could not find extracted IntelliJ directory"
+  exit 1
+fi
+
+# Remove leading ./ if present
+EXTRACTED_DIR="${EXTRACTED_DIR#./}"
+
+# Normalize directory name
+mv "$EXTRACTED_DIR" "$INSTALL_DIR"
 
 # Update symlink
 rm -f idea
-ln -s "ideaIC-${INTELLIJ_VERSION}/bin/idea" idea
+ln -s "$INSTALL_DIR/bin/idea" idea
 
+echo
 echo "IntelliJ updated to version $INTELLIJ_VERSION"
+echo "Run it with: ~/bin/idea"
