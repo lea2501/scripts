@@ -14,39 +14,63 @@ $su apt-get install -y --no-install-recommends g++ make cmake libsdl2-dev git zl
 
 application=ZMusic
 repository=https://github.com/coelckers/ZMusic.git
+export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
   git clone $repository
   cd $application || return
+  export compile=true
 else
   cd $application || return
-  git pull
+  git fetch
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse @{u})
+  if [ ! $LOCAL = $REMOTE ]; then
+    echo "Need to pull"
+    git pull
+    export compile=true
+  fi
 fi
 
-mkdir -pv build
-cd build || return
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build .
-$su make install
+if [ "$compile" = "true" ]; then
+  cd ~/src/$application || return
+  mkdir -pv build
+  cd build || return
+  cmake -DCMAKE_BUILD_TYPE=Release ..
+  cmake --build .
+  $su make install
+fi
 
 application=gzdoom
 repository=https://github.com/coelckers/gzdoom.git
+export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
   git clone $repository
   cd $application || return
+  export compile=true
 else
   cd $application || return
-  git pull
+  git fetch
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse @{u})
+  if [ ! $LOCAL = $REMOTE ]; then
+    echo "Need to pull"
+    git pull
+    export compile=true
+  fi
 fi
 
-mkdir -pv build
-cd build || return
-wget -nc http://zdoom.org/files/fmod/fmodapi44464linux.tar.gz &&
-tar -xvzf fmodapi44464linux.tar.gz -C .
+if [ "$compile" = "true" ]; then
+  cd ~/src/$application || return
+  mkdir -pv build
+  cd build || return
+  wget -nc http://zdoom.org/files/fmod/fmodapi44464linux.tar.gz &&
+  tar -xvzf fmodapi44464linux.tar.gz -C .
 
-cmake .. -DNO_FMOD=ON
-#cmake .. -DNO_FMOD=OFF
-$su make install
+  cmake .. -DNO_FMOD=ON
+  #cmake .. -DNO_FMOD=OFF
+  $su make install
+fi

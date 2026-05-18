@@ -14,19 +14,32 @@ $su apt-get -y --fix-missing install surf
 #$su apt-get -y --fix-missing install qutebrowser
 
 # badwolf
+application=badwolf
+export compile=
 mkdir -p ~/src
 cd ~/src || return
-if [ ! -d badwolf ]; then
+if [ ! -d $application ]; then
   git clone https://hacktivis.me/git/badwolf.git
-  cd badwolf || return
+  cd $application || return
+  export compile=true
 else
-  cd badwolf || return
-  git pull
+  cd $application || return
+  git fetch
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse @{u})
+  if [ ! $LOCAL = $REMOTE ]; then
+    echo "Need to pull"
+    git pull
+    export compile=true
+  fi
 fi
 
-./configure
-make
-$su make install
+if [ "$compile" = "true" ]; then
+  cd ~/src/$application || return
+  ./configure
+  make
+  $su make install
+fi
 
 # tor browser
 #https://www.torproject.org/download/

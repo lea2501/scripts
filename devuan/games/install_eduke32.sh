@@ -14,15 +14,26 @@ $su apt-get -y --fix-missing install build-essential nasm libgl1-mesa-dev libglu
 
 application=eduke32
 repository=https://voidpoint.io/terminx/eduke32.git
+export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
   git clone $repository
   cd $application || return
+  export compile=true
 else
   cd $application || return
-  git pull
+  git fetch
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse @{u})
+  if [ ! $LOCAL = $REMOTE ]; then
+    echo "Need to pull"
+    git pull
+    export compile=true
+  fi
 fi
 
-cd ~/src/$application || return
-make
+if [ "$compile" = "true" ]; then
+  cd ~/src/$application || return
+  make
+fi

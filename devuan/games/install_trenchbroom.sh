@@ -14,13 +14,13 @@ $su apt-get install -y g++ libxi-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-
 
 application=TrenchBroom
 repository="https://github.com/TrenchBroom/TrenchBroom.git"
-compile_needed=false
+export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
   git clone --recursive $repository
   cd $application || return
-  compile_needed=true
+  export compile=true
 else
   cd $application || return
   #git pull
@@ -33,11 +33,11 @@ else
     echo "Need to pull"
     git pull
     git submodule update --init --recursive
-    compile_needed=true
+    export compile=true
   fi
 fi
 
-if [ "$compile_needed" = "true" ]; then
+if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
   mkdir -pv build
   cd build || exit 1

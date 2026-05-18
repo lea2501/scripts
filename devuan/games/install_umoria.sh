@@ -14,17 +14,28 @@ $su apt-get install -y build-essential autoconf gcc libc6-dev libncursesw5-dev l
 
 application=umoria
 repository=https://github.com/dungeons-of-moria/umoria.git
+export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
   git clone $repository
   cd $application || return
+  export compile=true
 else
   cd $application || return
-  git pull
+  git fetch
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse @{u})
+  if [ ! $LOCAL = $REMOTE ]; then
+    echo "Need to pull"
+    git pull
+    export compile=true
+  fi
 fi
 
-cd ~/src/$application || return
-mkdir -p build && cd build
-cmake ..
-make
+if [ "$compile" = "true" ]; then
+  cd ~/src/$application || return
+  mkdir -p build && cd build
+  cmake ..
+  make
+fi

@@ -14,19 +14,30 @@ $su apt-get install -y autoconf gcc libc6-dev libncursesw5-dev libx11-dev
 
 application=frogcomposband
 repository=https://github.com/sulkasormi/frogcomposband.git
+export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
   git clone $repository
   cd $application || return
+  export compile=true
 else
   cd $application || return
-  git pull
+  git fetch
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse @{u})
+  if [ ! $LOCAL = $REMOTE ]; then
+    echo "Need to pull"
+    git pull
+    export compile=true
+  fi
 fi
 
-cd ~/src/$application || return
-sh autogen.sh
-chmod +x configure
-./configure --prefix "$HOME"/.frogcomposband --with-no-install
-make clean
-make
+if [ "$compile" = "true" ]; then
+  cd ~/src/$application || return
+  sh autogen.sh
+  chmod +x configure
+  ./configure --prefix "$HOME"/.frogcomposband --with-no-install
+  make clean
+  make
+fi
