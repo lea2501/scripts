@@ -14,16 +14,26 @@ $su pacman -S --noconfirm scons sdl sdl_image sdl_mixer physfs
 
 application=dxx-rebirth
 repository=https://github.com/dxx-rebirth/dxx-rebirth.git
+export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
   git clone $repository
   cd $application || return
+  export compile=true
 else
   cd $application || return
-  git pull
+  git fetch
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse @{u})
+  if [ ! $LOCAL = $REMOTE ]; then
+    echo "Need to pull"
+    git pull
+    export compile=true
+  fi
 fi
 
-cd ~/src/ || return
-cd dxx-rebirth || return
-scons sdl2=1 builddir_prefix=build/
+if [ "$compile" = "true" ]; then
+  cd ~/src/$application || return
+  scons sdl2=1 builddir_prefix=build/
+fi
