@@ -1,9 +1,12 @@
 #!/bin/sh
+set -x
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/_common_paths.sh"
+. "$SCRIPT_DIR/_common_mods_vanilla.sh"
 
 game=doom
-game_dir="$HOME/games/doom"
-mod_files="$game_dir/mods/vanilla/sound/pk_doom_sfx/pk_doom_sfx_20120224.wad \
-  $game_dir/mods/vanilla/palette/dimm_pal/doom-pal.wad"
+mod_files="$mods_vanilla_doom"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
   "$game_dir"/maps/"$game"/nolimit \

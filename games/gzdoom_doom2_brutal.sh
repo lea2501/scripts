@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/_common_paths.sh"

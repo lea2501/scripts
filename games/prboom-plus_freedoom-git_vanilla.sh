@@ -1,15 +1,19 @@
 #!/bin/sh
+set -x
 
-param_game_dir="$HOME/games/doom"
-mod_files="$param_game_dir/mods/vanilla/palette/dimm_pal/doom-pal.wad"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/_common_paths.sh"
+. "$SCRIPT_DIR/_common_mods_vanilla.sh"
 
-iwad=$(find "$HOME"/games/doom/maps/iwads/freedoom1-git.wad \
-  "$HOME"/games/doom/maps/iwads/freedoom2-git.wad \
+mod_files="$game_dir/mods/vanilla/palette/dimm_pal/doom-pal.wad"
+
+iwad=$(find "$game_dir"/maps/iwads/freedoom1-git.wad \
+  "$game_dir"/maps/iwads/freedoom2-git.wad \
   2>/dev/null | shuf -n 1 | sed 's/.*\///' | sed 's/.wad//')
 echo "INFO: iwad file: $iwad"
-map_file=$(find "$HOME"/games/doom/maps/"$iwad"/vanilla \
-  "$HOME"/games/doom/maps/"$iwad"/nolimit \
-  "$HOME"/games/doom/maps/"$iwad"/boom \
+map_file=$(find "$game_dir"/maps/"$iwad"/vanilla \
+  "$game_dir"/maps/"$iwad"/nolimit \
+  "$game_dir"/maps/"$iwad"/boom \
   -type f -name '*.wad' 2>/dev/null | shuf -n 1)
 echo "INFO: Map file: $map_file"
 
@@ -21,14 +25,14 @@ case "$iwad" in
 esac
 
 "$bin" \
-  -config "$param_game_dir"/config/prboom-plus/prboom-plus_vanilla.cfg \
+  -config "$game_dir"/config/prboom-plus/prboom-plus_vanilla.cfg \
   -vidmode gl \
   -complevel 17 \
   -width 1920 -height 1080 \
   -fullscreen \
   -geom 640x360f -aspect 16:9 \
-  -iwad "$param_game_dir"/maps/iwads/"$iwad".wad \
+  -iwad "$game_dir"/maps/iwads/"$iwad".wad \
   -file "$map_file" $mod_files \
-  -save "$param_game_dir"/savegames/"$iwad"/ \
+  -save "$game_dir"/savegames/"$iwad"/ \
   -skill 3 \
   -warp $warp
