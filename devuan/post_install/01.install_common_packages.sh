@@ -24,7 +24,7 @@ $su apt-get -y --fix-missing install \
     cmake openjdk-21-jdk maven gradle python3 python3-pip meson ninja-build \
     jq git podman \
     flac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool lsdvd libbluray-bdj \
-    moc lynx rtorrent amule \
+    moc rtorrent amule \
     detox scrot mc hdparm lshw \
     mcomix qpdf zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb mupdf mupdf-tools \
     foremost testdisk sleuthkit scalpel guymager \

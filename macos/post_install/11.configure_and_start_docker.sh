@@ -1,15 +1,8 @@
 #!/bin/bash
-
-# fail if any commands fails
 set -e
-# debug log
-#set -x
 
-echo "Open Docker from Finder > Applications and start Docker daemon..."
-echo "  Also, in 'Preferences' > 'Resources' > 'Memory' set needed Memory amount"
-echo "  (Selenium jobs limit is between 4Gb and 6Gb each)"
-read -p "Press enter to continue"
+# Post-install Docker configuration
 
-# setup docker
-sudo groupadd docker || true
-sudo gpasswd -a $USER docker || true
+echo "Open Docker from Applications and start the daemon..."
+echo "In Preferences > Resources > Memory, set needed amount (4-6GB for Selenium)."
+read -rp "Press enter to continue after Docker is running..."

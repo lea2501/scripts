@@ -25,7 +25,7 @@ $su pacman -S \
     cmake jdk11-openjdk jdk17-openjdk maven gradle python python-pip \
     jq git intellij-idea-community-edition podman android-tools \
     flac faac mac opus-tools vorbis-tools wavpack mpv ffmpeg sox libdvdcss lsdvd cuetools \
-    wmname avidemux-qt lynx newsboat rtorrent amule aria2 yt-dlp \
+    wmname newsboat rtorrent amule aria2 \
     mc hdparm lshw fdupes \
     qpdf zathura zathura-pdf-mupdf mupdf mupdf-tools \
     foremost testdisk sleuthkit \
