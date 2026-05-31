@@ -17,7 +17,7 @@ $su apt-get install -qq -y curl
 
 mkdir -p ~/bin
 cd ~/bin || return
-export JMETER_VERSION=$(curl --silent "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=jmeter" | grep "pkgver=" | sed 's/pkgver=//')
+export JMETER_VERSION=$(curl -s https://api.github.com/repos/apache/jmeter/releases/latest | jq -r .tag_name | sed 's/^v//')
 export JMETER_HOME=$HOME/bin/apache-jmeter-${JMETER_VERSION}
 export JMETER_BIN="${JMETER_HOME}"/bin
 export JMETER_DOWNLOAD_URL="https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz"
