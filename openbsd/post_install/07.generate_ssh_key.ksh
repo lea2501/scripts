@@ -10,18 +10,13 @@ print ""
 read -r "Press enter when finish to create ssh keys..."
 print -n "Generate ssh keys?: (Y|n) ";read -r option; print ""
 
-cat /dev/zero | ssh-keygen -q -t rsa -N ""
-print "Generate ssh key in $HOME/.ssh/id_rsa.pub file... DONE"
+cat /dev/zero | ssh-keygen -q -t ed25519 -N ""
+print "Generate ssh key in $HOME/.ssh/id_ed25519.pub file... DONE"
 
-#xclip -sel PRIMARY <"$HOME"/.ssh/id_rsa.pub
-#print "Copying content of '$HOME/.ssh/id_rsa.pub' file to the clipboard... DONE"
-#print ""
-#echo -e "\033[33;5m If you copy other thing to the clipboard, here is your ssh public key, ready to copy again... \033[0m"
-#print ""
-cat "$HOME"/.ssh/id_rsa.pub
+cat "$HOME"/.ssh/id_ed25519.pub
 print ""
 
 print "Add SSH keys to Github account (Optional):"
 print "  1) Access ssh-keys settings in https://github.com/settings/keys"
-print "  2) Paste the key copied from $HOME/.ssh/id_rsa.pub and press 'Add key' button."
+print "  2) Paste the key copied from $HOME/.ssh/id_ed25519.pub and press 'Add key' button."
 print ""

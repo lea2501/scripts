@@ -21,9 +21,9 @@ $su apt-get -y --fix-missing install \
     ttf-bitstream-vera fonts-dejavu fonts-inconsolata fonts-liberation \
     usbutils udftools bash-completion htop findutils acpi lm-sensors ntp alsa-tools alsa-utils xdotool tree \
     cmake openjdk-17-jdk openjdk-11-jdk openjdk-11-jdk-headless openjdk-11-jre maven gradle npm python3 python3-pip meson ninja-build python3 python3-pip \
-    jq git subversion groovy podman mariadb-server mariadb-client geany geany-plugins \
+    jq git groovy podman mariadb-server mariadb-client geany geany-plugins \
     flac opus-tools vorbis-tools wavpack mpv ffmpeg sox shntool lsdvd \
-    moc lynx newsboat rtorrent amule yt-dlp \
+    moc newsboat rtorrent amule \
     pcmanfm detox scrot mc hdparm lshw \
     mcomix qpdf zathura zathura-pdf-poppler zathura-djvu zathura-ps zathura-cb mupdf mupdf-tools \
     foremost testdisk sleuthkit scalpel guymager \
