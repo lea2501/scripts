@@ -1,30 +1,27 @@
 #!/bin/sh
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/_common_paths.sh"
+. "$SCRIPT_DIR/_common_mods_vanilla.sh"
+. "$SCRIPT_DIR/_common_mods_zdoom.sh"
+
 game=doom2
-game_dir="$HOME/games/doom"
-mod_files="$game_dir/mods/vanilla/sound/pk_doom_sfx/pk_doom_sfx_20120224.wad \
-  $game_dir/mods/vanilla/palette/dimm_pal/doom-pal.wad \
-  $game_dir/mods/zdoom/brutal/brutal_doom/brutalv21.13.0.pk3 \
-  $game_dir/mods/zdoom/gameplay/bullet_time_x/bullet-time-x_1.3.1.pk3"
+mod_files="$mods_vanilla_doom $mods_zdoom_brutal $mods_zdoom_bullet_time"
 
-pwad_file=$(find "${game_dir}"/maps/${game}/vanilla/*/*.wad \
-  "$game_dir"/maps/${game}/nolimit/*/*.wad \
-  "$game_dir"/maps/${game}/boom/*/*.wad \
-  "$game_dir"/maps/${game}/zdoom/*/*.wad \
-  "$game_dir"/maps/${game}/zdoom/*/*.pk3 \
-   -ls | sort -rn | awk '{print $11}' | shuf -n 1)
+pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
+  "$game_dir"/maps/"$game"/nolimit \
+  "$game_dir"/maps/"$game"/boom \
+  "$game_dir"/maps/"$game"/zdoom \
+  -type f \( -name '*.wad' -o -name '*.pk3' \) 2>/dev/null | shuf -n 1)
 
-set -x
 if [ -d /usr/share/gzdoom/ ]; then cd /usr/share/gzdoom/ || return; fi
-if [ -d /usr/local/share/games/doom/ ]; then if [ -d /usr/share/gzdoom/ ]; then cd /usr/share/gzdoom/ || return; fi
-if [ -d /usr/local/share/games/doom/ ]; then cd /usr/local/share/games/doom/ || return; fi; fi
-eval gzdoom -config "$game_dir"/config/zdoom/config_zdoom.ini \
+if [ -d /usr/local/share/games/doom/ ]; then cd /usr/local/share/games/doom/ || return; fi
+gzdoom -config "$game_dir"/config/zdoom/config_zdoom.ini \
   -width 1920 -height 1080 \
   -fullscreen \
-  -iwad "$game_dir"/maps/iwads/${game}.wad \
-  -file "$pwad_file" "$mod_files" \
-  -savedir "$game_dir"/savegames/${game}/ \
+  -iwad "$game_dir"/maps/iwads/"$game".wad \
+  -file "$pwad_file" $mod_files \
+  -savedir "$game_dir"/savegames/"$game"/ \
   -skill 3 \
   -warp 1 \
   > /tmp/gzdoom.log
-set +x
