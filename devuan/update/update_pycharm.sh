@@ -97,8 +97,10 @@ fi
 # Remove leading ./ if present
 EXTRACTED_DIR="${EXTRACTED_DIR#./}"
 
-# Normalize directory name
-mv "$EXTRACTED_DIR" "$INSTALL_DIR"
+# Normalize directory name if needed
+if [ "$EXTRACTED_DIR" != "$INSTALL_DIR" ]; then
+  mv "$EXTRACTED_DIR" "$INSTALL_DIR"
+fi
 
 # Update symlink
 rm -f pycharm
