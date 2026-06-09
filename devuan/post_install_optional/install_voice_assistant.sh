@@ -6,7 +6,7 @@ set -e
 
 INSTALL_DIR="$HOME/ia/voice-assistant"
 WHISPER_MODEL="base"
-PIPER_VOICE="es_MX-claude-high"
+PIPER_VOICE="es_AR-daniela-high"
 
 echo ">> Installing voice assistant to $INSTALL_DIR"
 mkdir -p "$INSTALL_DIR"
@@ -40,9 +40,9 @@ fi
 
 echo ">> Downloading piper voice ($PIPER_VOICE)..."
 mkdir -p "$INSTALL_DIR/piper/voices"
-VOICE_BASE="https://huggingface.co/rhasspy/piper-voices/resolve/main/es/es_MX/claude/high"
-wget -q -nc "$VOICE_BASE/es_MX-claude-high.onnx" -O "$INSTALL_DIR/piper/voices/${PIPER_VOICE}.onnx" || true
-wget -q -nc "$VOICE_BASE/es_MX-claude-high.onnx.json" -O "$INSTALL_DIR/piper/voices/${PIPER_VOICE}.onnx.json" || true
+VOICE_BASE="https://huggingface.co/rhasspy/piper-voices/resolve/main/es/es_AR/daniela/high"
+wget -q -nc "$VOICE_BASE/es_AR-daniela-high.onnx" -O "$INSTALL_DIR/piper/voices/${PIPER_VOICE}.onnx" || true
+wget -q -nc "$VOICE_BASE/es_AR-daniela-high.onnx.json" -O "$INSTALL_DIR/piper/voices/${PIPER_VOICE}.onnx.json" || true
 
 # --- symlinks ---
 mkdir -p "$HOME/bin"

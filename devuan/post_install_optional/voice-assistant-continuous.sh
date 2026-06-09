@@ -5,7 +5,7 @@ INSTALL_DIR="$HOME/ia/voice-assistant"
 WHISPER="$INSTALL_DIR/whisper.cpp/build/bin/whisper-cli"
 WHISPER_MODEL="$INSTALL_DIR/whisper.cpp/models/ggml-base.bin"
 PIPER="$INSTALL_DIR/piper/piper"
-PIPER_VOICE="$INSTALL_DIR/piper/voices/es_MX-claude-high.onnx"
+PIPER_VOICE="$INSTALL_DIR/piper/voices/es_AR-daniela-high.onnx"
 OLLAMA_MODEL="${OLLAMA_MODEL:-qwen3:8b}"
 TMPWAV="/tmp/voice_input.wav"
 
