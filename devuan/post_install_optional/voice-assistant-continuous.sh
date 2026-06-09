@@ -31,7 +31,7 @@ while true; do
   echo "   Vos: $TEXT"
 
   echo "   Pensando..."
-  RESPONSE=$(ollama run "$OLLAMA_MODEL" "$SYSTEM_PROMPT. Pregunta: $TEXT" 2>/dev/null | sed 's/<[^>]*>//g')
+  RESPONSE=$(ollama run "$OLLAMA_MODEL" "$SYSTEM_PROMPT. Pregunta: $TEXT" 2>/dev/null | sed ':a;N;$!ba;s/<think>.*<\/think>//g' | sed '/^$/d')
   echo "   IA: $RESPONSE"
 
   echo "$RESPONSE" | "$PIPER" --model "$PIPER_VOICE" --output_raw 2>/dev/null | aplay -q -r 22050 -f S16_LE -c 1 2>/dev/null
