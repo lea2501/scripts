@@ -36,7 +36,7 @@ if [ -z "$PYCHARM_VERSION" ]; then
 fi
 
 # Download URL
-PYCHARM_DOWNLOAD_URL="https://download.jetbrains.com/python/pycharm-community-${PYCHARM_VERSION}.tar.gz"
+PYCHARM_DOWNLOAD_URL="https://download.jetbrains.com/python/pycharm-${PYCHARM_VERSION}.tar.gz"
 
 # Detect installed version
 CURRENT_VERSION=""
