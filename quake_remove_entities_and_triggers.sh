@@ -81,7 +81,16 @@ BEGIN {
 # bsputil -replace-entities busca automáticamente
 # un .ent con el mismo nombre base que el BSP
 #
-cp "$ENT_NEW" "$TMPDIR/$BASE_OUT.ent"
+if [ "$ENT_NEW" != "$TMPDIR/$BASE_OUT.ent" ]; then
+    cp "$ENT_NEW" "$TMPDIR/$BASE_OUT.ent"
+fi
+
+(
+    cd "$TMPDIR"
+    "$BSPUTIL" -replace-entities "$OUTPUT"
+)
+
+awk '...' "$ENT" > "$ENT_NEW"
 
 (
     cd "$TMPDIR"
