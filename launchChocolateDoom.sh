@@ -22,7 +22,7 @@ if { [ "$1" = --help ] || [ "$1" = -h ];}; then
   show_usage
 fi
 if { [ "$1" = --list ] || [ "$1" = -l ];}; then
-    find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia,heretic,hexen}/vanilla/*/*.wad -type f 2>/dev/null | grep -v 'tex'  | grep -v 'fix' | grep -v 'res' | grep -v 'demo' | grep -v 'credits'
+    find "$HOME"/games/doom/maps/{doom,doom2,tnt,plutonia,heretic,hexen}/vanilla/*/*.wad -type f 2>/dev/null | grep -v 'tex'  | grep -v 'fix' | grep -v 'res' | grep -v 'demo' | grep -v 'credits'
     echo ""
     exit
 fi
@@ -62,6 +62,10 @@ fi
 
 mods=
 base_dir="$HOME/games/doom"
+iwad_file="$base_dir/maps/iwads/$iwad.wad"
+if [ ! -f "$iwad_file" ]; then
+  iwad_file="$base_dir/maps/original/$iwad.wad"
+fi
 doom_mods="$base_dir/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad $base_dir/mods/vanilla/jovian_palette/JoyPal.wad"
 heretic_mods="$base_dir/mods/vanilla/dimm_pal/her-pal.wad"
 hexen_mods="$base_dir/mods/vanilla/dimm_pal/hex-pal.wad"
@@ -75,4 +79,4 @@ case "$iwad" in
   *hexdd*) mods=$hexen_mods; engine="chocolate-hexen" ;;
 esac
 
-$engine -fullscreen -config "$base_dir"/config/chocolate/config.ini -iwad "$base_dir"/wads/iwads/"$iwad".wad -file "$wad" $mods -savedir "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01
+$engine -fullscreen -config "$base_dir"/config/chocolate/config.ini -iwad "$iwad_file" -file "$wad" $mods -savedir "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01

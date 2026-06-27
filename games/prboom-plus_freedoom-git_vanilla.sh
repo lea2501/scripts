@@ -7,8 +7,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 mod_files="$game_dir/mods/vanilla/palette/dimm_pal/doom-pal.wad"
 
-iwad=$(find "$game_dir"/maps/iwads/freedoom1-git.wad \
-  "$game_dir"/maps/iwads/freedoom2-git.wad \
+iwad=$(find "$(iwad_path freedoom1-git)" \
+  "$(iwad_path freedoom2-git)" \
   2>/dev/null | shuf -n 1 | sed 's/.*\///' | sed 's/.wad//')
 echo "INFO: iwad file: $iwad"
 map_file=$(find "$game_dir"/maps/"$iwad"/vanilla \
@@ -31,7 +31,7 @@ esac
   -width 1920 -height 1080 \
   -fullscreen \
   -geom 640x360f -aspect 16:9 \
-  -iwad "$game_dir"/maps/iwads/"$iwad".wad \
+  -iwad "$(iwad_path "$iwad")" \
   -file "$map_file" $mod_files \
   -save "$game_dir"/savegames/"$iwad"/ \
   -skill 3 \

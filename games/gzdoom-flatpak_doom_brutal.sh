@@ -1,10 +1,13 @@
 #!/bin/sh
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/_common_paths.sh"
+
 game=doom
 game_dir="$HOME/games/doom"
 mod_files="$game_dir/mods/vanilla/sound/pk_doom_sfx/pk_doom_sfx_20120224.wad \
   $game_dir/mods/vanilla/palette/dimm_pal/doom-pal.wad \
-  $game_dir/mods/zdoom/brutal/brutal_doom/brutalv21.13.0.pk3 \
+  $game_dir/mods/zdoom/brutal/brutal_doom/brutalv21.50.1.pk3 \
   $game_dir/mods/zdoom/gameplay/bullet_time_x/bullet-time-x_1.3.1.pk3"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
@@ -18,7 +21,7 @@ if [ -d /usr/local/share/games/doom/ ]; then cd /usr/local/share/games/doom/ || 
 flatpak run org.zdoom.GZDoom -config "$game_dir"/config/zdoom/config_zdoom.ini \
   -width 1920 -height 1080 \
   -fullscreen \
-  -iwad "$game_dir"/maps/iwads/"$game".wad \
+  -iwad "$(iwad_path "$game")" \
   -file "$pwad_file" $mod_files \
   -savedir "$game_dir"/savegames/"$game"/ \
   -skill 3 \

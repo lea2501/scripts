@@ -84,21 +84,85 @@ function skip_pickup(entity) {
         entity ~ /"classname" "item_armorInv"/
 }
 
+function entity_value(entity, key,    lines, parts, i, n) {
+    n = split(entity, lines, "\n")
+    for (i = 1; i <= n; i++) {
+        split(lines[i], parts, "\"")
+        if (parts[2] == key) return parts[4]
+    }
+    return ""
+}
+
+function monster_event_blocker(entity, classname, targetname) {
+    classname = entity_value(entity, "classname")
+    targetname = entity_value(entity, "targetname")
+
+    if (classname == "func_wall" && targetname in kill_targets) return 1
+
+    if (classname != "func_door" &&
+        classname != "func_door_secret" &&
+        classname != "func_wall") return 0
+    if (targetname == "" || !(targetname in monster_event_targets)) return 0
+
+    return entity_value(entity, "items") == ""
+}
+
 NF {
     entity = $0 "}"
+    entities[++entity_count] = entity
 
-    if (entity ~ /"classname" "monster_/) next
-    if (strip_pickups && skip_pickup(entity)) next
+    if (entity_value(entity, "classname") == "trigger_counter") {
+        target = entity_value(entity, "target")
+        if (target != "") counter_targets[target] = 1
+    }
 
-    if (entity ~ /"classname" "trigger_counter"/) {
-        if (entity ~ /"count" "[^"]*"/) {
-            gsub(/"count" "[^"]*"/, "\"count\" \"0\"", entity)
-        } else {
-            sub(/\n\}$/, "\n\"count\" \"0\"\n}", entity)
+    if (entity ~ /"classname" "monster_/) {
+        target = entity_value(entity, "target")
+        if (target != "") monster_targets[target] = 1
+
+        targetname = entity_value(entity, "targetname")
+        if (targetname != "") monster_event_targets[targetname] = 1
+    }
+
+    target = entity_value(entity, "killtarget")
+    if (target != "") kill_targets[target] = 1
+}
+
+END {
+    for (target in counter_targets) {
+        monster_event_targets[target] = 1
+    }
+
+    for (i = 1; i <= entity_count; i++) {
+        entity = entities[i]
+        targetname = entity_value(entity, "targetname")
+        if (targetname == "" || !(targetname in monster_targets)) continue
+
+        monster_event_targets[targetname] = 1
+
+        if (entity_value(entity, "classname") == "trigger_counter") {
+            target = entity_value(entity, "target")
+            if (target != "") monster_event_targets[target] = 1
         }
     }
 
-    print entity "\n"
+    for (i = 1; i <= entity_count; i++) {
+        entity = entities[i]
+
+        if (entity ~ /"classname" "monster_/) continue
+        if (strip_pickups && skip_pickup(entity)) continue
+        if (monster_event_blocker(entity)) continue
+
+        if (entity_value(entity, "classname") == "trigger_counter") {
+            if (entity ~ /"count" "[^"]*"/) {
+                gsub(/"count" "[^"]*"/, "\"count\" \"0\"", entity)
+            } else {
+                sub(/\n\}$/, "\n\"count\" \"0\"\n}", entity)
+            }
+        }
+
+        print entity "\n"
+    }
 }
 ' "$ENT" > "$ENT_NEW"
 

@@ -22,7 +22,7 @@ if { [ "$1" = --help ] || [ "$1" = -h ];}; then
   show_usage
 fi
 if { [ "$1" = --list ] || [ "$1" = -l ];}; then
-    find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia}/{vanilla,nolimit,boom}/*/*.wad -type f 2>/dev/null | grep -v 'tex'  | grep -v 'fix' | grep -v 'res' | grep -v 'demo' | grep -v 'credits'
+    find "$HOME"/games/doom/maps/{doom,doom2,tnt,plutonia}/{vanilla,limit-removing,boom}/*/*.wad -type f 2>/dev/null | grep -v 'tex'  | grep -v 'fix' | grep -v 'res' | grep -v 'demo' | grep -v 'credits'
     echo ""
     exit
 fi
@@ -62,6 +62,10 @@ fi
 
 mods=
 base_dir="$HOME/games/doom"
+iwad_file="$base_dir/maps/iwads/$iwad.wad"
+if [ ! -f "$iwad_file" ]; then
+  iwad_file="$base_dir/maps/original/$iwad.wad"
+fi
 doom_mods="$base_dir/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad $base_dir/mods/vanilla/jovian_palette/JoyPal.wad"
 doom_config="$base_dir"/config/prboom-plus/prboom-plus_vanilla.cfg
 
@@ -72,7 +76,7 @@ case "$iwad" in
 esac
 
 #if [ -f ~/src/prboom-plus/prboom2/prboom-plus ]; then
-#  cd ~/src/prboom-plus/prboom2/ && ./prboom-plus -config "$config" -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad "$base_dir"/wads/iwads/"$iwad".wad -file "$wad" "$mods" -save "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01 && cd -
+#  cd ~/src/prboom-plus/prboom2/ && ./prboom-plus -config "$config" -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad "$iwad_file" -file "$wad" "$mods" -save "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01 && cd -
 #else
-  prboom-plus -config "$config" -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad "$base_dir"/wads/iwads/"$iwad".wad -file "$wad" $mods -save "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01
+  prboom-plus -config "$config" -vidmode gl -complevel 17 -width 1920 -height 1080 -fullscreen -aspect 16:9 -iwad "$iwad_file" -file "$wad" $mods -save "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01
 #fi

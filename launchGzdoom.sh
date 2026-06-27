@@ -28,7 +28,7 @@ if { [ "$1" = --help ] || [ "$1" = -h ];}; then
   show_usage
 fi
 if { [ "$1" = --list ] || [ "$1" = -l ];}; then
-    find "$HOME"/games/doom/wads/{doom,doom2,tnt,plutonia,heretic,hexen}/{vanilla,nolimit,boom,zdoom}/*/*.wad -type f 2>/dev/null | grep -v 'tex'  | grep -v 'fix' | grep -v 'res' | grep -v 'demo' | grep -v 'credits'
+    find "$HOME"/games/doom/maps/{doom,doom2,tnt,plutonia,heretic,hexen}/{vanilla,limit-removing,boom,zdoom}/*/*.wad -type f 2>/dev/null | grep -v 'tex'  | grep -v 'fix' | grep -v 'res' | grep -v 'demo' | grep -v 'credits'
     echo ""
     exit
 fi
@@ -76,6 +76,10 @@ fi
 
 mods=
 base_dir="$HOME"/games/doom
+iwad_file="$base_dir/maps/iwads/$iwad.wad"
+if [ ! -f "$iwad_file" ]; then
+  iwad_file="$base_dir/maps/original/$iwad.wad"
+fi
 doom_mods="$base_dir/mods/vanilla/pk_doom_sfx/pk_doom_sfx_20120224.wad $base_dir/mods/vanilla/jovian_palette/JoyPal.wad $base_dir/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3"
 heretic_mods="$base_dir/mods/vanilla/dimm_pal/her-pal.wad $base_dir/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3"
 hexen_mods="$base_dir/mods/vanilla/dimm_pal/hex-pal.wad $base_dir/mods/zdoom/vanilla_essence/vanilla_essence_4_3.pk3"
@@ -103,7 +107,7 @@ case "$iwad" in
 esac
 
 if [ -f ~/src/gzdoom/build/gzdoom ]; then
-  cd ~/src/gzdoom/build/ && ./gzdoom -config "$config" -width 1920 -height 1080 -fullscreen -iwad "$base_dir"/wads/iwads/"$iwad".wad -file "$wad" $mods -savedir "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01 && cd -
+  cd ~/src/gzdoom/build/ && ./gzdoom -config "$config" -width 1920 -height 1080 -fullscreen -iwad "$iwad_file" -file "$wad" $mods -savedir "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01 && cd -
 else
-  gzdoom -config "$config" -width 1920 -height 1080 -fullscreen -iwad "$base_dir"/wads/iwads/"$iwad".wad -file "$wad" $mods -savedir "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01
+  gzdoom -config "$config" -width 1920 -height 1080 -fullscreen -iwad "$iwad_file" -file "$wad" $mods -savedir "$base_dir"/savegames/"$iwad"/ -skill 3 -warp 01
 fi

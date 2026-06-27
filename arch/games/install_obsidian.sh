@@ -11,20 +11,23 @@ if [ -z "${su+x}" ]; then
 fi
 
 $su pacman -Sy --noconfirm --needed base-devel make cmake binutils
-$su pacman -Sy --noconfirm --needed libxft fontconfig
-$su pacman -Sy --noconfirm --needed flex
+$su pacman -Sy --noconfirm --needed fontconfig libxft libx11 fltk
 
 application=Obsidian
-repository=https://github.com/dashodanger/Obsidian.git
+repository=https://github.com/GTD-Carthage/Obsidian-Content.git
 export compile=
 mkdir -p ~/src
 cd ~/src || return
 if [ ! -d $application ]; then
-  git clone $repository
+  git clone "$repository" "$application"
   cd $application || return
   export compile=true
 else
   cd $application || return
+  current_origin=$(git remote get-url origin || true)
+  if [ "$current_origin" != "$repository" ]; then
+    git remote set-url origin "$repository"
+  fi
   #git pull
   pwd
   git fetch
@@ -40,6 +43,15 @@ fi
 
 if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
-  cmake --preset dist
-  cmake --build --preset dist
+  cmake -B build -DCMAKE_BUILD_TYPE=Release
+  cmake --build build
+fi
+
+config_dir="$HOME/games/doom/config/obsidian"
+mkdir -p "$config_dir"
+if [ -f "$HOME/.local/share/Obsidian/CONFIG.txt" ]; then
+  cp "$HOME/.local/share/Obsidian/CONFIG.txt" "$config_dir/CONFIG.txt"
+fi
+if [ -f "$HOME/.local/share/Obsidian/OPTIONS.txt" ]; then
+  cp "$HOME/.local/share/Obsidian/OPTIONS.txt" "$config_dir/OPTIONS.txt"
 fi

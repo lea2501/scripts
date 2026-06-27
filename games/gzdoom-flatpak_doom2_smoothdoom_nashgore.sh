@@ -19,7 +19,7 @@ if [ -d /usr/local/share/games/doom/ ]; then cd /usr/local/share/games/doom/ || 
 flatpak run org.zdoom.GZDoom -config "$game_dir"/config/zdoom/config_zdoom.ini \
   -width 1920 -height 1080 \
   -fullscreen \
-  -iwad "$game_dir"/maps/iwads/"$game".wad \
+  -iwad "$(iwad_path "$game")" \
   -file "$pwad_file" $mod_files \
   -savedir "$game_dir"/savegames/"$game"/ \
   -skill 3 \

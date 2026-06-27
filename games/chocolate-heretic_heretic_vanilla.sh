@@ -13,7 +13,7 @@ pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
   -type f -name '*.wad' 2>/dev/null | shuf -n 1)
 
 chocolate-heretic -config "$game_dir"/config/chocolate/config_heretic.ini \
-  -fullscreen -iwad "$game_dir"/maps/iwads/"$game".wad \
+  -fullscreen -iwad "$(iwad_path "$game")" \
   -file "$pwad_file" $mod_files \
   -savedir "$game_dir"/savegames/"$game"/ \
   -skill 3 \

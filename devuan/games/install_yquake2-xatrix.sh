@@ -10,7 +10,7 @@ if [ -z "${su+x}" ]; then
   su="sudo"
 fi
 
-$su apt-get install -y build-essential libgl1-mesa-dev libsdl2-dev libopenal-dev libcurl4-openssl-dev
+$su apt-get install -y build-essential libgl1-mesa-dev libsdl3-dev libopenal-dev libcurl4-openssl-dev
 
 application=xatrix
 repository="https://github.com/yquake2/xatrix.git"
@@ -38,5 +38,5 @@ fi
 
 if [ "$compile" = "true" ]; then
   cd ~/src/$application || return
-  make DO_USERDIRS=1 USE_SDL2=1 USE_CURL=0
+  make DO_USERDIRS=1 USE_CURL=0
 fi

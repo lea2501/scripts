@@ -19,7 +19,7 @@ dsda-doom -config "$game_dir"/config/dsda-doom/dsda-doom_vanilla.cfg \
   -width 1920 -height 1080 \
   -fullscreen \
   -geom 640x360f -aspect 16:9 \
-  -iwad "$game_dir"/maps/iwads/"$game".wad \
+  -iwad "$(iwad_path "$game")" \
   -file "$pwad_file" $mod_files \
   -save "$game_dir"/savegames/"$game"/ \
   -skill 3 \

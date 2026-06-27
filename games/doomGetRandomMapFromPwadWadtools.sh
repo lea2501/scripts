@@ -2,8 +2,9 @@
 
 param_iwad="$1"
 param_pwad="$2"
-param_game_dir="$HOME/games/doom"
-config_iwad=$(find "$HOME"/games/doom/maps/iwads/"${param_iwad}".wad 2>/dev/null)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/_common_paths.sh"
+config_iwad=$(iwad_path "$param_iwad")
 pwadfilename=$(basename -- "${param_pwad%.*}")
 
 compiled_bin="$HOME/src/wadtools/build/wadxtract"

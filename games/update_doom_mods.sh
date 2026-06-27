@@ -1,20 +1,13 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
 
-game_dir=~/games/doom
+if [ "$#" -eq 0 ]; then
+  set -- check
+else
+  case "$1" in
+    list|check|download) ;;
+    *) set -- check "$@" ;;
+  esac
+fi
 
-downloadLatestFromGithub() {
-  download_directory=$1
-  github_repo=$2
-  ext=$3
-  cd || return
-  mod_dir=${game_dir}/${download_directory}
-  mkdir -p "$mod_dir"
-  cd "$mod_dir" || return
-  curl -O -L "$(curl -s https://api.github.com/repos/${github_repo}/releases/latest | jq -r ".assets[] | select(.name | test(\"${ext}\")) | .browser_download_url")"
-}
-
-downloadLatestFromGithub "mods/zdoom/beautiful_doom" "jekyllgrim/Beautiful-Doom" ".pk3"
-downloadLatestFromGithub "mods/zdoom/brutal/brutal_doom/" "BLOODWOLF333/Brutal-Doom-Community-Expansion" ".pk3"
-downloadLatestFromGithub "mods/zdoom/immerse/" "JRHard771/Immerse" ".pk3"
-downloadLatestFromGithub "mods/zdoom/droplets/" "JRHard771/droplets" ".pk3"
-downloadLatestFromGithub "mods/zdoom/darkdoomz/" "caligari87/darkdoomz" ".pk3"
+exec /home/lea/games/doom/tools/custom/doom_mod_updates.py "$@"
