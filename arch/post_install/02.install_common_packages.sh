@@ -32,7 +32,7 @@ $su pacman -S \
     feh geeqie gimp imagemagick optipng \
     curl wget axel rsync tigervnc filezilla openconnect openbsd-netcat clamav freerdp \
     ntfs-3g gparted libreoffice-fresh libreoffice-fresh-es keepassxc galculator zbar \
-    cabextract arj unrar p7zip unarj unace unzip zip tar xarchiver libxml2 \
+    cabextract arj unrar p7zip unarj unace unzip zip tar innoextract xarchiver libxml2 \
     qemu-base qemu-system-x86 qemu-system-x86-firmware
 #$su pacman -S networkmanager-openconnect
 #$su pacman -S moc autocutsel

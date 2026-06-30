@@ -30,5 +30,5 @@ $su apt-get -y --fix-missing install \
     foremost testdisk sleuthkit scalpel guymager \
     feh geeqie gimp imagemagick \
     curl axel rsync tigervnc-viewer openconnect openvpn x11vnc clamav \
-    ntfs-3g gparted libreoffice keepassxc zbar-tools cabextract arj unrar-free p7zip-full unace unzip zip tar xarchiver galculator libxml2-utils aapt \
+    ntfs-3g gparted libreoffice keepassxc zbar-tools cabextract arj unrar-free p7zip-full unace unzip zip tar innoextract xarchiver galculator libxml2-utils aapt \
     qemu-system qemu-system-x86 qemu-utils
