@@ -9,8 +9,9 @@ echo "INFO: iwad file: $config_iwad"
 pwadfilename=$(basename -- "${param_pwad%.*}")
 echo "PWAD name: $pwadfilename"
 
-compiled_bin="$HOME/src/gzdoom/build/gzdoom"
-bin=$(command -v gzdoom 2>/dev/null || echo "$compiled_bin")
+compiled_bin="$HOME/src/UZDoom/build/uzdoom"
+bin="$compiled_bin"
+if [ ! -x "$bin" ]; then bin=$(command -v uzdoom 2>/dev/null || echo uzdoom); fi
 
 cd /tmp
 export DOOMWADDIR=/usr/local/share/games/doom/

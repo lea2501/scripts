@@ -6,11 +6,11 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/_common_mods_vanilla.sh"
 . "$SCRIPT_DIR/_common_mods_zdoom.sh"
 
-game=doom2
+game=doom
 compiled_bin="$HOME/src/UZDoom/build/uzdoom"
 uzdoom_bin="$compiled_bin"
 if [ ! -x "$uzdoom_bin" ]; then uzdoom_bin=$(command -v uzdoom 2>/dev/null || echo uzdoom); fi
-mod_files="$mods_vanilla_doom $mods_zdoom_brutal $mods_zdoom_bullet_time"
+mod_files="$mods_vanilla_doom $mods_zdoom_bullet_time"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
   "$game_dir"/maps/"$game"/nolimit \
@@ -28,5 +28,5 @@ if [ -d "$HOME/src/UZDoom/build/" ]; then cd "$HOME/src/UZDoom/build/" || return
   -file "$pwad_file" $mod_files \
   -savedir "$game_dir"/savegames/"$game"/ \
   -skill 3 \
-  -warp 1 \
+  -warp 1 1 \
   > /tmp/uzdoom.log
