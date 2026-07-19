@@ -1,31 +1,52 @@
-#!/bin/sh
+#!/bin/bash
 #
-# update-gog.sh
-# Automatically update GOG game installers using lgogdownloader (v3+).
-# Keeps only the latest versions, excluding patches.
-# Logs all activity for later review.
+# Mirror every GOG base game and DLC installer, plus extras, for every platform.
+# Patches and separate language packs are intentionally excluded.
 
-# Check arguments
-if [ -z "$1" ]; then
-    echo "Usage: $0 /path/to/GOG"
-    echo "Example: $0 /media/lea/games/gog/"
+set -o pipefail
+
+BASE_DIR="${1:-/media/lea/games/gog}"
+LOG_FILE="$BASE_DIR/update.log"
+
+# Refuse to write into the mount point directory if the games volume is absent.
+if ! mountpoint -q /media/lea/games; then
+    echo "[!] /media/lea/games is not mounted. Aborting." >&2
     exit 1
 fi
 
-BASE_DIR="$1"
-LOG_FILE="$BASE_DIR/update.log"
+MOUNT_OPTIONS="$(findmnt -n -o OPTIONS -T "$BASE_DIR")"
+case ",$MOUNT_OPTIONS," in
+    *,ro,*)
+        echo "[!] The volume containing $BASE_DIR is mounted read-only. Aborting." >&2
+        exit 1
+        ;;
+esac
 
-# Common download parameters
-ARGS="--download --retries 5 --threads 2 --use-cache --no-remote-xml --exclude patches"
-
-# Timestamp for log entries
-TIMESTAMP="$(date '+%Y-%m-%d %H:%M:%S')"
-
-# Create directory and files
 mkdir -p "$BASE_DIR"
+if [ ! -w "$BASE_DIR" ]; then
+    echo "[!] $BASE_DIR is not writable. Aborting." >&2
+    exit 1
+fi
+
+# Log to both the terminal and the mirror directory.
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+# Use arrays so every option is passed as a separate, safely quoted argument.
+COMMON_ARGS=(
+    --directory "$BASE_DIR"
+    --platform all
+    --include installers,extras
+    --exclude patches
+    --include-hidden-products
+    --use-cache
+    --retries 5
+    --threads 2
+)
 
 echo "------------------------------------------------------------"
-echo "[$TIMESTAMP] Starting GOG update process"
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting GOG mirror"
+echo "Directory: $BASE_DIR"
+echo "Content: base-game and DLC installers plus extras; all platforms; no patches"
 echo "------------------------------------------------------------"
 
 # Check for active login session
@@ -42,29 +63,30 @@ fi
 
 # Update the local GOG database first
 echo "[*] Updating local GOG database..."
-if ! lgogdownloader --update-cache 2>&1; then
-    echo "[!] Cache update failed."
-fi
-
-# Clean orphaned files (new flags replaces old --purge)
-echo "[*] Cleaning orphaned/obsolete files..."
-if ! lgogdownloader --directory "$BASE_DIR" --check-orphans --delete-orphans 2>&1; then
-    echo "[-] Nothing to clean or cleanup failed."
-else
-    echo "[+] Cleanup completed."
-fi
-
-# Sync/download games
-echo "[*] Syncing installers in: $BASE_DIR"
-if ! lgogdownloader --directory "$BASE_DIR" $ARGS 2>&1; then
-    echo "[!] Download/sync failed. See log for details."
+if ! lgogdownloader --update-cache --include-hidden-products; then
+    echo "[!] Cache update failed. Aborting."
     exit 1
 fi
 
-# Remove leftover .old files
+# Remove files that are no longer present in the selected GOG catalog.
+echo "[*] Cleaning orphaned/obsolete files..."
+if ! lgogdownloader "${COMMON_ARGS[@]}" --check-orphans --delete-orphans; then
+    echo "[!] Orphan cleanup failed. Aborting before download."
+    exit 1
+fi
+echo "[+] Cleanup completed."
+
+# Download every matching game; no --game filter means the entire account.
+echo "[*] Syncing the GOG mirror..."
+if ! lgogdownloader "${COMMON_ARGS[@]}" --download; then
+    echo "[!] Download/sync failed. See $LOG_FILE for details."
+    exit 1
+fi
+
+# Successful repairs can leave superseded files with an .old suffix.
 echo "[*] Removing leftover .old files..."
-find "$BASE_DIR" -type f -name "*.old" -print -delete 2>&1
+find "$BASE_DIR" -type f -name "*.old" -print -delete
 
 echo "------------------------------------------------------------"
-echo "[$(date '+%Y-%m-%d %H:%M:%S')] Update completed."
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] Mirror completed."
 echo "------------------------------------------------------------"
