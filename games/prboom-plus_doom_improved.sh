@@ -26,7 +26,7 @@ while [ -z "$map_number" ]; do
   get_random_map
 done
 
-bin=$(command -v prboom-plus 2>/dev/null || echo "$HOME/src/prboom-plus/prboom2/build/prboom-plus")
+bin=$(game_bin "$HOME/src/prboom-plus/prboom2/prboom-plus" prboom-plus) || exit 1
 "$bin" \
   -config "$game_dir"/config/prboom-plus/prboom-plus_vanilla.cfg \
   -vidmode gl \

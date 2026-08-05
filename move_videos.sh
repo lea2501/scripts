@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# POSIX-compliant script to move video files preserving directory structure
+# POSIX-compliant script to move video files while translating image-oriented
+# directory names to their video-oriented equivalents.
 
 # Defaults
 SOURCE_DIR=""
@@ -21,6 +22,21 @@ show_help() {
     echo "Example:"
     echo "  $0 ~/Pictures ~/videos"
     echo "  $0 -n ~/PhoneDCIM ~/backup/videos"
+    echo
+    echo "Directory names are translated automatically:"
+    echo "  fotos/photos -> videos"
+    echo "  pics         -> vids"
+    echo "For example: trh-fotos/trh-fotos-202607 becomes"
+    echo "             trh-videos/trh-videos-202607"
+}
+
+# Translate complete hyphen-delimited words in directory components. Applying
+# this only to the relative directory keeps video filenames unchanged.
+translate_directory_path() {
+    printf '%s\n' "$1" |
+        sed -E \
+            -e 's#(^|/|-)(fotos|photos)(/|-|$)#\1videos\3#g' \
+            -e 's#(^|/|-)pics(/|-|$)#\1vids\2#g'
 }
 
 # Parse arguments
@@ -94,9 +110,18 @@ find "$SOURCE_DIR" -type f | while IFS= read -r file; do
     # Get relative path
     relative_path="${file#$SOURCE_DIR/}"
     
-    # Determine destination path
-    dest_file="$DEST_DIR/$relative_path"
-    dest_dir=$(dirname "$dest_file")
+    # Translate only the directory portion of the relative path. File names
+    # remain exactly as they were in the source.
+    relative_dir=$(dirname "$relative_path")
+    file_name=$(basename "$relative_path")
+
+    if [ "$relative_dir" = "." ]; then
+        dest_dir="$DEST_DIR"
+    else
+        translated_dir=$(translate_directory_path "$relative_dir")
+        dest_dir="$DEST_DIR/$translated_dir"
+    fi
+    dest_file="$dest_dir/$file_name"
     
     if [ "$DRY_RUN" = true ]; then
         echo "[DRY RUN] Would move: $file"
@@ -105,6 +130,21 @@ find "$SOURCE_DIR" -type f | while IFS= read -r file; do
         # Create destination directory if needed
         mkdir -p "$dest_dir"
         
+        # Never overwrite an existing destination. This matters when old
+        # directory layouts have already been merged or renamed manually.
+        if [ -e "$dest_file" ]; then
+            if cmp -s "$file" "$dest_file"; then
+                if rm "$file"; then
+                    echo "Removed source copy already stored at destination: $file"
+                else
+                    echo "Error removing identical source copy: $file" >&2
+                fi
+            else
+                echo "Error: destination already exists with different content: $dest_file" >&2
+            fi
+            continue
+        fi
+
         # Move the file
         if mv -v "$file" "$dest_file"; then
             echo "Moved: $file -> $dest_file"

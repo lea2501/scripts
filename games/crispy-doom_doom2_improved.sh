@@ -6,13 +6,14 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/_common_mods_vanilla.sh"
 
 game=doom2
+doom_bin=$(game_bin "$HOME/src/crispy-doom/src/crispy-doom" crispy-doom) || exit 1
 mod_files="$mods_vanilla_doom_improved"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
   "$game_dir"/maps/"$game"/nolimit \
   -type f -name '*.wad' 2>/dev/null | shuf -n 1)
 
-crispy-doom -config "$game_dir"/config/crispy/config_vanilla.ini \
+"$doom_bin" -config "$game_dir"/config/crispy/config_vanilla.ini \
   -fullscreen -iwad "$(iwad_path "$game")" \
   -file "$pwad_file" $mod_files \
   -savedir "$game_dir"/savegames/"$game"/ \

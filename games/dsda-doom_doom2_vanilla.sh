@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/_common_mods_vanilla.sh"
 
 game=doom2
+doom_bin=$(game_bin "$HOME/src/dsda-doom/prboom2/build/dsda-doom" dsda-doom) || exit 1
 mod_files="$mods_vanilla_doom"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
@@ -13,7 +14,7 @@ pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
   "$game_dir"/maps/"$game"/boom \
   -type f -name '*.wad' 2>/dev/null | shuf -n 1)
 
-dsda-doom -config "$game_dir"/config/dsda-doom/dsda-doom_vanilla.cfg \
+"$doom_bin" -config "$game_dir"/config/dsda-doom/dsda-doom_vanilla.cfg \
   -vidmode gl \
   -complevel 17 \
   -width 1920 -height 1080 \

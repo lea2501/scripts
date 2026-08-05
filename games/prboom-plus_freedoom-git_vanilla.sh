@@ -17,7 +17,7 @@ map_file=$(find "$game_dir"/maps/"$iwad"/vanilla \
   -type f -name '*.wad' 2>/dev/null | shuf -n 1)
 echo "INFO: Map file: $map_file"
 
-bin=$(command -v prboom-plus 2>/dev/null || echo "$HOME/src/prboom-plus/prboom2/build/prboom-plus")
+bin=$(game_bin "$HOME/src/prboom-plus/prboom2/prboom-plus" prboom-plus) || exit 1
 
 case "$iwad" in
   *doom1*) warp="$(shuf -i 1-4 -n 1) $(shuf -i 1-8 -n 1)" ;;

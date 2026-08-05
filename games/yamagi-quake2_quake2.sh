@@ -45,9 +45,9 @@ else
     installed_bin=$(which yamagi-quake2 2>/dev/null || echo false)
     installed_bin_name=yamagi-quake2
 fi
-compiled_bin="$HOME/src/yquake2/release/baseq2"
+compiled_bin="$HOME/src/yquake2/release/quake2"
 set -x
-$(if [ ! $installed_bin = "false" ]; then echo $installed_bin_name; else if [ -f "$compiled_bin" ]; then echo "$compiled_bin"; fi; fi) \
+$(if [ -x "$compiled_bin" ]; then echo "$compiled_bin"; else if [ ! "$installed_bin" = "false" ]; then echo "$installed_bin_name"; fi; fi) \
   +seta r_customheight 1920 \
   +seta r_customwidth 1080 \
   +seta vid_fullscreen 1 \

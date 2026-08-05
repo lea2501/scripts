@@ -38,10 +38,17 @@ mapname=$(basename -- "${mapfile%.*}")
 echo "INFO: $0 - Map name $mapname"
 
 # run
-installed_bin=$(which ironwail 2>/dev/null || echo false)
 compiled_bin="$HOME/src/ironwail/Quake/ironwail"
+if [ -x "$compiled_bin" ]; then
+  ironwail_bin="$compiled_bin"
+else
+  ironwail_bin=$(command -v ironwail 2>/dev/null) || {
+    echo "ERROR: ironwail executable not found" >&2
+    exit 1
+  }
+fi
 set -x
-$(if [ ! $installed_bin = "false" ]; then echo "ironwail"; else if [ -f "$compiled_bin" ]; then echo "$compiled_bin"; fi; fi) \
+"$ironwail_bin" \
 -current -basedir $config_game_dir -heapsize 524288 -zone 4096 -game $mapdir +map $mapname +skill 1 -fitz \
 +r_particles 2 +r_lerpmodels 1 +r_lerpmove 1 +r_viewmodel_quake 1 +r_scale 1 +scr_ofsx -2.8 +scr_sbaralpha 1 +v_gunkick 2 +gamma 1.2 +contrast 1.5 +fov 85 +fog 0.02 +scr_showfps 1 \
 > /tmp/ironwail.log

@@ -4,14 +4,14 @@ set -e
 
 config_game_dir="$HOME/games/quake"
 compiled_qpakman="$HOME/src/qpakman/qpakman"
-compiled_quakespasm="$HOME/src/quakespasm-quakespasm/Quake/quakespasm"
+compiled_quakespasm="$HOME/src/quakespasm/Quake/quakespasm"
 
 find_qpakman() {
-    command -v qpakman 2>/dev/null || [ -f "$compiled_qpakman" ] && echo "$compiled_qpakman"
+    [ -x "$compiled_qpakman" ] && echo "$compiled_qpakman" || command -v qpakman 2>/dev/null
 }
 
 find_quakespasm() {
-    command -v quakespasm 2>/dev/null || [ -f "$compiled_quakespasm" ] && echo "$compiled_quakespasm"
+    [ -x "$compiled_quakespasm" ] && echo "$compiled_quakespasm" || command -v quakespasm 2>/dev/null
 }
 
 get_random_map() {
