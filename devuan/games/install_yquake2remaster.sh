@@ -1,83 +1,46 @@
 #!/bin/bash
 
-# fail if any commands fails
-set -e
-# debug log
-#set -x
+set -euo pipefail
 
-# Set superuser privileges command if not set
-if [ -z "${su+x}" ]; then
-  su="sudo"
-fi
+# Set superuser privileges command if not set.
+su="${su:-sudo}"
 
-$su apt-get install -y build-essential cmake git pkg-config \
-                 libasound2-dev libpulse-dev libx11-dev libxext-dev libxrandr-dev \
-                 libxi-dev libxfixes-dev libxrender-dev libwayland-dev libegl1-mesa-dev \
-                 libdrm-dev libgbm-dev libudev-dev libibus-1.0-dev libdbus-1-dev \
-                 libjpeg-dev libpng-dev libwebp-dev
+# Build dependencies documented by yquake2remaster for Debian.
+$su apt-get install -y \
+  build-essential ccache git pkg-config \
+  libgl1-mesa-dev libsdl3-dev libopenal-dev libcurl4-openssl-dev \
+  libavformat-dev libswscale-dev libvulkan-dev
 
-application=SDL
-repository="https://github.com/libsdl-org/SDL.git"
-export compile=
-mkdir -p ~/src
-cd ~/src || return
-if [ ! -d $application ]; then
-  git clone $repository
-  cd $application || return
-  export compile=true
-else
-  cd $application || return
-  #git pull
-  pwd
-  git fetch
-  LOCAL=$(git rev-parse HEAD)
-  REMOTE=$(git rev-parse @{u})
-  if [ ! $LOCAL = $REMOTE ]; then
-    pwd
-    echo "Need to pull"
-    git pull
-    export compile=true
-  fi
-fi
-
-if [ "$compile" = "true" ]; then
-  cd ~/src/$application || return
-  cmake -B build -DCMAKE_BUILD_TYPE=Release
-  cmake --build build
-  $su cmake --install build
-fi
-
-$su apt-get install -y build-essential libopenal-dev libcurl4-openssl-dev zlib1g-dev libvorbis-dev libogg-dev
-
-application=yquake2remaster
+application="yquake2remaster"
 repository="https://github.com/yquake2/yquake2remaster.git"
-export compile=
-mkdir -p ~/src
-cd ~/src || return
-if [ ! -d $application ]; then
-  git clone $repository
-  cd $application || return
-  export compile=true
+source_dir="${HOME}/src/${application}"
+compile=false
+
+mkdir -p "${HOME}/src"
+
+if [ ! -d "${source_dir}/.git" ]; then
+  git clone --recurse-submodules "${repository}" "${source_dir}"
+  compile=true
 else
-  cd $application || return
-  #git pull
-  pwd
-  git fetch
-  LOCAL=$(git rev-parse HEAD)
-  REMOTE=$(git rev-parse @{u})
-  if [ ! $LOCAL = $REMOTE ]; then
-    pwd
-    echo "Need to pull"
-    git pull
-    export compile=true
+  git -C "${source_dir}" fetch
+  local_commit="$(git -C "${source_dir}" rev-parse HEAD)"
+  remote_commit="$(git -C "${source_dir}" rev-parse '@{u}')"
+
+  if [ "${local_commit}" != "${remote_commit}" ]; then
+    git -C "${source_dir}" pull --ff-only
+    git -C "${source_dir}" submodule sync --recursive
+    git -C "${source_dir}" submodule update --init --recursive
+    compile=true
+  else
+    printf '%s is already up to date; skipping compilation.\n' "${application}"
   fi
 fi
 
-if [ "$compile" = "true" ]; then
-  #export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-  cd ~/src/$application || return
-  mkdir build
-  cd build
-  PKG_CONFIG_PATH=/usr/local/lib/pkgconfig cmake .. -DCMAKE_BUILD_TYPE=Release
-  make -j"$(nproc)"
+if [ "${compile}" = true ]; then
+  # The upstream Unix build produces a portable tree in release/.
+  make -C "${source_dir}" -j"$(nproc)"
+
+  printf '\nBuild complete: %s/release/quake2\n' "${source_dir}"
+  printf 'Example: %s/release/quake2 -datadir %s/games/quake2-enhanced\n' \
+    "${source_dir}" "${HOME}"
 fi

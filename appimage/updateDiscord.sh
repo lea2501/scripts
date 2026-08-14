@@ -35,7 +35,19 @@ chmod +x "$TMP_FILE"
 
 mv "$TMP_FILE" "$FILENAME"
 
-# Update symlink
-ln -sf "$FILENAME" Discord.AppImage
+# Extract AppImage and fix known AppRun issues
+rm -rf Discord-extracted
+./"$FILENAME" --appimage-extract
+mv squashfs-root Discord-extracted
+
+# Fix old AppRun versions that reference wrong binary name
+sed -i 's|BIN="$APPDIR/Discord"|BIN="$APPDIR/discord"|' Discord-extracted/AppRun 2>/dev/null || true
+
+chmod +x Discord-extracted/AppRun
+# Make whichever binary exists executable
+chmod +x Discord-extracted/Discord Discord-extracted/discord 2>/dev/null || true
+
+# Update symlink to point to the corrected AppRun
+ln -sf Discord-extracted/AppRun Discord.AppImage
 
 echo "Updated to $FILENAME"
