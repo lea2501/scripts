@@ -10,16 +10,12 @@ set -e
 #   ./setup_kiro_mcp.sh
 #
 # Uso: ./setup_gitlab_env.sh
-#   Se pedirá el token interactivamente si no se pasa como argumento.
-#   Opcionalmente: ./setup_gitlab_env.sh glpat-xxxxx
+#   El token se pide interactivamente y sin eco. No se acepta como argumento,
+#   para que no quede registrado en el historial ni visible en la lista de procesos.
 
-TOKEN="${1:-}"
-
-if [ -z "$TOKEN" ]; then
-  echo "Ingresá tu GitLab Personal Access Token (scope: read_api):"
-  echo -n "  GITLAB_TOKEN: "
-  read -r TOKEN
-fi
+echo "Ingresá tu GitLab Personal Access Token (scope: read_api):"
+read -r -s -p "  GITLAB_TOKEN: " TOKEN
+echo
 
 if [ -z "$TOKEN" ]; then
   echo "ERROR: no se proporcionó un token."
@@ -29,14 +25,13 @@ fi
 # --- Crear/actualizar ~/.env ---
 ENV_FILE="$HOME/.env"
 
-if [ -f "$ENV_FILE" ] && grep -q "^GITLAB_TOKEN=" "$ENV_FILE"; then
-  # Reemplazar token existente
-  sed -i "s|^GITLAB_TOKEN=.*|GITLAB_TOKEN=${TOKEN}|" "$ENV_FILE"
-  echo "[OK] GITLAB_TOKEN actualizado en $ENV_FILE"
-else
-  echo "GITLAB_TOKEN=${TOKEN}" >>"$ENV_FILE"
-  echo "[OK] GITLAB_TOKEN agregado a $ENV_FILE"
-fi
+tmp_env=$(mktemp "${ENV_FILE}.XXXXXX")
+trap 'rm -f "$tmp_env"' EXIT
+[ ! -f "$ENV_FILE" ] || grep -v '^GITLAB_TOKEN=' "$ENV_FILE" >"$tmp_env"
+printf 'GITLAB_TOKEN=%q\n' "$TOKEN" >>"$tmp_env"
+mv "$tmp_env" "$ENV_FILE"
+trap - EXIT
+echo "[OK] GITLAB_TOKEN guardado en $ENV_FILE"
 
 chmod 600 "$ENV_FILE"
 

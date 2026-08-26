@@ -110,32 +110,31 @@ ask_token() {
   local current_value="${!var_name:-}"
 
   if [ -n "$current_value" ] && [ "$SKIP_EXISTING" = true ]; then
-    ok "$var_name ya configurado (${current_value:0:12}...)"
+    ok "$var_name ya configurado"
     return 0
   fi
 
   if [ -n "$current_value" ]; then
     echo ""
     echo "  $description"
-    echo "  Valor actual: ${current_value:0:12}..."
-    echo -n "  Nuevo valor (Enter para mantener): "
-    read -r new_value
+    read -r -s -p "  Nuevo valor (Enter para mantener): " new_value
+    echo
     if [ -z "$new_value" ]; then
       ok "$var_name mantenido"
       return 0
     fi
-    eval "$var_name='$new_value'"
+    printf -v "$var_name" '%s' "$new_value"
   else
     echo ""
     echo "  $description"
     [ -n "$hint" ] && echo "  Hint: $hint"
-    echo -n "  $var_name: "
-    read -r new_value
+    read -r -s -p "  $var_name: " new_value
+    echo
     if [ -z "$new_value" ]; then
       warn "$var_name no configurado (se puede agregar después)"
       return 1
     fi
-    eval "$var_name='$new_value'"
+    printf -v "$var_name" '%s' "$new_value"
   fi
   return 0
 }
@@ -177,11 +176,11 @@ save_to_env() {
   local value="${!var_name:-}"
   [ -z "$value" ] && return
 
-  if [ -f "$ENV_FILE" ] && grep -q "^${var_name}=" "$ENV_FILE"; then
-    sed -i "s|^${var_name}=.*|${var_name}=${value}|" "$ENV_FILE"
-  else
-    echo "${var_name}=${value}" >>"$ENV_FILE"
-  fi
+  local tmp_env
+  tmp_env=$(mktemp "${ENV_FILE}.XXXXXX")
+  grep -v "^${var_name}=" "$ENV_FILE" >"$tmp_env" || true
+  printf '%s=%q\n' "$var_name" "$value" >>"$tmp_env"
+  mv "$tmp_env" "$ENV_FILE"
 }
 
 touch "$ENV_FILE"
@@ -268,6 +267,8 @@ jq -n \
     }
   }
 }' >"$MCP_FILE"
+
+chmod 600 "$MCP_FILE"
 
 ok "Generado $MCP_FILE"
 

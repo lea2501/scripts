@@ -2,7 +2,15 @@
 
 # fail if any commands fails
 set -e
-# debug log
-#set -x
+# La contraseña se pide sin eco para no dejarla en el script ni en el historial.
+read -r -p "BSSID o SSID de la red Wi-Fi: " wifi_network
+read -r -s -p "Contraseña Wi-Fi: " wifi_password
+echo
 
-nmcli device wifi connect 8C:FD:DE:94:90:3F password CREDENTIAL_REMOVED
+if [ -z "$wifi_network" ] || [ -z "$wifi_password" ]; then
+  echo "ERROR: la red y la contraseña son obligatorias." >&2
+  exit 1
+fi
+
+nmcli device wifi connect "$wifi_network" password "$wifi_password"
+unset wifi_password
