@@ -11,8 +11,9 @@ if [ -z "${su+x}" ]; then
 fi
 
 $su apt-get update -qq
-$su apt-get install -qq -y curl
+$su apt-get install -qq -y curl unzip
 
+mkdir -p ~/bin
 mkdir -p ~/Downloads
 cd ~/Downloads || return
 filename=chromedriver-linux64.zip
@@ -21,3 +22,4 @@ latest_release_url="https://storage.googleapis.com/chrome-for-testing-public/${l
 curl -OL "${latest_release_url}"
 unzip -u ${filename}
 mv chromedriver-linux64/chromedriver $HOME/bin/
+rm -rf chromedriver-linux64 ${filename}

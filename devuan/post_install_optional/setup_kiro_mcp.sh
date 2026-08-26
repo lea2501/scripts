@@ -11,7 +11,8 @@ set -e
 #   ./setup_kiro_mcp.sh              # Pide todos los tokens interactivamente
 #   ./setup_kiro_mcp.sh --skip-existing  # Solo pide los que faltan
 #
-# Requiere: jq, npm (node), uv (para uvx)
+# Requiere: jq, uv (para uvx). Node.js y Corepack se instalan de forma
+# minimalista si faltan; los paquetes MCP se ejecutan con pnpm dlx.
 # =============================================================================
 
 SKIP_EXISTING=false
@@ -47,8 +48,46 @@ check_dep() {
 }
 
 check_dep "jq" "apt install jq / brew install jq" || exit 1
-check_dep "npm" "apt install npm / instalar nvm" || exit 1
-check_dep "uvx" "pip install uv / pipx install uv" || exit 1
+
+# pipx publica sus ejecutables en ~/.local/bin.
+export PATH="$HOME/.local/bin:$PATH"
+
+# Instalar uv/uvx de forma aislada para los MCP escritos en Python.
+if ! command -v uvx &>/dev/null; then
+  warn "uvx no encontrado; instalando uv mediante pipx..."
+
+  if ! command -v pipx &>/dev/null; then
+    warn "pipx no encontrado; instalando el paquete minimalista..."
+    sudo apt-get install -y --no-install-recommends pipx
+  fi
+
+  pipx install uv
+fi
+
+check_dep "uvx" "pipx install uv" || exit 1
+
+# Evitar el paquete npm de Debian, que arrastra cientos de dependencias.
+# Corepack permite ejecutar pnpm con una instalación mucho más pequeña.
+if ! command -v node &>/dev/null || ! command -v corepack &>/dev/null; then
+  warn "Node.js/Corepack no encontrados; instalando dependencias minimalistas..."
+
+  if ! command -v apt-get &>/dev/null; then
+    err "apt-get no encontrado. Instalá Node.js y Corepack manualmente."
+    exit 1
+  fi
+
+  sudo apt-get install -y --no-install-recommends nodejs node-corepack
+fi
+
+check_dep "node" "apt install --no-install-recommends nodejs node-corepack" || exit 1
+check_dep "corepack" "apt install --no-install-recommends nodejs node-corepack" || exit 1
+
+# Descargar/preparar pnpm una sola vez para evitar prompts cuando Kiro inicie
+# los servidores MCP en segundo plano.
+echo "Preparando pnpm mediante Corepack..."
+PNPM_VERSION="10.34.0"
+COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack "pnpm@$PNPM_VERSION" --version >/dev/null
+ok "pnpm preparado mediante Corepack"
 
 # =============================================================================
 # 2. Leer tokens existentes de ~/.env (si existen)
@@ -203,8 +242,8 @@ jq -n \
 '{
   mcpServers: {
     "chrome-devtools": {
-      command: "npx",
-      args: ["-y", "chrome-devtools-mcp@latest"]
+      command: "corepack",
+      args: ["pnpm@10.34.0", "dlx", "chrome-devtools-mcp@latest"]
     },
     jira: {
       command: "uvx",
@@ -212,13 +251,13 @@ jq -n \
       env: $jira_env
     },
     gitlab: {
-      command: "npx",
-      args: ["-y", "@modelcontextprotocol/server-gitlab"],
+      command: "corepack",
+      args: ["pnpm@10.34.0", "dlx", "@modelcontextprotocol/server-gitlab"],
       env: $gitlab_env
     },
     slack: {
-      command: "npx",
-      args: ["-y", "slack-mcp-server"],
+      command: "corepack",
+      args: ["pnpm@10.34.0", "dlx", "slack-mcp-server"],
       env: $slack_env
     },
     fetch: {

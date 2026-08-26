@@ -12,15 +12,19 @@ fi
 
 cd || return
 $su apt-get -y --fix-missing install jq
-$su apt-get -y --fix-missing install npm cmake
+$su apt-get -y --fix-missing --no-install-recommends install nodejs node-corepack cmake
 $su apt-get -y --fix-missing install node-opencv
-#$su npm install -g npm@latest
-$su npm cache clean --force
-$su npm rm -rf node_modules && $su rm -rf package-lock.json
-$su npm install -g appium --unsafe-perm=true --allow-root
-#$su npm install -g opencv4nodejs --unsafe-perm=true --allow-root
-$su rm -rf package.json package-lock.json node_modules
-npm install wd
+
+# Preparar pnpm mediante Corepack sin instalar el paquete npm de Debian.
+PNPM_VERSION="10.34.0"
+COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack "pnpm@$PNPM_VERSION" --version >/dev/null
+
+# Mantener Appium y sus dependencias aislados del sistema y del directorio home.
+APPIUM_DIR="$HOME/.local/share/appium"
+mkdir -p "$APPIUM_DIR" "$HOME/bin"
+corepack "pnpm@$PNPM_VERSION" --dir "$APPIUM_DIR" add appium wd
+ln -sfn "$APPIUM_DIR/node_modules/.bin/appium" "$HOME/bin/appium"
+export PATH="$HOME/bin:$PATH"
 
 appium driver list
 appium driver install uiautomator2

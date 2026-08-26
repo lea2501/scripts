@@ -14,8 +14,17 @@ fi
 # https://github.com/glideapps/quicktype
 # Replaces deprecated schema-guru
 
-$su apt-get -y --fix-missing install npm
-$su npm install -g quicktype
+# Instalar el runtime minimalista sin arrastrar el paquete npm de Debian.
+$su apt-get -y --fix-missing --no-install-recommends install nodejs node-corepack
+PNPM_VERSION="10.34.0"
+COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack "pnpm@$PNPM_VERSION" --version >/dev/null
+
+# Mantener Quicktype aislado del sistema y publicar solamente su ejecutable.
+QUICKTYPE_DIR="$HOME/.local/share/quicktype"
+mkdir -p "$QUICKTYPE_DIR" "$HOME/bin"
+corepack "pnpm@$PNPM_VERSION" --dir "$QUICKTYPE_DIR" add quicktype
+ln -sfn "$QUICKTYPE_DIR/node_modules/.bin/quicktype" "$HOME/bin/quicktype"
+export PATH="$HOME/bin:$PATH"
 
 echo ""
 echo "Usage examples:"
