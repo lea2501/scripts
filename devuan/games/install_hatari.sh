@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# Set superuser privileges command if not set.
 su="${su:-sudo}"
 
 $su apt-get install -y --no-install-recommends \
@@ -10,34 +9,35 @@ $su apt-get install -y --no-install-recommends \
   cmake \
   git \
   ninja-build \
-  libbz2-dev \
-  libgtk-3-dev \
-  libjpeg-dev \
+  pkg-config \
   libsdl2-dev \
-  libsdl2-mixer-dev \
-  libsdl2-net-dev \
-  zlib1g-dev
+  zlib1g-dev \
+  libpng-dev \
+  libreadline-dev \
+  libcapstone-dev \
+  libudev-dev
 
-application="ECWolf"
-repository="https://github.com/ECWolfEngine/ECWolf.git"
-source_dir="${HOME}/src/${application}"
-executable="${source_dir}/build/ecwolf"
+application="Hatari"
+repository="https://framagit.org/hatari/hatari.git"
+source_dir="${HOME}/src/hatari"
+build_dir="${source_dir}/build"
+install_dir="${source_dir}/install"
+executable="${install_dir}/bin/hatari"
 compile=false
 
 mkdir -p "${HOME}/src"
+mkdir -p "${HOME}/games/emu/atari_st/bios"
 
 if [ ! -d "${source_dir}/.git" ]; then
-  git clone --recurse-submodules "${repository}" "${source_dir}"
+  git clone "${repository}" "${source_dir}"
   compile=true
 else
-  git -C "${source_dir}" fetch
+  git -C "${source_dir}" fetch --prune
   local_commit="$(git -C "${source_dir}" rev-parse HEAD)"
   remote_commit="$(git -C "${source_dir}" rev-parse '@{u}')"
 
   if [ "${local_commit}" != "${remote_commit}" ]; then
     git -C "${source_dir}" pull --ff-only
-    git -C "${source_dir}" submodule sync --recursive
-    git -C "${source_dir}" submodule update --init --recursive
     compile=true
   elif [ ! -x "${executable}" ]; then
     compile=true
@@ -47,11 +47,13 @@ else
 fi
 
 if [ "${compile}" = true ]; then
-  cmake -S "${source_dir}" -B "${source_dir}/build" \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  cmake -S "${source_dir}" -B "${build_dir}" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX="${install_dir}" \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
     -G Ninja
-  cmake --build "${source_dir}/build"
+  cmake --build "${build_dir}"
+  cmake --install "${build_dir}"
 fi
 
-printf '\nECWolf is available at: %s\n' "${executable}"
+printf '\nHatari is available at: %s\n' "${executable}"

@@ -1,10 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 su="${su:-sudo}"
-$su apt-get install -y --no-install-recommends git build-essential nasm pkg-config libsdl2-dev libsdl2-mixer-dev libogg-dev libvorbis-dev libflac-dev libvpx-dev libgtk-3-dev libgl1-mesa-dev libglew-dev
-application="NBlood"
-repository="https://github.com/NBlood/NBlood.git"
+$su apt-get install -y --no-install-recommends build-essential cmake git ninja-build libsdl2-dev
+application="bstone"
+repository="https://github.com/bibendovsky/bstone.git"
 source_dir="${HOME}/src/${application}"
+executable="${source_dir}/build/install/bstone"
 compile=false
 mkdir -p "${HOME}/src"
 if [ ! -d "${source_dir}/.git" ]; then
@@ -17,14 +18,14 @@ else
   if [ "${local_commit}" != "${remote_commit}" ]; then
     git -C "${source_dir}" pull --ff-only
     compile=true
-  elif [ ! -x "${source_dir}/nblood" ] || [ ! -x "${source_dir}/pcexhumed" ] || [ ! -x "${source_dir}/rednukem" ]; then
+  elif [ ! -x "${executable}" ]; then
     compile=true
   else
     printf '%s is already up to date; skipping compilation.\n' "${application}"
   fi
 fi
 if [ "${compile}" = true ]; then
-  make -C "${source_dir}" -j"$(nproc)"
+  cmake -S "${source_dir}" -B "${source_dir}/build" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="${source_dir}/build/install" -G Ninja
+  cmake --build "${source_dir}/build" --target install
 fi
-printf '\nNBlood family executables are available at:\n'
-printf '  %s/nblood\n  %s/pcexhumed\n  %s/rednukem\n' "${source_dir}" "${source_dir}" "${source_dir}"
+printf '\nBStone is available at: %s\n' "${executable}"

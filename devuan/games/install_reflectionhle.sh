@@ -5,29 +5,26 @@ set -euo pipefail
 # Set superuser privileges command if not set.
 su="${su:-sudo}"
 
+# Build dependencies documented by ReflectionHLE for Linux.
 $su apt-get install -y --no-install-recommends \
   build-essential \
   cmake \
   git \
   ninja-build \
-  libbz2-dev \
-  libgtk-3-dev \
-  libjpeg-dev \
-  libsdl2-dev \
-  libsdl2-mixer-dev \
-  libsdl2-net-dev \
-  zlib1g-dev
+  pkg-config \
+  libsdl3-dev \
+  libspeexdsp-dev
 
-application="ECWolf"
-repository="https://github.com/ECWolfEngine/ECWolf.git"
+application="ReflectionHLE"
+repository="https://github.com/ReflectionHLE/ReflectionHLE.git"
 source_dir="${HOME}/src/${application}"
-executable="${source_dir}/build/ecwolf"
+executable="${source_dir}/build/reflectionhle"
 compile=false
 
 mkdir -p "${HOME}/src"
 
 if [ ! -d "${source_dir}/.git" ]; then
-  git clone --recurse-submodules "${repository}" "${source_dir}"
+  git clone "${repository}" "${source_dir}"
   compile=true
 else
   git -C "${source_dir}" fetch
@@ -36,8 +33,6 @@ else
 
   if [ "${local_commit}" != "${remote_commit}" ]; then
     git -C "${source_dir}" pull --ff-only
-    git -C "${source_dir}" submodule sync --recursive
-    git -C "${source_dir}" submodule update --init --recursive
     compile=true
   elif [ ! -x "${executable}" ]; then
     compile=true
@@ -54,4 +49,4 @@ if [ "${compile}" = true ]; then
   cmake --build "${source_dir}/build"
 fi
 
-printf '\nECWolf is available at: %s\n' "${executable}"
+printf '\nReflectionHLE is available at: %s\n' "${executable}"
