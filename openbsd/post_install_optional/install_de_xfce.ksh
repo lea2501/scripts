@@ -1,9 +1,21 @@
 #!/bin/ksh
 
+username=${1:-${DOAS_USER:-$(id -un)}}
+
+if [ -z "$username" ] || [ "$username" = "root" ]; then
+	print -u2 "Usage: $0 username"
+	print -u2 "Run this script as the regular user, or provide the target username."
+	exit 1
+fi
+
+if ! id "$username" >/dev/null 2>&1; then
+	print -u2 "User does not exist: $username"
+	exit 1
+fi
+
 doas pkg_add xfce xfce-extras ## install xfce desktop
 doas sed -i 's/xconsole/#xconsole/' /etc/X11/xenodm/Xsetup_0 # no xconcole
-doas usermod -G operator <user name> # so you can use xfce to log out, reboot etc
-doas usermod -G wheel <user name> # so you can use doas
+doas usermod -G operator,wheel "$username" # enable power controls and doas access
 #echo "permit persist :wheel" >> /etc/doas.conf # doas = sudo
 doas rcctl enable messagebus ## enable dbus
 doas rcctl start messagebus ## start dbus

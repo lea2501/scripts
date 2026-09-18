@@ -1,0 +1,24 @@
+#!/bin/ksh
+
+RAM=$(top -b -n 1 | awk '/Memory:/ { print $6; exit }')
+DISK=$(df -h /home 2>/dev/null | awk '$NF == "/home" { print $4; exit }')
+DATE=$(date '+%Y-%m-%d %H:%M')
+VOLUME=$(mixerctl -n outputs.master 2>/dev/null)
+
+WIFI_INTERFACE=${WIFI_INTERFACE:-urtwn0}
+WIFI_INFO=$(ifconfig "$WIFI_INTERFACE" 2>/dev/null)
+NWSSID=$(printf '%s\n' "$WIFI_INFO" | awk '
+    /ieee80211:/ {
+        for (i = 1; i <= NF; i++)
+            if ($i == "nwid") { print $(i + 1); exit }
+    }
+')
+NWSIGNAL=$(printf '%s\n' "$WIFI_INFO" | awk '
+    /ieee80211:/ {
+        for (i = 1; i <= NF; i++)
+            if ($i ~ /dBm$/) { print $i; exit }
+    }
+')
+
+printf 'net: %s %s | disk: %s ram: %s | vol: %s | %s\n' \
+    "$NWSSID" "$NWSIGNAL" "$DISK" "$RAM" "$VOLUME" "$DATE"

@@ -5,6 +5,9 @@
 # debug log
 #set -x
 
+script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+startpipewire_source="$script_dir/../../linux/desktop/startpipewire"
+
 if [ ! -f /etc/xdg/autostart/pipewire.desktop ]; then
   {
     echo "[Desktop Entry]"
@@ -17,5 +20,5 @@ if [ ! -f /etc/xdg/autostart/pipewire.desktop ]; then
 fi
 
 if [ ! -f /usr/local/bin/startpipewire ]; then
-	cp startpipewire /usr/local/bin/
+	cp "$startpipewire_source" /usr/local/bin/
 fi

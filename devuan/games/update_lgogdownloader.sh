@@ -35,7 +35,11 @@ else
   REMOTE=$(git rev-parse '@{u}')
   if [ "$LOCAL" != "$REMOTE" ]; then
     echo "Need to pull"
-    git pull --ff-only
+    # Keep local fixes while fast-forwarding to upstream. Git temporarily
+    # stashes tracked local changes and reapplies them after the pull.
+    # If upstream changed the same lines, Git stops and leaves the conflict
+    # visible instead of silently discarding our fixes.
+    git pull --ff-only --autostash
     compile=true
   fi
 fi
