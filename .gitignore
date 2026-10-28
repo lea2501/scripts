@@ -14,3 +14,7 @@ artifacts/
 .project
 .settings/
 
+# Python helpers and tests
+__pycache__/
+*.py[cod]
+
