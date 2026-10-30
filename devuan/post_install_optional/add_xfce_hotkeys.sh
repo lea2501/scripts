@@ -34,8 +34,15 @@ add_hotkey "Terminal" "xfce4-terminal" "<Alt><Shift>Return"
 # Alt+Shift+M → maximizar o restaurar la ventana activa
 add_xfwm_hotkey "maximize_window_key" "<Alt><Shift>m"
 
-# Alt+Shift+P → abrir dmenu con el estilo del entorno
-add_hotkey "DmenuRun" "sh -c 'PATH=\"\$HOME/bin:\$HOME/.local/bin:\$HOME/src/scripts:\$PATH\"; export PATH; exec dmenu_run -fn \"Monospace:size=16\" -nb \"#000000\" -nf \"#ff00f0\" -sb \"#8f00ff\" -sf \"#eeeeee\"'" "<Alt><Shift>p"
+# Alt+Shift+P → abrir dmenu con su aspecto predeterminado
+add_hotkey "DmenuRun" "sh -c 'PATH=\"\$HOME/bin:\$HOME/.local/bin:\$HOME/src/scripts:\$PATH\"; export PATH; exec dmenu_run'" "<Alt><Shift>p"
+
+# Alt+Shift+B → abrir los bookmarks con dmenu
+# Ruta explícita: no depende del PATH de la terminal.
+add_hotkey "DmenuBookmarks" "sh -c 'exec \"\$HOME/src/scripts/common/desktop/dmenu_bookmarks.sh\"'" "<Alt><Shift>b"
+
+# Alt+Shift+D → elegir un mapa de Doom II y abrirlo con UZDoom
+add_hotkey "DmenuDoom" "sh -c 'exec \"\$HOME/src/scripts/common/desktop/dmenu_doom.sh\"'" "<Alt><Shift>d"
 
 # Alt+Shift+F11 → tomar screenshot de la pantalla completa con scrot
 add_hotkey "ScreenshotScrot" "scrot ~/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png" "<Alt><Shift>F11"
