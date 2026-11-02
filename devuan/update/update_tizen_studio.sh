@@ -1,12 +1,17 @@
 #!/bin/bash
 
-# Install or update the latest Tizen SDK/Studio for Linux (x86_64).
-# The SDK itself and user data stay in separate directories, so updates keep
-# workspaces, certificates and package-manager settings intact.
+# Install or update the latest Tizen SDK for Linux (x86_64).
+# The official Latest installer provides the Baseline SDK and CLI tools.
+# https://download.tizen.org/sdk/Installer/Latest/
+# Run as your normal user; sudo is only used for apt dependencies.
 set -euo pipefail
 
+# Set superuser command if not defined (same convention as other updaters).
+if [ -z "${su+x}" ]; then
+  su="sudo"
+fi
+
 INSTALL_DIR="${TIZEN_INSTALL_DIR:-$HOME/tizen-studio}"
-DATA_DIR="${TIZEN_DATA_DIR:-$HOME/tizen-studio-data}"
 INSTALLER_URL="${TIZEN_INSTALLER_URL:-https://download.tizen.org/sdk/Installer/Latest/Baseline_Tizen_Studio_ubuntu-64.bin}"
 PACKAGE_MANAGER="$INSTALL_DIR/package-manager/package-manager-cli.bin"
 DOWNLOAD_FILE=""
@@ -16,7 +21,14 @@ cleanup() {
     rm -f -- "$DOWNLOAD_FILE"
   fi
 }
-trap cleanup EXIT INT TERM
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+if [ "$EUID" -eq 0 ]; then
+  echo "Run this script as your normal user, without sudo." >&2
+  exit 1
+fi
 
 case "$(uname -m)" in
   x86_64|amd64) ;;
@@ -27,8 +39,8 @@ case "$(uname -m)" in
 esac
 
 if ! command -v curl >/dev/null 2>&1; then
-  echo "curl is required. Install it with: sudo apt-get install curl" >&2
-  exit 1
+  $su apt-get update -qq
+  $su apt-get install -qq -y curl ca-certificates
 fi
 
 if [ -x "$PACKAGE_MANAGER" ]; then
@@ -51,7 +63,13 @@ else
   "$DOWNLOAD_FILE" --accept-license --no-java-check "$INSTALL_DIR"
 fi
 
-mkdir -p "$HOME/bin" "$DATA_DIR"
+if [ ! -x "$INSTALL_DIR/tools/ide/bin/tizen" ]; then
+  echo "The installation did not provide the Tizen Web CLI." >&2
+  echo "Use $PACKAGE_MANAGER show-pkgs to check available Web CLI packages." >&2
+  exit 1
+fi
+
+mkdir -p "$HOME/bin"
 
 if [ -x "$INSTALL_DIR/tools/ide/bin/tizen" ]; then
   ln -sfn "$INSTALL_DIR/tools/ide/bin/tizen" "$HOME/bin/tizen"
@@ -67,5 +85,14 @@ fi
 
 echo
 echo "Tizen Studio is ready in $INSTALL_DIR"
-echo "User data: $DATA_DIR"
 echo "Commands were linked in $HOME/bin (when provided by the installation)."
+echo 'Ensure $HOME/bin is in your PATH, or run ~/bin/tizen directly.'
+echo
+echo "Build FlowStg (requires a configured signing profile):"
+echo '  cd ~/repos/flow-frontends/tizenstudio'
+echo '  ~/bin/tizen build-web -- FlowStg'
+echo '  ~/bin/tizen package -t wgt -s "MiPerfil" -- FlowStg/.buildResult'
+echo
+echo "Samsung TV and certificate extensions can be managed with:"
+echo "  $PACKAGE_MANAGER extra --list"
+echo "  $PACKAGE_MANAGER show-pkgs"
