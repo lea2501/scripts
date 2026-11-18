@@ -44,6 +44,9 @@ add_hotkey "DmenuBookmarks" "sh -c 'exec \"\$HOME/src/scripts/common/desktop/dme
 # Alt+Shift+D → elegir un mapa de Doom II y abrirlo con UZDoom
 add_hotkey "DmenuDoom" "sh -c 'exec \"\$HOME/src/scripts/common/desktop/dmenu_doom.sh\"'" "<Alt><Shift>d"
 
+# Alt+Shift+Q → elegir un mapa de Quake y abrirlo con Quakespasm
+add_hotkey "DmenuQuake" "sh -c 'exec \"\$HOME/src/scripts/common/desktop/dmenu_quake.sh\"'" "<Alt><Shift>q"
+
 # Alt+Shift+F11 → tomar screenshot de la pantalla completa con scrot
 add_hotkey "ScreenshotScrot" "scrot ~/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png" "<Alt><Shift>F11"
 
