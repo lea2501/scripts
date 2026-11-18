@@ -1,10 +1,13 @@
 #!/bin/sh
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/_common_paths.sh"
+. "$SCRIPT_DIR/_common_mods_zdoom.sh"
+
 game=doom2
-game_dir="$HOME/games/doom"
 mod_files="$game_dir/mods/vanilla/sound/pk_doom_sfx/pk_doom_sfx_20120224.wad \
   $game_dir/mods/vanilla/palette/dimm_pal/doom-pal.wad \
-  $game_dir/mods/zdoom/brutal/project_brutality_master_merge/PB-0_3_1-alpha.pk3 \
+  $mods_zdoom_project_brutality \
   $game_dir/mods/zdoom/gameplay/bullet_time_x/bullet-time-x_1.3.1.pk3"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \

@@ -1,12 +1,15 @@
 #!/bin/sh
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/_common_paths.sh"
+. "$SCRIPT_DIR/_common_mods_zdoom.sh"
+
 game=heretic
-game_dir="$HOME/games/doom"
 mod_files="$game_dir/mods/vanilla/palette/dimm_pal/her-pal.wad \
-  $game_dir/mods/zdoom/brutal/brutal_heretic/Heretic-Shadow_Collection_v6.1/1_BRUTAL_HERETIC/BrutalHereticRPG_V6.1.pk3 \
-  $game_dir/mods/zdoom/brutal/brutal_heretic/Heretic-Shadow_Collection_v6.1/2_HD_TEXTURES/heretic_gz.pk3 \
-  $game_dir/mods/zdoom/brutal/brutal_heretic/Heretic-Shadow_Collection_v6.1/3_HD_SOUNDTRACK/H20MUS.wad \
-  $game_dir/mods/zdoom/gameplay/bullet_time_x/bullet-time-x_1.3.1.pk3"
+  $mods_zdoom_brutal_heretic \
+  $mods_zdoom_brutal_heretic_textures \
+  $mods_zdoom_brutal_heretic_music \
+  $mods_zdoom_bullet_time"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \
   "$game_dir"/maps/"$game"/nolimit \

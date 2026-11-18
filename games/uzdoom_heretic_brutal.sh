@@ -11,8 +11,8 @@ compiled_bin="$HOME/src/UZDoom/build/uzdoom"
 uzdoom_bin="$compiled_bin"
 if [ ! -x "$uzdoom_bin" ]; then uzdoom_bin=$(command -v uzdoom 2>/dev/null || echo uzdoom); fi
 mod_files="$mods_vanilla_heretic \
-  $game_dir/mods/zdoom/brutal/brutal_heretic/Heretic-Shadow_Collection_v6.1/1_BRUTAL_HERETIC/BrutalHereticRPG_V6.1.pk3 \
-  $game_dir/mods/zdoom/brutal/brutal_heretic/Heretic-Shadow_Collection_v6.1/3_HD_SOUNDTRACK/H20MUS.wad \
+  $mods_zdoom_brutal_heretic \
+  $mods_zdoom_brutal_heretic_music \
   $mods_zdoom_bullet_time"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \

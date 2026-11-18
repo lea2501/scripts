@@ -3,7 +3,7 @@
 
 set -o pipefail
 
-BASE_DIR="${GOG_DIR:-/media/lea/games/gog}"
+BASE_DIR="$(realpath -m -- "${GOG_DIR:-$HOME/Downloads/gog}")" || exit 1
 CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/lgogdownloader/gamedetails.json"
 GOG_THREADS="${GOG_THREADS:-4}"
 
@@ -20,7 +20,7 @@ Usage:
 The hash audit can take a long time because it reads every downloaded installer.
 
 Environment:
-  GOG_DIR=/path       Download directory (default: /media/lea/games/gog)
+  GOG_DIR=/path       Download directory (default: ~/Downloads/gog)
   GOG_THREADS=N       Parallel downloads (default: 4)
 EOF
 }
@@ -177,13 +177,17 @@ download_game() {
     jq -e --arg game "$game" '.games[] | select(.gamename == $game)' \
         "$CACHE_FILE" >/dev/null || die "Game not found: $game (use '$0 list TEXT')."
 
-    mountpoint -q /media/lea/games || die "/media/lea/games is not mounted."
+    case "$BASE_DIR" in
+        /media/lea/games|/media/lea/games/*)
+            mountpoint -q /media/lea/games || die "/media/lea/games is not mounted."
+            ;;
+    esac
+    mkdir -p "$BASE_DIR" || die "Cannot create $BASE_DIR."
     local options
     options=$(findmnt -n -o OPTIONS -T "$BASE_DIR") || die "Cannot inspect $BASE_DIR mount."
     case ",$options," in
-        *,ro,*) die "The games disk is read-only. Remount it read-write first." ;;
+        *,ro,*) die "$BASE_DIR is on a read-only filesystem." ;;
     esac
-    mkdir -p "$BASE_DIR" || die "Cannot create $BASE_DIR."
     [ -w "$BASE_DIR" ] || die "$BASE_DIR is not writable."
 
     command -v lgogdownloader >/dev/null || die "lgogdownloader is not installed."
@@ -193,6 +197,7 @@ download_game() {
     fi
 
     echo "[*] Downloading $game with $GOG_THREADS parallel transfers..."
+    echo "[*] Destination: $BASE_DIR"
     lgogdownloader \
         --directory "$BASE_DIR" \
         --platform all \

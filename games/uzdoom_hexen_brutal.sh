@@ -7,13 +7,14 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/_common_mods_zdoom.sh"
 
 game=hexen
+# Brutal Hexen 8.0 beta; optional textures and music retain this launcher's profile.
 compiled_bin="$HOME/src/UZDoom/build/uzdoom"
 uzdoom_bin="$compiled_bin"
 if [ ! -x "$uzdoom_bin" ]; then uzdoom_bin=$(command -v uzdoom 2>/dev/null || echo uzdoom); fi
 mod_files="$mods_vanilla_hexen \
-  $game_dir/mods/zdoom/brutal/brutal_hexen/Hexen_v7.5/1_BRUTAL_HEXEN/BrutalHexenRPG_V7.5.pk3 \
-  $game_dir/mods/zdoom/brutal/brutal_hexen/Hexen_v7.5/2_HD_TEXTURES/hexen_gz.pk3 \
-  $game_dir/mods/zdoom/brutal/brutal_hexen/Hexen_v7.5/3_HEXEN64_MUSIC/3_HEXEN64.wad \
+  $mods_zdoom_brutal_hexen \
+  $mods_zdoom_brutal_hexen_textures \
+  $mods_zdoom_brutal_hexen_music \
   $mods_zdoom_bullet_time"
 
 pwad_file=$(find "$game_dir"/maps/"$game"/vanilla \

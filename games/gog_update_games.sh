@@ -3,10 +3,12 @@
 # Mirror every GOG base game and DLC installer, plus extras, for every platform.
 # Patches and separate language packs are intentionally excluded. Recently
 # updated games are prioritized between bounded backlog download windows.
+# Download to the internal disk by default; move completed game folders to the
+# external disk manually. An explicit first argument overrides the destination.
 
 set -o pipefail
 
-BASE_DIR="${1:-/media/lea/games/gog}"
+BASE_DIR="$(realpath -m -- "${1:-$HOME/Downloads/gog}")" || exit 1
 LOG_FILE="$BASE_DIR/update.log"
 GOG_THREADS="${GOG_THREADS:-2}"
 GOG_BACKLOG_HOURS="${GOG_BACKLOG_HOURS:-12}"
@@ -30,11 +32,18 @@ fi
 
 BACKLOG_DURATION="${GOG_BACKLOG_HOURS}h"
 
-# Refuse to write into the mount point directory if the games volume is absent.
-if ! mountpoint -q /media/lea/games; then
-    echo "[!] /media/lea/games is not mounted. Aborting." >&2
-    exit 1
-fi
+# An internal destination does not need the external disk. Keep the mount guard
+# when explicitly targeting that disk, including paths resolved through symlinks.
+case "$BASE_DIR" in
+    /media/lea/games|/media/lea/games/*)
+        if ! mountpoint -q /media/lea/games; then
+            echo "[!] /media/lea/games is not mounted. Aborting." >&2
+            exit 1
+        fi
+        ;;
+esac
+
+mkdir -p "$BASE_DIR" || exit 1
 
 MOUNT_OPTIONS="$(findmnt -n -o OPTIONS -T "$BASE_DIR")"
 case ",$MOUNT_OPTIONS," in
@@ -44,7 +53,6 @@ case ",$MOUNT_OPTIONS," in
         ;;
 esac
 
-mkdir -p "$BASE_DIR"
 if [ ! -w "$BASE_DIR" ]; then
     echo "[!] $BASE_DIR is not writable. Aborting." >&2
     exit 1
